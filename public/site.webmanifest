@@ -1,10 +1,10 @@
 {
-  "name": "Toolchemy — Free Online AI & Utility Tools",
+  "name": "Toolchemy — 40+ Free In-Browser Digital Utilities",
   "short_name": "Toolchemy",
-  "description": "Turn everyday digital tasks into magic. Free, private AI generators, image upscaling, video FPS boosting, PDF editing, and developer utilities.",
+  "description": "Turn everyday digital tasks into magic. 40+ free, 100% private browser utility tools for image cropping, EXIF stripping, watermark, PDF tools, CSS glassmorphism, regex tester, and developer utilities.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#020617",
+  "background_color": "#0b0f17",
   "theme_color": "#7C3AED",
   "icons": [
     {

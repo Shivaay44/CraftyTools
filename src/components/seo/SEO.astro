@@ -19,6 +19,7 @@ const {
 
 const siteName = 'Toolchemy';
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const fullImageUrl = new URL(ogImage, Astro.url.origin).href;
 ---
 
 <!-- Primary Meta Tags -->
@@ -27,14 +28,25 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 <meta name="description" content={description} />
 {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 <link rel="canonical" href={canonicalUrl} />
+
+<!-- Crawler & Indexing Directives -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+<!-- Author & App Meta -->
 <meta name="author" content="Toolchemy" />
+<meta name="publisher" content="Toolchemy" />
 <meta name="theme-color" content="#7C3AED" />
+<meta name="color-scheme" content="dark light" />
 <meta name="application-name" content="Toolchemy" />
 <meta name="apple-mobile-web-app-title" content="Toolchemy" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="rating" content="general" />
 
+<!-- Icons & Manifest -->
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -44,13 +56,15 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(ogImage, Astro.url.origin).href} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content="en_US" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalUrl} />
-<meta property="twitter:title" content={fullTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(ogImage, Astro.url.origin).href} />
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullImageUrl} />
+<meta name="twitter:image:alt" content={fullTitle} />
