@@ -38,6 +38,19 @@ const {
 
     <meta name="google-site-verification" content="googlee55ee78e122aafea" />
 
+    <!-- Google Analytics (GA4) -->
+    {import.meta.env.PUBLIC_GA_ID && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
     <!-- Anti-FOUC Theme Script (executes synchronously before body render) -->
     <script is:inline>
       (function () {
