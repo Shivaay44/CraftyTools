@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { CATEGORIES, TOOLS } from '../data/tools';
+import { InteractiveToolExplorer } from '../components/home/InteractiveToolExplorer';
+
+const origin = Astro.url.origin;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Toolchemy',
+  url: `${origin}/`,
+  description: 'Turn everyday digital tasks into magic. 40+ free online 100% private browser utility tools for image upscaling, photo cropping, watermarking, video frame boosting, PDF merging, glassmorphism, timestamp converter, regex testing, text diffing, and developer utilities.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${origin}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Toolchemy',
+  url: `${origin}/`,
+  logo: `${origin}/favicon.svg`,
+  sameAs: [],
+};
+---
+
+<BaseLayout
+  title="Toolchemy — 40+ Free Online Browser Utility Tools"
+  description="40+ free, 100% private, client-side web utilities for developers, creators, and professionals. Image cropping, EXIF removal, watermark, upscaling, PDF tools, CSS glassmorphism, regex tester, cron builder, and developer utilities."
+  keywords={[
+    'toolchemy',
+    'free online tools',
+    'image cropper free',
+    'exif remover',
+    'css glassmorphism generator',
+    'timestamp converter',
+    'regex tester',
+    'cron generator',
+    'pdf page numberer',
+    'image upscaler free',
+    'video frame increaser',
+    'pdf tools in browser',
+    'client side web utilities',
+    'developer tools online',
+    'privacy first tools',
+    'browser utility tools',
+  ]}
+>
+  <JsonLd schema={websiteSchema} />
+  <JsonLd schema={organizationSchema} />
+
+  <!-- Dynamic Ambient Glowing Background Effects -->
+  <div class="relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-purple-500/20 via-indigo-500/15 to-amber-500/10 blur-[120px] rounded-full pointer-events-none -z-10 animate-aurora"></div>
+    <div class="absolute top-48 right-10 w-[350px] h-[350px] bg-pink-500/10 dark:bg-pink-500/15 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+    <div class="absolute top-64 left-10 w-[300px] h-[300px] bg-cyan-500/10 dark:bg-cyan-500/15 blur-[90px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
+      <!-- Dynamic Hero Header -->
+      <header class="text-center space-y-5 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-xs animate-pulse-subtle">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          🛡️ 40+ Free & 100% In-Browser Utilities
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+          The Digital Alchemy for <br />
+          <span class="bg-gradient-to-r from-purple-600 via-indigo-500 to-amber-500 bg-clip-text text-transparent">
+            Fast Browser Utilities
+          </span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          High-performance photo cropping, EXIF stripping, watermarking, PDF tools, CSS glassmorphism, regex debugging, timestamp conversions, and cryptographic tools — fast, free, and 100% private in your browser.
+        </p>
+
+        <!-- Live Platform Floating Metrics Pill -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 max-w-2xl mx-auto">
+          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
+            <div class="text-lg font-black text-purple-600 dark:text-purple-400">40+</div>
+            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Client Tools</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
+            <div class="text-lg font-black text-emerald-600 dark:text-emerald-400">100%</div>
+            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Private & Local</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
+            <div class="text-lg font-black text-blue-600 dark:text-blue-400">0ms</div>
+            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Server Latency</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
+            <div class="text-lg font-black text-amber-500">Free</div>
+            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">No Sign-up</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dynamic Interactive Tool Explorer -->
+      <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
+    </div>
+  </div>
+</BaseLayout>

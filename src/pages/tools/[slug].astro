@@ -1,0 +1,594 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getAllTools, getToolBySlug } from '../../data/tools';
+import { ToolIslandRenderer } from '../../features/ai/components/ToolRegistryMap';
+
+export async function getStaticPaths() {
+  const allTools = getAllTools();
+  return allTools.map((tool) => ({
+    params: { slug: tool.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+const tool = getToolBySlug(slug);
+
+if (!tool) {
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not Found';
+}
+
+const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: string; answer: string }> }> = {
+  // Image Tools
+  'image-compressor': {
+    steps: [
+      'Drop your JPG, PNG, or WebP image into the upload box.',
+      'Adjust quality level or max file size sliders.',
+      'Preview reduced file size and download compressed image.',
+    ],
+    faqs: [
+      {
+        question: 'Does image compression reduce photo dimensions?',
+        answer: 'No, dimensions remain intact unless you choose to resize. Compression optimizes pixel encoding to reduce byte weight.',
+      },
+    ],
+  },
+  'image-upscaler': {
+    steps: [
+      'Upload a photo (PNG, JPG, or WebP) up to 25MB.',
+      'Select upscale factor: 2x (200%) or 4x (400%).',
+      'Adjust sharpness enhancement slider for crisp edges.',
+      'Click "Upscale Image Now" and use the interactive split slider to compare Before vs After.',
+      'Download your high-resolution image in PNG, JPG, or WebP format.',
+    ],
+    faqs: [
+      {
+        question: 'How does client-side super-resolution work?',
+        answer: 'Our tool utilizes high-precision multi-pass Lanczos/Bicubic resampling combined with a 3x3 unsharp convolution kernel to enhance edge contrast and boost resolution without sending photos to any server.',
+      },
+    ],
+  },
+  'image-resizer': {
+    steps: [
+      'Upload any photo.',
+      'Enter target width & height or choose a percentage multiplier.',
+      'Toggle aspect ratio lock if desired.',
+      'Download your resized image.',
+    ],
+    faqs: [
+      {
+        question: 'Are my images uploaded to a server?',
+        answer: 'No! All resizing operations happen locally in your web browser via HTML5 Canvas.',
+      },
+    ],
+  },
+  'image-to-pdf': {
+    steps: [
+      'Upload one or multiple image files.',
+      'Reorder images using drag & drop or move buttons.',
+      'Click "Convert to PDF" and download the merged PDF file.',
+    ],
+    faqs: [
+      {
+        question: 'Can I add multiple photos into one PDF?',
+        answer: 'Yes! You can add unlimited JPG, PNG, and WebP images into a single clean PDF document.',
+      },
+    ],
+  },
+  'image-format-converter': {
+    steps: [
+      'Select an image to convert.',
+      'Choose output format (PNG, JPG, WebP, AVIF).',
+      'Download converted image file.',
+    ],
+    faqs: [
+      {
+        question: 'Which formats are supported?',
+        answer: 'You can convert freely between JPG, PNG, WebP, and AVIF directly in the browser.',
+      },
+    ],
+  },
+  'image-color-palette': {
+    steps: [
+      'Upload any image or photo.',
+      'Colors are automatically analyzed and extracted into dominant color swatches.',
+      'Click any color swatch to copy its HEX or RGB value, or copy the entire palette as CSS variables.',
+    ],
+    faqs: [
+      {
+        question: 'How are dominant colors calculated?',
+        answer: 'We use a 5-bit color quantization algorithm that clusters and samples pixel frequencies across the image canvas.',
+      },
+    ],
+  },
+  'image-filters': {
+    steps: [
+      'Upload an image to edit.',
+      'Choose a 1-click artistic preset (Vibrant Pop, Vintage Warm, Dramatic B&W, Cyberpunk) or adjust brightness, contrast, saturation, and hue.',
+      'Preview real-time changes and click "Download Filtered Image".',
+    ],
+    faqs: [
+      {
+        question: 'Can I adjust fine details like exposure and blur?',
+        answer: 'Yes! You have full manual control over brightness, contrast, saturation, hue rotation, sepia, grayscale, invert, and blur.',
+      },
+    ],
+  },
+  'image-cropper': {
+    steps: [
+      'Upload any JPG, PNG, or WebP photo.',
+      'Select your desired aspect ratio (1:1, 16:9, 9:16, 4:3, 3:2, or Freeform).',
+      'Drag the glowing crop box over your photo to choose your framing.',
+      'Rotate or flip if desired, and click "Download Cropped Photo".',
+    ],
+    faqs: [
+      {
+        question: 'What aspect ratios are best for social media?',
+        answer: '1:1 is ideal for Instagram posts, 9:16 is standard for Instagram Stories and TikTok/Reels, and 16:9 is standard for YouTube thumbnails and landscape desktop screens.',
+      },
+    ],
+  },
+  'exif-remover': {
+    steps: [
+      'Upload a JPG or PNG picture from your phone or camera.',
+      'Inspect detected metadata tags including GPS location, camera model, and timestamp.',
+      'Click "Strip All EXIF & GPS Metadata" to generate a clean photo binary.',
+      'Download your sanitized image with 100% privacy.',
+    ],
+    faqs: [
+      {
+        question: 'Why should I remove EXIF data before posting online?',
+        answer: 'Photos taken with smartphones often embed exact GPS latitude/longitude coordinates and device serials. Stripping EXIF prevents strangers from tracking your physical location.',
+      },
+    ],
+  },
+  'image-watermark': {
+    steps: [
+      'Upload your base image.',
+      'Select Text Stamp or Logo Image watermark mode.',
+      'Customize watermark text, opacity, font size, rotation, and placement grid.',
+      'Click "Download Watermarked Image" to save your branded photo.',
+    ],
+    faqs: [
+      {
+        question: 'Can I create a repeating diagonal watermark across the entire image?',
+        answer: 'Yes! Choose the "Repeating Diagonal Tiled Pattern" button to overlay continuous protection across the entire photo.',
+      },
+    ],
+  },
+  'svg-to-png': {
+    steps: [
+      'Paste raw SVG XML code or upload an `.svg` file.',
+      'Select a scaling multiplier (1x, 2x, 4x, or 8x) for ultra high resolution.',
+      'Choose a background color (Transparent, White, Black, or Custom).',
+      'Click "Download Image" in PNG, JPG, or WebP format.',
+    ],
+    faqs: [
+      {
+        question: 'Will the exported PNG remain sharp at high resolutions?',
+        answer: 'Yes! SVGs are vector graphics that scale infinitely. Our canvas rasterizer renders crisp pixels at whatever scale multiplier you select (up to 8x resolution).',
+      },
+    ],
+  },
+
+  // PDF Tools
+  'merge-pdf': {
+    steps: [
+      'Upload two or more PDF files.',
+      'Reorder documents into your preferred sequence.',
+      'Click "Merge PDFs" and download combined document.',
+    ],
+    faqs: [
+      {
+        question: 'Is there a limit on how many PDF files I can merge?',
+        answer: 'No server upload limits apply because merging is performed directly in client browser memory.',
+      },
+    ],
+  },
+  'split-pdf': {
+    steps: [
+      'Upload your PDF file.',
+      'Enter page ranges (e.g. 1-3, 5) or click visual thumbnails.',
+      'Click "Extract Pages" to download split PDF.',
+    ],
+    faqs: [
+      {
+        question: 'Can I split password protected PDFs?',
+        answer: 'The PDF must be unlocked or not encrypted to allow page extraction.',
+      },
+    ],
+  },
+  'pdf-to-images': {
+    steps: [
+      'Upload a PDF document.',
+      'Select rendering DPI / image resolution quality.',
+      'Download all pages as a ZIP file containing JPG or PNG images.',
+    ],
+    faqs: [
+      {
+        question: 'Can I download individual pages?',
+        answer: 'Yes, you can download all pages as a ZIP or download individual page images.',
+      },
+    ],
+  },
+  'rotate-pdf': {
+    steps: [
+      'Upload your PDF file.',
+      'Click the rotate buttons on individual page cards or click "Rotate All +90°".',
+      'Click "Save & Export PDF" to download the rotated document.',
+    ],
+    faqs: [
+      {
+        question: 'Can I rotate only specific pages?',
+        answer: 'Yes! Each page has independent +90° and -90° rotate controls so you can fix oriented pages individually.',
+      },
+    ],
+  },
+  'remove-pdf-pages': {
+    steps: [
+      'Upload your PDF document.',
+      'Click on any page thumbnail you wish to delete (or use Select Odd / Select Even).',
+      'Click "Remove Pages & Export" to download the cleaned PDF with remaining pages.',
+    ],
+    faqs: [
+      {
+        question: 'Can I undo page selection before saving?',
+        answer: 'Yes! Simply click a marked page again or click "Clear" to reset selections.',
+      },
+    ],
+  },
+  'pdf-page-numberer': {
+    steps: [
+      'Upload your PDF file.',
+      'Select your preferred numbering pattern (e.g. "Page {n} of {total}" or "{n}").',
+      'Choose position on page (Bottom Center, Bottom Right, Top Right, etc.).',
+      'Adjust font size, margins, and starting page number, then download the numbered PDF.',
+    ],
+    faqs: [
+      {
+        question: 'Can I skip adding numbers to the cover page?',
+        answer: 'Yes! Set "Start on Page" to 2 so page 1 (your cover page) remains unnumbered.',
+      },
+    ],
+  },
+
+  // Video Tools
+  'video-to-jpg': {
+    steps: [
+      'Upload any video file (MP4, WebM, MOV).',
+      'Scrub to the exact frame or timestamp.',
+      'Click "Capture Frame" to download sharp JPG snapshot.',
+    ],
+    faqs: [
+      {
+        question: 'What video formats are supported?',
+        answer: 'All modern HTML5 video formats supported by your browser: MP4, WebM, and MOV.',
+      },
+    ],
+  },
+  'video-frame-increaser': {
+    steps: [
+      'Upload a video file from your computer.',
+      'Select target frame rate (60 FPS, 90 FPS, or 120 FPS).',
+      'Adjust motion smoothing intensity slider.',
+      'Play the live side-by-side comparison preview.',
+      'Click "Export Video" to generate and download high-FPS WebM video.',
+    ],
+    faqs: [
+      {
+        question: 'How does in-browser video frame boosting work?',
+        answer: 'The tool uses an HTML5 Canvas frame pipeline with linear motion interpolation and captures the enhanced stream via MediaRecorder API.',
+      },
+    ],
+  },
+
+  // Text Tools
+  'password-generator': {
+    steps: [
+      'Choose desired password length (8 to 64 characters).',
+      'Toggle uppercase, lowercase, numbers, and symbols.',
+      'Click "Generate Password" and copy to clipboard.',
+    ],
+    faqs: [
+      {
+        question: 'How secure is the password generator?',
+        answer: 'Passwords are created using window.crypto.getRandomValues, offering cryptographic entropy suitable for security credentials.',
+      },
+    ],
+  },
+  'word-character-counter': {
+    steps: [
+      'Paste or type text into the editor area.',
+      'Live stats update automatically: words, characters, sentences, paragraphs, reading time.',
+    ],
+    faqs: [
+      {
+        question: 'How is reading time calculated?',
+        answer: 'Based on an average adult reading speed of 200 words per minute.',
+      },
+    ],
+  },
+  'case-converter': {
+    steps: [
+      'Type or paste your text.',
+      'Click on any transformation button: UPPERCASE, lowercase, Title Case, camelCase, snake_case, or Slugify.',
+      'Copy the converted text.',
+    ],
+    faqs: [
+      {
+        question: 'What is Slugify?',
+        answer: 'Slugify converts strings into clean, SEO-friendly URL slugs (e.g. "Hello World" → "hello-world").',
+      },
+    ],
+  },
+  'lorem-ipsum-generator': {
+    steps: [
+      'Select generation type: Paragraphs, Sentences, Words, or Bullet Lists.',
+      'Choose the number of items to generate.',
+      'Toggle options like starting with "Lorem ipsum" or wrapping in HTML tags.',
+      'Click "Copy Text" to use in your mockups.',
+    ],
+    faqs: [
+      {
+        question: 'Can I generate HTML markup directly?',
+        answer: 'Yes! Enable the "Wrap in HTML tags" toggle to generate ready-to-paste `<p>` and `<ul><li>` elements.',
+      },
+    ],
+  },
+  'text-diff-checker': {
+    steps: [
+      'Paste original text into the left box.',
+      'Paste modified text into the right box.',
+      'Switch between Split View and Unified Diff to inspect additions (green) and deletions (red).',
+    ],
+    faqs: [
+      {
+        question: 'Is my sensitive code or text uploaded anywhere?',
+        answer: 'Never. Diff calculations run 100% client-side in your browser memory.',
+      },
+    ],
+  },
+  'duplicate-line-remover': {
+    steps: [
+      'Paste your multiline list into the input box.',
+      'Choose options: case sensitive, trim whitespace, remove empty lines.',
+      'Select sorting order (A-Z, Z-A, by length, or original order).',
+      'Copy the deduplicated list.',
+    ],
+    faqs: [
+      {
+        question: 'Can I sort lines alphabetically while removing duplicates?',
+        answer: 'Yes! Select "Alphabetical (A → Z)" from the Sort Order dropdown.',
+      },
+    ],
+  },
+  'markdown-previewer': {
+    steps: [
+      'Write or paste Markdown into the left editor.',
+      'Use the quick formatting toolbar for headings, bold, italic, lists, and code blocks.',
+      'View formatted output in the live HTML preview on the right.',
+      'Click "Copy HTML" or "Copy MD" with one click.',
+    ],
+    faqs: [
+      {
+        question: 'Does the preview update in real-time?',
+        answer: 'Yes! Every keystroke updates the live HTML rendered preview instantly.',
+      },
+    ],
+  },
+  'text-to-binary': {
+    steps: [
+      'Type or paste text into the input field.',
+      'View instant conversions in 8-bit Binary, Hexadecimal, ASCII Decimal, and Octal.',
+      'Select delimiters (Space, Comma, or No space).',
+      'Click "Copy" next to any format, or toggle "Binary/Hex ➔ Text" to decode back to words.',
+    ],
+    faqs: [
+      {
+        question: 'Does this binary converter support Unicode and emojis?',
+        answer: 'Yes! Our tool uses UTF-8 byte encoding via TextEncoder, correctly encoding emojis, Hindi, Japanese, and accented characters.',
+      },
+    ],
+  },
+
+  // Developer Tools
+  'json-formatter': {
+    steps: [
+      'Paste your JSON code into the editor.',
+      'Click "Prettify JSON" to format with 2-space indentation or "Minify" to compress.',
+      'Any syntax errors are highlighted with exact line numbers.',
+    ],
+    faqs: [
+      {
+        question: 'How do I fix invalid JSON syntax?',
+        answer: 'The validator identifies missing quotes, trailing commas, or unmatched braces immediately.',
+      },
+    ],
+  },
+  'base64-encoder': {
+    steps: [
+      'Select Encode mode (Text → Base64) or Decode mode (Base64 → Text).',
+      'Enter your text or Base64 string into the input area.',
+      'Click "Encode" or "Decode" to process, and copy the result.',
+    ],
+    faqs: [
+      {
+        question: 'Does this Base64 tool support non-English Unicode characters and emojis?',
+        answer: 'Yes! Our Base64 encoder uses TextEncoder and TextDecoder to safely support Hindi, emojis, accented characters, and complex Unicode text.',
+      },
+    ],
+  },
+  'qr-code-generator': {
+    steps: [
+      'Enter any website URL, phone number, or text content.',
+      'Select your preferred QR image dimensions and error correction level.',
+      'Click "Download PNG" or "Copy" to save your QR code.',
+    ],
+    faqs: [
+      {
+        question: 'How to generate a QR code?',
+        answer: 'Enter your URL or text into the input field. A QR code PNG is immediately rendered in your browser and ready to download.',
+      },
+    ],
+  },
+  'uuid-generator': {
+    steps: [
+      'Select how many UUIDs to generate (1 to 100).',
+      'Toggle formatting options: uppercase, hyphens, braces, or quotes.',
+      'Click "Generate New" and copy single items or click "Copy All" / "Export .txt".',
+    ],
+    faqs: [
+      {
+        question: 'What version of UUID is generated?',
+        answer: 'RFC 4122 Version 4 random UUIDs generated with cryptographically secure Web Crypto random numbers.',
+      },
+    ],
+  },
+  'hash-generator': {
+    steps: [
+      'Select "Hash Text" or "Hash File".',
+      'Type text or select a file from your computer.',
+      'View calculated hashes for SHA-256, SHA-512, SHA-384, SHA-1, and MD5.',
+      'Click "Copy" beside any hash value.',
+    ],
+    faqs: [
+      {
+        question: 'Can I calculate checksums of large files?',
+        answer: 'Yes! File checksum calculation is performed locally via ArrayBuffer in your browser without uploading the file.',
+      },
+    ],
+  },
+  'jwt-decoder': {
+    steps: [
+      'Paste your encoded JSON Web Token (JWT) into the input box.',
+      'The token is immediately parsed into its Header and Payload components.',
+      'Inspect claims like expiration time, issued-at time, and token status (Active vs Expired).',
+    ],
+    faqs: [
+      {
+        question: 'Are tokens sent over the network?',
+        answer: 'No! Tokens are decoded 100% locally in your browser memory. Your secrets and payload data remain completely private.',
+      },
+    ],
+  },
+  'url-encoder-decoder': {
+    steps: [
+      'Enter raw text or an encoded URL into the editor.',
+      'Toggle between "Encode URL" and "Decode URL".',
+      'Inspect the extracted URL Query Parameters table below.',
+      'Copy the output.',
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between encodeURI and encodeURIComponent?',
+        answer: 'encodeURI preserves standard URL protocol and delimiter characters like "http://", whereas encodeURIComponent encodes all special characters making strings safe for query parameters.',
+      },
+    ],
+  },
+  'color-converter': {
+    steps: [
+      'Pick a color using the visual color picker or type a HEX code.',
+      'View instant conversions in HEX, RGB, HSL, CMYK, and CSS variables.',
+      'Inspect WCAG accessibility contrast scores against White and Black backgrounds.',
+      'Explore the generated tints and shades palette.',
+    ],
+    faqs: [
+      {
+        question: 'What does the WCAG AA/AAA score mean?',
+        answer: 'WCAG guidelines require a contrast ratio of at least 4.5:1 for normal text (AA) and 7:1 for enhanced accessibility (AAA).',
+      },
+    ],
+  },
+  'css-glassmorphism-generator': {
+    steps: [
+      'Adjust backdrop blur, glass opacity, tint color, border width, and elevation shadow sliders.',
+      'Switch between preview backgrounds (Aurora, Cyber, Sunset, Dark) to test transparency.',
+      'Click "Copy CSS" to grab ready-to-use CSS rules.',
+    ],
+    faqs: [
+      {
+        question: 'Is backdrop-filter supported across all modern browsers?',
+        answer: 'Yes! Both `backdrop-filter` and `-webkit-backdrop-filter` are supported in modern versions of Chrome, Safari, Edge, Firefox, and mobile browsers.',
+      },
+    ],
+  },
+  'svg-optimizer': {
+    steps: [
+      'Paste your raw SVG code or upload an `.svg` vector file.',
+      'The optimizer immediately strips redundant metadata, comments, and unused namespaces.',
+      'Review byte savings percentage and preview the clean vector on dark/light grids.',
+      'Click "Copy Minified SVG" or "Download .svg" to export.',
+    ],
+    faqs: [
+      {
+        question: 'Does SVG optimization degrade vector quality?',
+        answer: 'No! Vector paths, shapes, gradients, and styling remain 100% sharp. The optimizer only removes bloat like editor comments, unused XML tags, and redundant decimals.',
+      },
+    ],
+  },
+  'timestamp-converter': {
+    steps: [
+      'Type or paste a Unix Epoch timestamp (seconds or milliseconds) or pick a human date.',
+      'View instant conversions to Local time, UTC/GMT, ISO 8601, and relative time expressions.',
+      'Use quick helper buttons (+1 Day, +1 Week) to calculate future timestamps.',
+    ],
+    faqs: [
+      {
+        question: 'What is Unix Epoch time?',
+        answer: 'Unix epoch time is the number of seconds that have elapsed since 00:00:00 UTC on 1 January 1970 (not counting leap seconds).',
+      },
+    ],
+  },
+  'regex-tester': {
+    steps: [
+      'Enter your regular expression pattern between the slashes.',
+      'Toggle regex flags (g, i, m, s, u) or select a pre-made preset from the cheatsheet.',
+      'Type or paste your test text into the editor.',
+      'View highlighted match results and captured groups in real-time.',
+    ],
+    faqs: [
+      {
+        question: 'Can I test regex string replacement and substitutions?',
+        answer: 'Yes! Switch to the "Replace / Substitution" tab and enter your substitution pattern (like `$1-$2` or `[$&]`) to preview replacement in real-time.',
+      },
+    ],
+  },
+  'cron-generator': {
+    steps: [
+      'Select Minute, Hour, Day of Month, Month, and Day of Week using visual dropdowns.',
+      'Read the real-time plain-English translation to verify your schedule logic.',
+      'Inspect the next 5 upcoming execution run dates.',
+      'Click "Copy Cron" to paste into Linux crontab or cloud schedulers.',
+    ],
+    faqs: [
+      {
+        question: 'What cron syntax standard is generated?',
+        answer: 'Standard 5-part POSIX/Unix cron syntax (`* * * * *`) compatible with Linux crontab, GitHub Actions, AWS EventBridge, Vercel Cron, and Node.js node-cron.',
+      },
+    ],
+  },
+};
+
+const toolContent = (slug && TOOL_CONTENT[slug]) || { steps: [], faqs: [] };
+---
+
+{tool ? (
+  <ToolLayout tool={tool} howItWorksSteps={toolContent.steps} faqs={toolContent.faqs}>
+    <ToolIslandRenderer client:load toolSlug={slug!} />
+  </ToolLayout>
+) : (
+  <div class="max-w-md mx-auto my-20 p-8 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl">
+    <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-2">404 - Tool Not Found</h1>
+    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+      The requested tool "{slug}" does not exist or is not implemented yet.
+    </p>
+    <a href="/" class="px-5 py-2.5 rounded-xl font-bold bg-blue-600 text-white text-sm hover:bg-blue-500 transition-colors inline-block">
+      Return to Home
+    </a>
+  </div>
+)}

@@ -1,0 +1,13 @@
+---
+interface Props {
+  slotId?: string;
+  className?: string;
+}
+
+const { slotId = 'default-ad-slot', className = '' } = Astro.props;
+---
+
+<!-- Structural monetization slot placeholder for future Google AdSense / network ads -->
+<div class={`ad-slot-container ${className}`} data-ad-slot={slotId} aria-hidden="true">
+  <!-- Render nothing visually by default until monetization provider script is attached -->
+</div>

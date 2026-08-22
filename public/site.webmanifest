@@ -1,0 +1,17 @@
+{
+  "name": "Toolchemy — Free Online AI & Utility Tools",
+  "short_name": "Toolchemy",
+  "description": "Turn everyday digital tasks into magic. Free, private AI generators, image upscaling, video FPS boosting, PDF editing, and developer utilities.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#7C3AED",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

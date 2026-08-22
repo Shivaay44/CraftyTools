@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="alchemyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="goldPotion" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#FBBF24" />
+    </linearGradient>
+  </defs>
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="128" fill="url(#alchemyGrad)" />
+  <!-- Alchemy Flask & Magic Spark Outline -->
+  <path d="M226 120 L286 120 L286 190 L360 320 C380 355 355 392 315 392 L197 392 C157 392 132 355 152 320 L226 190 Z" fill="#FFFFFF" fill-opacity="0.15" stroke="#FFFFFF" stroke-width="28" stroke-linejoin="round" stroke-linecap="round" />
+  <!-- Potion Liquid level -->
+  <path d="M174 330 C200 315 230 340 260 325 C290 310 320 335 338 330 L350 350 C356 360 350 376 338 376 L174 376 C162 376 156 360 162 350 Z" fill="url(#goldPotion)" />
+  <!-- Floating Magic Spark Star -->
+  <path d="M256 70 L266 100 L296 110 L266 120 L256 150 L246 120 L216 110 L246 100 Z" fill="#FDE047" />
+  <circle cx="230" cy="260" r="12" fill="#FFFFFF" fill-opacity="0.6" />
+  <circle cx="280" cy="290" r="8" fill="#FFFFFF" fill-opacity="0.8" />
+</svg>

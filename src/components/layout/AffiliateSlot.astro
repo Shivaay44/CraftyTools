@@ -1,0 +1,13 @@
+---
+interface Props {
+  slotId?: string;
+  className?: string;
+}
+
+const { slotId = 'default-affiliate-slot', className = '' } = Astro.props;
+---
+
+<!-- Structural monetization placeholder for future affiliate links or premium CTAs -->
+<div class={`affiliate-slot-container ${className}`} data-affiliate-slot={slotId} aria-hidden="true">
+  <!-- Render nothing visually by default until affiliate content is enabled -->
+</div>

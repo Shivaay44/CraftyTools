@@ -1,0 +1,66 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import SEO from '../components/seo/SEO.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  keywords?: string[];
+  ogImage?: string;
+}
+
+const {
+  title = 'Toolchemy — Free Online AI & Digital Utility Tools Platform',
+  description = 'Transform your digital workflow with Toolchemy. 42+ free, privacy-first AI tools, image super-resolution, video FPS boosting, PDF utilities, and developer tools.',
+  canonicalUrl,
+  keywords = ['toolchemy', 'online utility tools', 'free ai tools', 'client side image tools', 'pdf tools in browser', 'developer utilities', 'image upscaler free'],
+  ogImage,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <SEO
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      keywords={keywords}
+      ogImage={ogImage}
+    />
+
+    <!-- Anti-FOUC Theme Script (executes synchronously before body render) -->
+    <script is:inline>
+      (function () {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          if (storedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else if (storedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased transition-colors">
+    <Header />
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
