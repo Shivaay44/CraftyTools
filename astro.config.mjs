@@ -5,7 +5,9 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://toolchemy.tools',
+  site: process.env.VERCEL_PROJECT_PRODUCTION_URL 
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` 
+    : 'https://toolchemy-beryl.vercel.app',
   output: 'static',
   adapter: vercel(),
   integrations: [react()],
