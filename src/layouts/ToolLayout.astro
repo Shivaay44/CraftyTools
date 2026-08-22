@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/layout/AdSlot.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
+import ToolSeoEncyclopedia from '../components/seo/ToolSeoEncyclopedia.astro';
 import type { ToolDefinition } from '../types';
 import { getRelatedTools, CATEGORIES } from '../data/tools';
 
@@ -295,6 +296,9 @@ const faqSchema = {
           ))}
         </div>
       </section>
+
+      <!-- 4000+ Words Deep SEO Encyclopedia Technical Manual -->
+      <ToolSeoEncyclopedia tool={tool} />
 
       <!-- Related Tools Matrix (Internal Linking Equity) -->
       {relatedToolsList.length > 0 && (
