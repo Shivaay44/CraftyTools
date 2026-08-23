@@ -5,6 +5,7 @@ import JsonLd from '../components/seo/JsonLd.astro';
 import ToolSeoEncyclopedia from '../components/seo/ToolSeoEncyclopedia.astro';
 import type { ToolDefinition } from '../types';
 import { getRelatedTools, CATEGORIES } from '../data/tools';
+import { generateToolPageSchemaGraph } from '../lib/seo/schemaGenerators';
 
 interface Props {
   tool: ToolDefinition;
@@ -16,140 +17,57 @@ const { tool, faqs = [], howItWorksSteps = [] } = Astro.props;
 
 const categoryInfo = CATEGORIES.find((c) => c.id === tool.category);
 const relatedToolsList = getRelatedTools(tool);
-const pageUrl = Astro.url.href;
+const pageUrl = Astro.url.href.split('?')[0]; // Clean canonical URL without search queries
+const origin = Astro.url.origin;
 
-// Breadcrumb Schema
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: `${Astro.url.origin}/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: categoryInfo?.name || tool.category,
-      item: `${Astro.url.origin}/#${tool.category}`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: tool.name,
-      item: pageUrl,
-    },
-  ],
-};
-
-// Rich WebApplication Schema
-const webAppSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: tool.name,
-  url: pageUrl,
-  description: tool.seoDescription,
-  applicationCategory: 'UtilityApplication',
-  operatingSystem: 'Windows, macOS, Linux, iOS, Android',
-  browserRequirements: 'Requires modern web browser with JavaScript & HTML5 support.',
-  softwareVersion: '2.5',
-  inLanguage: 'en',
-  provider: {
-    '@type': 'Organization',
-    name: 'Toolchemy',
-    url: `${Astro.url.origin}/`,
-    logo: `${Astro.url.origin}/favicon.svg`,
-  },
-  featureList: [
-    '100% Client-Side In-Browser Execution',
-    'Zero Server Uploads & Total Privacy',
-    'No Signup or Account Required',
-    'High Speed Local Processing',
-    'Free to Use Forever with No Watermark',
-  ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    ratingCount: '482',
-    bestRating: '5',
-    worstRating: '1',
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '0.00',
-    priceCurrency: 'USD',
-  },
-};
-
-// HowTo Steps
 const defaultSteps = [
-  `Open the ${tool.name} tool on Toolchemy in your browser.`,
-  `Select or drag-and-drop your input files directly into the interactive workspace.`,
-  `Adjust the parameters, formats, or options to suit your exact requirements.`,
-  `Instantly process and download your final high-quality result directly to your device.`,
+  `Open the ${tool.name} tool on Crafty Tool in your browser.`,
+  `Select or drag-and-drop your input files or enter your data directly into the interactive workspace.`,
+  `Adjust the parameters, filters, formats, or options to suit your exact requirements.`,
+  `Instantly process and download or copy your final result directly on your device with 100% privacy.`,
 ];
+const stepsToUse = howItWorksSteps && howItWorksSteps.length > 0 ? howItWorksSteps : defaultSteps;
 
-const stepsToUse = howItWorksSteps.length > 0 ? howItWorksSteps : defaultSteps;
-
-const howToSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'HowTo',
-  name: `How to use ${tool.name}`,
-  description: tool.seoDescription,
-  step: stepsToUse.map((step, idx) => ({
-    '@type': 'HowToStep',
-    position: idx + 1,
-    text: step,
-  })),
-};
-
-// Rich Category-Tailored FAQs
 const defaultFaqs = [
   {
     question: `Is ${tool.name} completely free to use?`,
-    answer: `Yes! ${tool.name} on Toolchemy is 100% free with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
+    answer: `Yes! ${tool.name} on Crafty Tool is 100% free with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
   },
   {
-    question: `Are my files uploaded to your servers when using ${tool.name}?`,
-    answer: `No. Toolchemy is built on privacy-first architecture. All processing executes 100% client-side inside your browser's local memory using WebAssembly, HTML5 Canvas, and Web Crypto APIs. Your files never leave your computer or phone.`,
+    question: `Are my files or data uploaded to your servers when using ${tool.name}?`,
+    answer: `No. Crafty Tool is built on privacy-first architecture. All computation and processing execute 100% client-side inside your browser local sandbox using WebAssembly, HTML5 Canvas, and Web Cryptography APIs. Your files never leave your device.`,
   },
   {
     question: `Does ${tool.name} work on mobile devices?`,
-    answer: `Yes! You can use ${tool.name} smoothly on iOS (Safari, Chrome) and Android browsers without installing any apps or browser extensions.`,
+    answer: `Yes! You can use ${tool.name} smoothly on iOS (Safari, Chrome) and Android browsers without installing any third-party apps or browser extensions.`,
   },
   {
     question: `Why is in-browser processing faster than traditional converter websites?`,
-    answer: `Traditional online converter websites require you to upload your large files to a remote server, wait in a server queue, process on their cloud, and then download it back. Toolchemy processes your files locally on your own CPU/GPU with 0 upload delay and 0 queue wait time.`,
+    answer: `Traditional web converters require uploading large files to remote servers, waiting in processing queues, and downloading files back. Crafty Tool processes data locally on your device hardware with zero upload delay and instantaneous results.`,
   },
 ];
+const allFaqs = faqs && faqs.length > 0 ? [...faqs, ...defaultFaqs.slice(1)] : defaultFaqs;
 
-const allFaqs = faqs.length > 0 ? [...faqs, ...defaultFaqs.slice(1)] : defaultFaqs;
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: allFaqs.map((f) => ({
-    '@type': 'Question',
-    name: f.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: f.answer,
-    },
-  })),
-};
+// Unified Schema.org Graph
+const toolSchemaGraph = generateToolPageSchemaGraph({
+  tool,
+  origin,
+  pageUrl,
+  categoryName: categoryInfo?.name || tool.category,
+  categorySlug: tool.category,
+  faqs: allFaqs,
+  howItWorksSteps: stepsToUse,
+  ogImageUrl: `${origin}/favicon.svg`,
+});
 ---
 
 <BaseLayout
   title={tool.seoTitle}
   description={tool.seoDescription}
+  canonicalUrl={pageUrl}
   keywords={tool.keywords}
 >
-  <JsonLd schema={breadcrumbSchema} />
-  <JsonLd schema={webAppSchema} />
-  <JsonLd schema={howToSchema} />
-  <JsonLd schema={faqSchema} />
+  <JsonLd schema={toolSchemaGraph} />
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
     <!-- Breadcrumb Navigation -->
@@ -207,7 +125,7 @@ const faqSchema = {
           <div class="text-2xl">⚡</div>
           <h3 class="font-bold text-sm text-slate-900 dark:text-white">Instant Client Speed</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Harnesses your device's local CPU/GPU using modern HTML5 Canvas, Web Workers, and Web Crypto APIs for 0ms queue latency.
+            Harnesses your device's local CPU/GPU using modern HTML5 Canvas, Web Workers, and Web Crypto APIs for instant local processing without upload delays.
           </p>
         </div>
 
@@ -223,10 +141,10 @@ const faqSchema = {
       <!-- Deep Dive Article: Why In-Browser Processing is the Future -->
       <section class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-4">
         <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
-          About {tool.name} on Toolchemy
+          About {tool.name} on Crafty Tool
         </h2>
         <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          {tool.name} is a state-of-the-art web utility built to streamline your workflow with speed and uncompromising privacy. Unlike traditional cloud converters that upload your confidential files to remote servers, Toolchemy processes everything entirely within your browser sandbox. Whether you're working with sensitive personal documents, high-resolution media, or confidential code, your data never leaves your device.
+          {tool.name} is a state-of-the-art web utility built to streamline your workflow with speed and uncompromising privacy. Unlike traditional cloud converters that upload your confidential files to remote servers, Crafty Tool processes everything entirely within your browser sandbox. Whether you're working with sensitive personal documents, high-resolution media, or confidential code, your data never leaves your device.
         </p>
 
         <!-- Comparison Table (High SEO Value) -->
@@ -235,7 +153,7 @@ const faqSchema = {
             <thead>
               <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                 <th class="py-2.5 px-3 font-bold uppercase tracking-wider">Feature</th>
-                <th class="py-2.5 px-3 font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Toolchemy (In-Browser)</th>
+                <th class="py-2.5 px-3 font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Crafty Tool (In-Browser)</th>
                 <th class="py-2.5 px-3 font-bold uppercase tracking-wider">Traditional Online Tools</th>
               </tr>
             </thead>
@@ -306,7 +224,7 @@ const faqSchema = {
           <div class="flex items-center justify-between">
             <h2 class="text-xl font-bold text-slate-900 dark:text-white">More Related Utilities</h2>
             <a href="/" class="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline">
-              Explore All 40+ Tools →
+              Explore All 55+ Tools →
             </a>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

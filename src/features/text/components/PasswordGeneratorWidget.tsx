@@ -77,7 +77,7 @@ export const PasswordGeneratorWidget: React.FC = () => {
       {/* Privacy Notice */}
       <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
         <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-        <span>Generated passwords are not sent to our server or stored by Toolchemy.</span>
+        <span>Generated passwords are not sent to our server or stored by Crafty Tool.</span>
       </div>
 
       {/* Generated Password Result Display */}

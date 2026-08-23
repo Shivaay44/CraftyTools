@@ -27,7 +27,7 @@ export const AIResultCard: React.FC<AIResultCardProps> = ({ toolSlug, data, onRe
         </h3>
         <div className="flex items-center gap-2">
           <CopyButton textToCopy={getRawCopyText()} toolSlug={toolSlug} />
-          <ShareButton title="Toolchemy AI Result" text={getRawCopyText()} toolSlug={toolSlug} />
+          <ShareButton title="Crafty Tool AI Result" text={getRawCopyText()} toolSlug={toolSlug} />
           <button
             type="button"
             onClick={onRegenerate}

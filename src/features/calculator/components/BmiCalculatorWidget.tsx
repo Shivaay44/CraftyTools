@@ -110,7 +110,7 @@ export const BmiCalculatorWidget: React.FC = () => {
 
   const handleCopy = () => {
     if (!bmiResults) return;
-    const summary = `📊 BMI & Health Metrics:\n• BMI Score: ${bmiResults.bmi} (${bmiResults.category})\n• Ideal Weight Range: ${bmiResults.minIdealKg} - ${bmiResults.maxIdealKg} kg\n• Basal Metabolic Rate (BMR): ${bmiResults.bmr} kcal/day\n• Daily Maintenance Calories: ${bmiResults.maintenanceCalories} kcal/day\n• Calculated on Toolchemy`;
+    const summary = `📊 BMI & Health Metrics:\n• BMI Score: ${bmiResults.bmi} (${bmiResults.category})\n• Ideal Weight Range: ${bmiResults.minIdealKg} - ${bmiResults.maxIdealKg} kg\n• Basal Metabolic Rate (BMR): ${bmiResults.bmr} kcal/day\n• Daily Maintenance Calories: ${bmiResults.maintenanceCalories} kcal/day\n• Calculated on Crafty Tool`;
     navigator.clipboard.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -316,7 +316,7 @@ export const BmiCalculatorWidget: React.FC = () => {
 
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 text-center sm:text-right">
                 <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  Healthy Weight For Your Height
+                  BMI Reference Weight Range
                 </div>
                 <div className="text-lg font-black text-slate-900 dark:text-white mt-0.5">
                   {unitSystem === 'metric'
@@ -394,6 +394,14 @@ export const BmiCalculatorWidget: React.FC = () => {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Medical Reference Disclaimer */}
+          <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-300 leading-relaxed flex items-start gap-2.5">
+            <span className="text-base flex-shrink-0">⚠️</span>
+            <p>
+              <strong>Health & Reference Disclaimer:</strong> Body Mass Index (BMI) is a general statistical screening tool. It does not measure body fat percentage directly, nor does it account for muscle mass, bone density, age factors, pregnancy, or athletic physical conditioning. For specific medical evaluation or dietary guidance, always consult a licensed healthcare practitioner.
+            </p>
           </div>
         </div>
       )}

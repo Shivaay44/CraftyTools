@@ -1,8 +1,8 @@
 {
-  "name": "toolchemy",
+  "name": "crafty-tool",
   "type": "module",
   "version": "1.0.0",
-  "description": "Toolchemy — Free Online AI & Digital Utility Tools Platform",
+  "description": "Crafty Tool — 55+ Free Online In-Browser Digital Utilities",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

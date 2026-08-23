@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATEGORIES, TOOLS } from '../data/tools';
+import { Shield, Zap, Lock, Cpu, Globe, ArrowRight, CheckCircle2 } from 'lucide-react';
+
+const origin = Astro.url.origin;
+---
+
+<BaseLayout
+  title="About Crafty Tool — Fast, 100% In-Browser Privacy-First Utilities"
+  description="Learn about Crafty Tool's mission, architecture, and zero-upload philosophy. 55+ client-side web tools powered by WebAssembly, HTML5 Canvas, and Web Crypto APIs."
+  canonicalUrl={`${origin}/about`}
+  keywords={['about crafty tool', 'in-browser tools', 'privacy-first web tools', 'client side processing', 'zero upload utilities']}
+>
+  <!-- Ambient Gradient Background -->
+  <div class="relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-purple-500/15 via-indigo-500/10 to-sky-500/10 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-16">
+      <!-- Page Hero Header -->
+      <header class="text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-2xs">
+          <Shield className="w-3.5 h-3.5 text-purple-500" />
+          Our Mission & Architecture
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          The Everyday Browser Toolbox <br />
+          <span class="bg-gradient-to-r from-purple-600 via-indigo-500 to-sky-400 bg-clip-text text-transparent">
+            Engineered for Total Privacy
+          </span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          Crafty Tool was founded on a simple premise: everyday digital tasks should never require surrendering your private files, waiting in cloud server queues, or paying recurring subscription fees.
+        </p>
+      </header>
+
+      <!-- Key Pillars Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+            <Lock className="w-5 h-5" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">0 Server Uploads</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Your images, PDFs, videos, and code snippets stay in your device RAM. Processing runs 100% inside your browser sandbox.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+            <Zap className="w-5 h-5" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Instant Hardware Speed</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            No roundtrip network delays or server queues. Tasks execute at the native speed of your device's multi-core CPU and GPU.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+            <Globe className="w-5 h-5" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">100% Free Forever</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            No accounts, no subscriptions, no daily limits, and no artificial watermarks on your generated memes, signatures, or files.
+          </p>
+        </div>
+      </section>
+
+      <!-- Why We Built Crafty Tool Story -->
+      <section class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-6">
+        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          Why We Built Crafty Tool
+        </h2>
+        <div class="space-y-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Traditional online utilities — from PDF converters and image compressors to JSON formatters — were built on outdated server-side architectures. To perform even a basic crop or format conversion, you had to upload confidential documents or personal photos to unknown remote servers.
+          </p>
+          <p>
+            This architecture introduced three major problems:
+          </p>
+          <ul class="space-y-2 pl-2">
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
+              <span><strong>Privacy Risk:</strong> Uploading confidential contracts, medical records, or proprietary source code to third-party clouds poses serious security liabilities.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
+              <span><strong>Unnecessary Latency:</strong> Uploading 50MB of images over slow connections just to compress them wastes time and mobile bandwidth.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
+              <span><strong>Aggressive Monetization:</strong> Paywalls, forced sign-ups, and annoying 3-file daily limits.</span>
+            </li>
+          </ul>
+          <p>
+            Crafty Tool was engineered to solve this. By harnessing modern WebAssembly (WASM), Web Cryptography, Canvas 2D/WebGL, and Web Workers, modern web browsers have all the compute power needed to process files locally.
+          </p>
+        </div>
+      </section>
+
+      <!-- Technical Architecture Breakdown -->
+      <section class="space-y-6">
+        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          Under the Hood: How It Works
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-purple-500" />
+              <span>HTML5 Canvas & WebGL</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Powers instant image cropping, filters, upscaling, EXIF stripping, and watermarking directly inside your GPU-accelerated graphics context.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-emerald-500" />
+              <span>Web Cryptography API</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Provides hardware-grade SHA-256, SHA-512, and HMAC hashing using native browser <code class="text-[11px] font-mono">crypto.subtle</code> primitives.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-blue-500" />
+              <span>PDF-Lib & PDF.js</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Merges, splits, extracts, rotates, and stamps page numbers onto PDF binary streams client-side without any server roundtrips.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-amber-500" />
+              <span>MediaRecorder & AudioContext</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Enables local screen recording and voice recording directly into WebM/MP4 containers with zero watermark branding.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-purple-900/40 via-indigo-950/40 to-slate-950 border border-purple-500/20 text-center space-y-5">
+        <h2 class="text-2xl sm:text-3xl font-black text-white">
+          Explore All 55+ Free Utilities
+        </h2>
+        <p class="text-sm text-purple-200/80 max-w-lg mx-auto">
+          Start compressing images, merging PDFs, debugging code, and running calculations right now in your browser.
+        </p>
+        <div>
+          <a
+            href="/"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-900 font-black text-sm hover:bg-purple-50 hover:shadow-lg hover:shadow-purple-500/20 transition-all"
+          >
+            <span>Launch Toolbox</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

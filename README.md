@@ -1,6 +1,6 @@
-# ✨ Toolchemy — 40+ Free Online In-Browser Web Utilities
+# ✨ Crafty Tool — 55+ Free Online In-Browser Web Utilities
 
-Toolchemy is a modern, privacy-first suite of **40 client-side digital utilities** designed for developers, creators, and professionals. All tools execute directly inside your browser with **0 server uploads**, **0 external API dependencies**, and **100% privacy**.
+Crafty Tool is a modern, privacy-first suite of **55+ client-side digital utilities** designed for developers, creators, and professionals. All tools execute directly inside your browser with **0 server uploads**, **0 external API dependencies**, and **100% privacy**.
 
 ---
 

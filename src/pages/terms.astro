@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { FileText, CheckCircle2, AlertTriangle, ShieldCheck, Scale } from 'lucide-react';
+
+const origin = Astro.url.origin;
+const lastUpdated = 'February 2026';
+---
+
+<BaseLayout
+  title="Terms of Service — Crafty Tool"
+  description="Read the Terms of Service for Crafty Tool. Understand fair use, 100% user content ownership, service availability, and disclaimers."
+  canonicalUrl={`${origin}/terms`}
+  keywords={['terms of service', 'crafty tool terms', 'fair use policy', 'user ownership']}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-12">
+    <!-- Header -->
+    <header class="space-y-4 border-b border-slate-200 dark:border-slate-800 pb-8">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-2xs">
+        <Scale className="w-3.5 h-3.5" />
+        Legal Agreement
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+        Terms of Service
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">
+        Effective Date: {lastUpdated} · Last Updated: {lastUpdated}
+      </p>
+    </header>
+
+    <!-- Main Terms Content -->
+    <div class="space-y-10 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+      <!-- 1. Acceptance of Terms -->
+      <section class="space-y-3">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <FileText className="w-5 h-5 text-purple-500" />
+          <span>1. Acceptance of Terms</span>
+        </h2>
+        <p>
+          By accessing or using Crafty Tool (available at <code class="font-mono text-xs text-purple-600 dark:text-purple-400">craftytool.com</code> or any associated domains), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+        </p>
+      </section>
+
+      <!-- 2. User Content & 100% Ownership -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <ShieldCheck className="w-5 h-5 text-emerald-500" />
+          <span>2. User Content & 100% Ownership</span>
+        </h2>
+        <p>
+          We believe in complete user sovereignty over your digital creative work and confidential files:
+        </p>
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm">
+          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+              <span><strong>You Own All Rights:</strong> You retain 100% intellectual property ownership of all files, images, PDFs, signatures, code, calculations, and data processed or generated through Crafty Tool.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+              <span><strong>No Watermarks:</strong> Outputs generated on Crafty Tool are free of watermarks or mandatory branding.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+              <span><strong>No License Granted to Us:</strong> Because processing occurs locally in your browser memory, Crafty Tool does not claim any license, storage right, or ownership over your content.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. Acceptable Use Policy -->
+      <section class="space-y-3">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <Scale className="w-5 h-5 text-blue-500" />
+          <span>3. Acceptable Use Policy</span>
+        </h2>
+        <p>You agree to use Crafty Tool for lawful purposes only. You agree not to:</p>
+        <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <li>Use the platform to create, distribute, or process unlawful, defamatory, harassing, or fraudulent materials.</li>
+          <li>Attempt to interfere with or disrupt the normal operation, security, or hosting infrastructure of the website.</li>
+          <li>Infringe upon the copyright, trademark, patent, or privacy rights of any third party.</li>
+        </ul>
+      </section>
+
+      <!-- 4. Disclaimers & Limitations -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <AlertTriangle className="w-5 h-5 text-amber-500" />
+          <span>4. Disclaimer of Warranties & Limitations</span>
+        </h2>
+        <p>
+          Crafty Tool is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, whether express or implied.
+        </p>
+        <div class="p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-900/50 text-xs sm:text-sm text-amber-900 dark:text-amber-300 space-y-2">
+          <p>
+            <strong>Specific Disclaimers:</strong>
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-slate-600 dark:text-slate-400">
+            <li><strong>Financial & Medical Calculators:</strong> Metrics provided by BMI, Loan EMI, and Age calculators are for educational and estimation purposes only and should not replace professional financial or medical advice.</li>
+            <li><strong>Data Backups:</strong> Because Crafty Tool operates in-memory and does not store your files on any server, always ensure you keep backups of your original documents.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 5. Limitation of Liability -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-black text-slate-900 dark:text-white">5. Limitation of Liability</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          In no event shall Crafty Tool, its contributors, or operators be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use or inability to use the tools.
+        </p>
+      </section>
+
+      <!-- 6. Modifications to Terms -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-black text-slate-900 dark:text-white">6. Changes to These Terms</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          We reserve the right to modify these Terms at any time. When updates are published, the "Last Updated" date at the top of this document will be updated.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

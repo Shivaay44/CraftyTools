@@ -3,111 +3,358 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { CATEGORIES, TOOLS } from '../data/tools';
 import { InteractiveToolExplorer } from '../components/home/InteractiveToolExplorer';
+import { generateHomePageSchemaGraph } from '../lib/seo/schemaGenerators';
+import {
+  Image as ImageIcon,
+  FileText,
+  Video,
+  Type,
+  Code,
+  Calculator,
+  Zap,
+  Lock,
+  HardDrive,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  Cpu,
+  Flame,
+  Layers,
+} from 'lucide-react';
 
 const origin = Astro.url.origin;
 
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Toolchemy',
-  url: `${origin}/`,
-  description: 'Turn everyday digital tasks into magic. 55+ free online 100% private browser utility tools for age calculation, BMI, loan EMIs, unit converters, screen recording, YouTube thumbnails, image upscaling, photo cropping, PDF merging, glassmorphism, timestamp converter, regex testing, and developer utilities.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${origin}/?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
-};
+// Unified Schema.org Graph for Homepage
+const homeSchemaGraph = generateHomePageSchemaGraph({
+  origin,
+  tools: TOOLS,
+  ogImageUrl: `${origin}/favicon.svg`,
+});
 
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Toolchemy',
-  url: `${origin}/`,
-  logo: `${origin}/favicon.svg`,
-  sameAs: [],
-};
+// Category counts computation
+const categoryToolCounts: Record<string, number> = {};
+CATEGORIES.forEach((cat) => {
+  categoryToolCounts[cat.id] = TOOLS.filter((t) => t.category === cat.id).length;
+});
+
+// Popular curated tools for hero section
+const POPULAR_TOOLS_LIST = [
+  { name: 'Image Compressor', slug: 'image-compressor', icon: '⚡', category: 'image' },
+  { name: 'Merge PDF', slug: 'merge-pdf', icon: '📄', category: 'pdf' },
+  { name: 'JSON Formatter', slug: 'json-formatter', icon: '💻', category: 'developer' },
+  { name: 'QR Generator', slug: 'qr-code-generator', icon: '📱', category: 'developer' },
+  { name: 'Password Generator', slug: 'password-generator', icon: '🔑', category: 'text' },
+  { name: 'Age Calculator', slug: 'age-calculator', icon: '🎂', category: 'calculator' },
+  { name: 'Regex Tester', slug: 'regex-tester', icon: '🔍', category: 'developer' },
+  { name: 'Loan EMI Calculator', slug: 'loan-emi-calculator', icon: '💰', category: 'calculator' },
+];
+
+// Smart Multi-Step Workflows
+const SMART_WORKFLOWS = [
+  {
+    title: 'Media Optimization Pipeline',
+    description: 'Compress high-resolution photos, crop aspect ratios, and convert to WebP in seconds.',
+    category: 'Images & Photos',
+    accentColor: 'from-pink-500/20 to-purple-500/10 border-pink-500/30',
+    steps: [
+      { name: 'Image Compressor', slug: 'image-compressor' },
+      { name: 'Image Cropper', slug: 'image-cropper' },
+      { name: 'Format Converter', slug: 'image-format-converter' },
+    ],
+  },
+  {
+    title: 'Document Assembly Pipeline',
+    description: 'Merge multi-source PDF documents, extract select pages, and stamp sequential numbering.',
+    category: 'PDF & Documents',
+    accentColor: 'from-red-500/20 to-amber-500/10 border-red-500/30',
+    steps: [
+      { name: 'Merge PDF', slug: 'merge-pdf' },
+      { name: 'Remove Pages', slug: 'remove-pdf-pages' },
+      { name: 'Page Numberer', slug: 'pdf-page-numberer' },
+    ],
+  },
+  {
+    title: 'Developer Payload Pipeline',
+    description: 'Transform CSV datasets to JSON, format indented objects, and generate type definitions.',
+    category: 'Data & Engineering',
+    accentColor: 'from-emerald-500/20 to-cyan-500/10 border-emerald-500/30',
+    steps: [
+      { name: 'CSV to JSON', slug: 'csv-json-converter' },
+      { name: 'JSON Formatter', slug: 'json-formatter' },
+      { name: 'JWT Decoder', slug: 'jwt-decoder' },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="Toolchemy — 55+ Free Online Browser Utility Tools"
-  description="55+ free, 100% private, client-side web utilities for developers, creators, and professionals. Age calculator, BMI, loan EMI, unit converter, YouTube thumbnail downloader, screen recorder, digital signature, image cropping, PDF tools, CSS glassmorphism, regex tester, and developer utilities."
+  title="Crafty Tool — 55+ Free Online Browser Utility Tools"
+  description="Your everyday browser toolbox. 55+ powerful in-browser digital utilities for developers, creators, and professionals with 0 server uploads, no signups, and 100% privacy."
+  canonicalUrl={`${origin}/`}
   keywords={[
-    'toolchemy',
+    'crafty tool',
     'free online tools',
+    'in-browser utilities',
+    'image compressor free',
+    'merge pdf online',
+    'json formatter',
     'age calculator free',
     'bmi calculator online',
     'loan emi calculator',
-    'unit converter online',
-    'youtube thumbnail downloader',
-    'screen recorder no watermark',
-    'signature maker online',
-    'percentage calculator',
-    'image cropper free',
-    'exif remover',
-    'css glassmorphism generator',
-    'timestamp converter',
-    'regex tester',
-    'cron generator',
-    'pdf page numberer',
-    'image upscaler free',
-    'video frame increaser',
-    'pdf tools in browser',
-    'client side web utilities',
-    'developer tools online',
+    'qr code generator',
+    'password generator',
+    'developer utilities',
     'privacy first tools',
-    'browser utility tools',
   ]}
 >
-  <JsonLd schema={websiteSchema} />
-  <JsonLd schema={organizationSchema} />
+  <JsonLd schema={homeSchemaGraph} />
 
-  <!-- Dynamic Ambient Glowing Background Effects -->
+  <!-- Ambient Glowing Background Accents -->
   <div class="relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-purple-500/20 via-indigo-500/15 to-amber-500/10 blur-[120px] rounded-full pointer-events-none -z-10 animate-aurora"></div>
-    <div class="absolute top-48 right-10 w-[350px] h-[350px] bg-pink-500/10 dark:bg-pink-500/15 blur-[100px] rounded-full pointer-events-none -z-10"></div>
-    <div class="absolute top-64 left-10 w-[300px] h-[300px] bg-cyan-500/10 dark:bg-cyan-500/15 blur-[90px] rounded-full pointer-events-none -z-10"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-tr from-purple-600/15 via-indigo-600/10 to-sky-500/10 blur-[130px] rounded-full pointer-events-none -z-10 animate-aurora"></div>
+    <div class="absolute top-80 right-10 w-[400px] h-[400px] bg-pink-500/10 blur-[110px] rounded-full pointer-events-none -z-10"></div>
+    <div class="absolute top-96 left-10 w-[350px] h-[350px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
-      <!-- Dynamic Hero Header -->
-      <header class="text-center space-y-5 max-w-3xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-xs animate-pulse-subtle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-16 sm:space-y-24">
+      <!-- 1. HERO SECTION -->
+      <section class="text-center space-y-6 max-w-3xl mx-auto pt-2">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-2xs">
           <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          🛡️ 55+ Free & 100% In-Browser Utilities
+          <span>Your Everyday Browser Toolbox</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
-          The Digital Alchemy for <br />
-          <span class="bg-gradient-to-r from-purple-600 via-indigo-500 to-amber-500 bg-clip-text text-transparent">
-            Fast Browser Utilities
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+          55+ Powerful Tools. <br />
+          <span class="bg-gradient-to-r from-purple-600 via-indigo-500 to-sky-400 bg-clip-text text-transparent">
+            No Signup. No Uploads. 100% Local.
           </span>
         </h1>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-          High-performance age & BMI calculators, loan EMIs, unit conversions, YouTube thumbnail downloads, screen recording, photo cropping, PDF tools, CSS gradients, regex debugging, and cryptographic tools — fast, free, and 100% private in your browser.
+
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          Compress images, convert PDFs, format JSON, calculate EMIs & BMI, test regex, and boost video frame rates — right inside your browser sandbox with zero network delay.
         </p>
 
-        <!-- Live Platform Floating Metrics Pill -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 max-w-2xl mx-auto">
-          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
-            <div class="text-lg font-black text-purple-600 dark:text-purple-400">55+</div>
-            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Client Tools</div>
+        <!-- Core Value Proposition Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
+            <span class="text-amber-500 text-sm">⚡</span>
+            <span>Instant Speed</span>
           </div>
-          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
-            <div class="text-lg font-black text-emerald-600 dark:text-emerald-400">100%</div>
-            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Private & Local</div>
+          <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
+            <span class="text-emerald-500 text-sm">🔒</span>
+            <span>100% Private</span>
           </div>
-          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
-            <div class="text-lg font-black text-blue-600 dark:text-blue-400">0ms</div>
-            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">Server Latency</div>
+          <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
+            <span class="text-blue-500 text-sm">🖥️</span>
+            <span>Runs Locally</span>
           </div>
-          <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs">
-            <div class="text-lg font-black text-amber-500">Free</div>
-            <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400">No Sign-up</div>
+          <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
+            <span class="text-purple-500 text-sm">∞</span>
+            <span>Free Forever</span>
           </div>
         </div>
-      </header>
+      </section>
 
-      <!-- Dynamic Interactive Tool Explorer -->
-      <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
+      <!-- 2. POPULAR TOOLS ROW (Quick Access) -->
+      <section class="space-y-3 max-w-5xl mx-auto">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+            <Flame className="w-3.5 h-3.5 text-amber-500" />
+            <span>Popular Utilities</span>
+          </div>
+          <span class="text-xs font-semibold text-slate-400">Click to launch</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+          {POPULAR_TOOLS_LIST.map((tool) => (
+            <a
+              key={tool.slug}
+              href={`/tools/${tool.slug}`}
+              class="group p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-md hover:shadow-purple-500/10 transition-all flex items-center justify-between cursor-pointer select-none"
+            >
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="text-base sm:text-lg flex-shrink-0 group-hover:scale-110 transition-transform">
+                  {tool.icon}
+                </span>
+                <span class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  {tool.name}
+                </span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all flex-shrink-0 ml-1" />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- 3. EXPLORE BY CATEGORY GRID -->
+      <section class="space-y-6">
+        <div class="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            Explore 55+ Utilities by Category
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            Dedicated suites built for media creators, legal teams, software engineers, and daily productivity.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          {CATEGORIES.map((cat) => {
+            const count = categoryToolCounts[cat.id] || 0;
+            return (
+              <a
+                key={cat.id}
+                href={`/#${cat.id}`}
+                class="group p-4 sm:p-5 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10 transition-all flex flex-col items-center text-center space-y-2 cursor-pointer"
+              >
+                <div class="w-11 h-11 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
+                  {cat.id === 'image' && '🖼️'}
+                  {cat.id === 'pdf' && '📄'}
+                  {cat.id === 'video' && '🎥'}
+                  {cat.id === 'text' && '✍️'}
+                  {cat.id === 'developer' && '⚡'}
+                  {cat.id === 'calculator' && '🔢'}
+                </div>
+                <div>
+                  <div class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    {cat.name}
+                  </div>
+                  <div class="text-[11px] font-semibold text-slate-400 mt-0.5">
+                    {count} {count === 1 ? 'Tool' : 'Tools'}
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- 4. SMART WORKFLOWS SECTION -->
+      <section class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+              <Layers className="w-3.5 h-3.5" />
+              <span>Multi-Step Productivity</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Popular Tool Workflows
+            </h2>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 max-w-md">
+            Chain multiple utilities together in your browser without intermediate file uploads.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {SMART_WORKFLOWS.map((wf) => (
+            <div
+              key={wf.title}
+              class={`p-6 rounded-3xl bg-gradient-to-br bg-white dark:bg-slate-900 border ${wf.accentColor} shadow-sm space-y-4 flex flex-col justify-between`}
+            >
+              <div class="space-y-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  {wf.category}
+                </span>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">
+                  {wf.title}
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {wf.description}
+                </p>
+              </div>
+
+              <!-- Step Sequence Pills -->
+              <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                {wf.steps.map((step, idx) => (
+                  <a
+                    key={step.slug}
+                    href={`/tools/${step.slug}`}
+                    class="flex items-center justify-between p-2 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-purple-50 dark:hover:bg-purple-950/60 transition-colors text-xs font-semibold text-slate-700 dark:text-slate-200"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 text-[10px] font-bold flex items-center justify-center text-slate-600 dark:text-slate-300">
+                        {idx + 1}
+                      </span>
+                      <span>{step.name}</span>
+                    </div>
+                    <ArrowRight className="w-3 h-3 text-slate-400" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 5. MAIN INTERACTIVE TOOL EXPLORER (With Search, Tabs, Recents & Favorites) -->
+      <section class="space-y-6 pt-4">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Complete Catalog</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            All 55+ Client Utilities
+          </h2>
+        </div>
+
+        <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
+      </section>
+
+      <!-- 6. WHY CRAFTY TOOL? (Architecture & Privacy Comparison) -->
+      <section class="p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-8">
+        <div class="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+            Why Switch to In-Browser Processing?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            Compare Crafty Tool's client-side local architecture against legacy cloud converter websites.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+              <Lock className="w-4 h-4" />
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Server Uploads</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Files never travel over public internet connections to remote storage. Full compliance with strict privacy standards.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+              <Zap className="w-4 h-4" />
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Hardware Acceleration</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Harnesses your local multi-core CPU and GPU via WebAssembly and Canvas 2D without server queues or rate-limiting.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+              <HardDrive className="w-4 h-4" />
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">No Size Caps / Limits</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Process high-resolution multi-megabyte media and multi-page PDFs without artificial 3-file-per-day restrictions.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Watermarks</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Downloaded files, cropped photos, memes, and digital signatures are 100% clean with zero forced branding.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </BaseLayout>

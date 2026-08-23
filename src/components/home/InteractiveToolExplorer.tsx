@@ -60,10 +60,10 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   // Load Starred and Recent tools from LocalStorage on mount
   useEffect(() => {
     try {
-      const savedStars = localStorage.getItem('toolchemy_starred_tools');
+      const savedStars = localStorage.getItem('craftytool_starred_tools') || localStorage.getItem('toolchemy_starred_tools');
       if (savedStars) setStarredSlugs(JSON.parse(savedStars));
 
-      const savedRecents = localStorage.getItem('toolchemy_recent_tools');
+      const savedRecents = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
       if (savedRecents) setRecentSlugs(JSON.parse(savedRecents));
     } catch (e) {
       console.warn('LocalStorage access error:', e);
@@ -77,7 +77,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
     setStarredSlugs((prev) => {
       const updated = prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug];
       try {
-        localStorage.setItem('toolchemy_starred_tools', JSON.stringify(updated));
+        localStorage.setItem('craftytool_starred_tools', JSON.stringify(updated));
       } catch (err) {
         console.warn('LocalStorage save error:', err);
       }
@@ -89,7 +89,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   const handleToolClick = (slug: string) => {
     try {
       const updated = [slug, ...recentSlugs.filter((s) => s !== slug)].slice(0, 6);
-      localStorage.setItem('toolchemy_recent_tools', JSON.stringify(updated));
+      localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
       setRecentSlugs(updated);
     } catch (err) {
       console.warn('LocalStorage save error:', err);
@@ -232,7 +232,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
 
         <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
-            Free
+            Free · Local
           </span>
           <span className="text-xs font-bold text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center gap-1">
             Use Tool <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -256,7 +256,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search 40+ browser utilities (e.g. crop, pdf, glassmorphism, timestamp)..."
+              placeholder="Search 55+ browser utilities (e.g. crop, pdf, glassmorphism, timestamp)..."
               className="w-full bg-transparent text-sm sm:text-base font-semibold text-slate-900 dark:text-white placeholder:text-slate-400 outline-none"
             />
             {searchQuery && (
@@ -324,7 +324,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
             })}
           </div>
 
-          {/* Quick Filters: Popular / Starred */}
+          {/* Quick Filters: Popular / Favorites */}
           <div className="flex items-center gap-1.5 text-xs font-bold">
             <button
               type="button"
@@ -355,7 +355,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
               }`}
             >
               <Star className={`w-3.5 h-3.5 ${activeFilter === 'starred' ? 'text-white fill-white' : 'text-purple-500'}`} />
-              <span>Starred ({starredSlugs.length})</span>
+              <span>Favorites{starredSlugs.length > 0 ? ` (${starredSlugs.length})` : ''}</span>
             </button>
           </div>
         </div>

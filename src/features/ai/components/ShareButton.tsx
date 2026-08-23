@@ -31,7 +31,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ title, text, toolSlug,
     }
 
     try {
-      await navigator.clipboard.writeText(`${title}\n\n${text}\n\nVia Toolchemy: ${window.location.href}`);
+      await navigator.clipboard.writeText(`${title}\n\n${text}\n\nVia Crafty Tool: ${window.location.href}`);
       setShared(true);
       setTimeout(() => setShared(false), 2000);
     } catch (err) {

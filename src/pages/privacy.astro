@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ShieldCheck, Lock, EyeOff, Server, HardDrive, Cookie } from 'lucide-react';
+
+const origin = Astro.url.origin;
+const lastUpdated = 'February 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy — Crafty Tool"
+  description="Learn how Crafty Tool protects your privacy with 100% in-browser processing, zero file uploads, no tracking cookies, and strict client-side data boundaries."
+  canonicalUrl={`${origin}/privacy`}
+  keywords={['crafty tool privacy policy', 'zero upload privacy', 'in browser data privacy', 'no file retention policy']}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-12">
+    <!-- Header -->
+    <header class="space-y-4 border-b border-slate-200 dark:border-slate-800 pb-8">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 shadow-2xs">
+        <ShieldCheck className="w-3.5 h-3.5" />
+        Privacy by Architecture
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+        Privacy Policy
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">
+        Effective Date: {lastUpdated} · Last Updated: {lastUpdated}
+      </p>
+    </header>
+
+    <!-- Executive Summary Callout Box -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/60 space-y-3">
+      <h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-2">
+        <span>🔒</span> Executive Privacy Summary
+      </h2>
+      <p class="text-xs sm:text-sm text-emerald-800/90 dark:text-emerald-300/90 leading-relaxed">
+        Crafty Tool is engineered as a <strong>client-side in-browser platform</strong>. When you use our PDF, image, video, text, calculator, and developer tools, your files and inputs are processed entirely within your computer or mobile browser's memory sandbox. <strong>We do not upload, store, inspect, or sell your files or personal data.</strong>
+      </p>
+    </div>
+
+    <!-- Main Sections -->
+    <div class="space-y-10 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+      <!-- 1. Technical Processing Architecture -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <HardDrive className="w-5 h-5 text-purple-500" />
+          <span>1. In-Browser Client-Side Processing</span>
+        </h2>
+        <p>
+          The fundamental architecture of Crafty Tool eliminates the need for remote cloud processing for all file and data utilities.
+        </p>
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm">
+          <p>
+            <strong>How local execution works:</strong>
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-600 dark:text-slate-400">
+            <li>When you drag-and-drop an image, PDF, or video into a tool, the file is read locally using the browser's HTML5 <code class="font-mono text-purple-600 dark:text-purple-400">FileReader</code> and Web APIs.</li>
+            <li>Computations (such as image compression, PDF merging, regex parsing, and cryptographic hashing) run inside WebAssembly (WASM) modules or JavaScript workers on your local CPU/GPU threads.</li>
+            <li>Once you download your processed file or close the browser tab, the temporary in-memory buffer is automatically garbage-collected by your browser. No copy remains anywhere.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. What We DO NOT Collect -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <EyeOff className="w-5 h-5 text-red-500" />
+          <span>2. Data We Do Not Collect</span>
+        </h2>
+        <p>Because of our privacy-first design, we do NOT collect, store, or have access to:</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs sm:text-sm">
+          <li class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2 font-medium">
+            <span class="text-emerald-500 font-bold">✓</span> No uploaded files, photos, PDFs, or media
+          </li>
+          <li class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2 font-medium">
+            <span class="text-emerald-500 font-bold">✓</span> No user account credentials or passwords
+          </li>
+          <li class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2 font-medium">
+            <span class="text-emerald-500 font-bold">✓</span> No text inputs, code snippets, or JWT payloads
+          </li>
+          <li class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-2 font-medium">
+            <span class="text-emerald-500 font-bold">✓</span> No financial data or personal medical history
+          </li>
+        </ul>
+      </section>
+
+      <!-- 3. External Resource Disclosures -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <Server className="w-5 h-5 text-blue-500" />
+          <span>3. External Services & CDN Disclosures</span>
+        </h2>
+        <p>
+          To deliver fast static web assets globally, Crafty Tool interacts with limited infrastructure providers:
+        </p>
+        <ul class="space-y-3 text-xs sm:text-sm pl-2">
+          <li>
+            <strong>Hosting & CDN (Vercel Edge Network):</strong> Like all modern websites, basic network routing logs (such as public IP addresses and browser user-agent headers) are processed temporarily by our hosting CDN edge servers strictly to route web traffic and prevent DDoS attacks.
+          </li>
+          <li>
+            <strong>YouTube Thumbnail Downloader:</strong> When you provide a YouTube URL, the tool extracts the public video ID in your browser and requests the public thumbnail directly from YouTube's public media servers (<code class="font-mono text-purple-600 dark:text-purple-400">i.ytimg.com</code>).
+          </li>
+        </ul>
+      </section>
+
+      <!-- 4. Local Storage & Cookies -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <Cookie className="w-5 h-5 text-amber-500" />
+          <span>4. Cookies & Local Storage</span>
+        </h2>
+        <p>
+          Crafty Tool uses <strong>zero third-party tracking cookies</strong> or advertising trackers.
+        </p>
+        <p>
+          We utilize standard browser <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-purple-600 dark:text-purple-400">localStorage</code> exclusively on your device to store user interface preferences:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <li><strong>Theme Selection:</strong> Remembering your preference for Dark Mode or Light Mode.</li>
+          <li><strong>Favorites & Recents:</strong> Storing the slugs of tools you star or recently use so you can access them quickly. This data never leaves your browser.</li>
+        </ul>
+      </section>
+
+      <!-- 5. Privacy-Preserving Analytics -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5">
+          <Lock className="w-5 h-5 text-emerald-500" />
+          <span>5. Privacy-Preserving Aggregate Analytics</span>
+        </h2>
+        <p>
+          We collect high-level, aggregate operational telemetry (such as total page visits, error codes, and tool popularity metrics) to detect broken features and improve tool compatibility across different browser versions.
+        </p>
+        <p>
+          Our analytics pipeline applies strict privacy sanitization: we never track search terms, filenames, IP addresses, or user content.
+        </p>
+      </section>
+
+      <!-- 6. Children's Privacy -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-black text-slate-900 dark:text-white">6. Children's Privacy</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          Crafty Tool does not knowingly collect any personally identifiable information from children under 13. Because our service requires no accounts, no child's personal data is collected or maintained.
+        </p>
+      </section>
+
+      <!-- 7. Contact Information -->
+      <section class="space-y-3 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">7. Privacy Inquiries</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          If you have questions, feedback, or security inquiries regarding our privacy architecture, please contact us via our <a href="/contact" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Contact Page</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

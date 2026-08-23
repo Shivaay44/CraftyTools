@@ -1,14 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, ArrowRight, X, Sparkles, Image, FileText, Video, Type, Code } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Search, ArrowRight, X, Sparkles, Image, FileText, Video, Type, Code, Clock, Flame, Calculator } from 'lucide-react';
 import { TOOLS, CATEGORIES } from '../../data/tools';
 import type { ToolDefinition } from '../../types';
+
+const POPULAR_SLUGS = [
+  'image-compressor',
+  'image-upscaler',
+  'merge-pdf',
+  'json-formatter',
+  'regex-tester',
+  'qr-code-generator',
+  'age-calculator',
+  'youtube-thumbnail-downloader',
+];
 
 export const CommandPalette: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+
+  // Load Recent tools from LocalStorage on open
+  useEffect(() => {
+    if (isOpen) {
+      try {
+        const saved = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
+        if (saved) setRecentSlugs(JSON.parse(saved));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+  }, [isOpen]);
 
   // Toggle modal on Ctrl+K / Cmd+K / Slash key
   useEffect(() => {
@@ -41,12 +65,43 @@ export const CommandPalette: React.FC = () => {
     }
   }, [isOpen]);
 
-  // Filter tools
-  const filteredTools = React.useMemo(() => {
-    if (!query.trim()) return TOOLS.slice(0, 8); // Top default tools
+  // Record tool click to recents
+  const handleSelectTool = (tool: ToolDefinition) => {
+    try {
+      const updated = [tool.slug, ...recentSlugs.filter((s) => s !== tool.slug)].slice(0, 5);
+      localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
+    } catch (e) {
+      console.warn('LocalStorage error:', e);
+    }
+    setIsOpen(false);
+    window.location.href = `/tools/${tool.slug}`;
+  };
+
+  // Grouped or filtered tools computation
+  const { filteredTools, isDefaultView, recentTools, popularTools } = useMemo(() => {
+    if (!query.trim()) {
+      const recents = recentSlugs
+        .map((s) => TOOLS.find((t) => t.slug === s))
+        .filter((t): t is ToolDefinition => !!t)
+        .slice(0, 4);
+
+      const popular = POPULAR_SLUGS
+        .filter((s) => !recentSlugs.includes(s))
+        .map((s) => TOOLS.find((t) => t.slug === s))
+        .filter((t): t is ToolDefinition => !!t)
+        .slice(0, 6);
+
+      const combined = [...recents, ...popular];
+      return {
+        filteredTools: combined.length > 0 ? combined : TOOLS.slice(0, 8),
+        isDefaultView: true,
+        recentTools: recents,
+        popularTools: popular,
+      };
+    }
 
     const q = query.toLowerCase().trim();
-    return TOOLS.filter((tool) => {
+    const matches = TOOLS.filter((tool) => {
       return (
         tool.name.toLowerCase().includes(q) ||
         tool.description.toLowerCase().includes(q) ||
@@ -54,7 +109,14 @@ export const CommandPalette: React.FC = () => {
         tool.keywords.some((k) => k.toLowerCase().includes(q))
       );
     }).slice(0, 10);
-  }, [query]);
+
+    return {
+      filteredTools: matches,
+      isDefaultView: false,
+      recentTools: [],
+      popularTools: [],
+    };
+  }, [query, recentSlugs]);
 
   // Reset selected index on query change
   useEffect(() => {
@@ -71,9 +133,7 @@ export const CommandPalette: React.FC = () => {
       setSelectedIndex((prev) => (prev - 1 >= 0 ? prev - 1 : filteredTools.length - 1));
     } else if (e.key === 'Enter' && filteredTools[selectedIndex]) {
       e.preventDefault();
-      const targetTool = filteredTools[selectedIndex];
-      window.location.href = `/tools/${targetTool.slug}`;
-      setIsOpen(false);
+      handleSelectTool(filteredTools[selectedIndex]);
     }
   };
 
@@ -89,6 +149,8 @@ export const CommandPalette: React.FC = () => {
         return <Type className="w-4 h-4 text-amber-500" />;
       case 'developer':
         return <Code className="w-4 h-4 text-emerald-500" />;
+      case 'calculator':
+        return <Calculator className="w-4 h-4 text-cyan-500" />;
       default:
         return <Sparkles className="w-4 h-4 text-blue-500" />;
     }
@@ -104,7 +166,7 @@ export const CommandPalette: React.FC = () => {
         aria-label="Quick search tools"
       >
         <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-500 transition-colors" />
-        <span className="hidden sm:inline font-medium">Search 40+ tools...</span>
+        <span className="hidden sm:inline font-medium">Search 55+ tools...</span>
         <span className="sm:hidden font-medium">Search</span>
         <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-400 shadow-2xs">
           ⌘K
@@ -127,14 +189,14 @@ export const CommandPalette: React.FC = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Search utilities by name, category, or task (e.g. crop, pdf, fps, jwt)..."
+                placeholder="Search 55+ utilities by name, category, or task (e.g. crop, pdf, fps, jwt)..."
                 className="w-full bg-transparent text-sm sm:text-base font-semibold text-slate-900 dark:text-white placeholder:text-slate-400 outline-none"
               />
               {query ? (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -163,62 +225,79 @@ export const CommandPalette: React.FC = () => {
             </div>
 
             {/* Tool List Results */}
-            <div ref={listRef} className="overflow-y-auto p-2 space-y-1 divide-y divide-transparent">
+            <div ref={listRef} className="overflow-y-auto p-2 space-y-1">
               {filteredTools.length > 0 ? (
-                filteredTools.map((tool, idx) => {
-                  const isSelected = idx === selectedIndex;
-                  return (
-                    <a
-                      key={tool.slug}
-                      href={`/tools/${tool.slug}`}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center justify-between p-3 rounded-xl transition-all cursor-pointer ${
-                        isSelected
-                          ? 'bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 shadow-2xs'
-                          : 'hover:bg-slate-50 dark:hover:bg-slate-800/60 border border-transparent'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
+                <>
+                  {isDefaultView && recentTools.length > 0 && (
+                    <div className="px-3 pt-2 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Clock className="w-3 h-3 text-purple-500" />
+                      <span>Recently Used</span>
+                    </div>
+                  )}
+
+                  {filteredTools.map((tool, idx) => {
+                    const isSelected = idx === selectedIndex;
+                    const isFirstPopular = isDefaultView && recentTools.length > 0 && idx === recentTools.length;
+
+                    return (
+                      <React.Fragment key={tool.slug}>
+                        {isFirstPopular && (
+                          <div className="px-3 pt-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 border-t border-slate-100 dark:border-slate-800/60 mt-1">
+                            <Flame className="w-3 h-3 text-amber-500" />
+                            <span>Popular Tools</span>
+                          </div>
+                        )}
                         <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                          onMouseEnter={() => setSelectedIndex(idx)}
+                          onClick={() => handleSelectTool(tool)}
+                          className={`flex items-center justify-between p-3 rounded-xl transition-all cursor-pointer select-none ${
                             isSelected
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                              ? 'bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 shadow-2xs'
+                              : 'hover:bg-slate-50 dark:hover:bg-slate-800/60 border border-transparent'
                           }`}
                         >
-                          {getCategoryIcon(tool.category)}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-sm text-slate-900 dark:text-white truncate">
-                              {tool.name}
-                            </span>
-                            <span className="text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
-                              {tool.category}
-                            </span>
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div
+                              className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                                isSelected
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                              }`}
+                            >
+                              {getCategoryIcon(tool.category)}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-sm text-slate-900 dark:text-white truncate">
+                                  {tool.name}
+                                </span>
+                                <span className="text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                                  {tool.category}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-md">
+                                {tool.description}
+                              </p>
+                            </div>
                           </div>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-md">
-                            {tool.description}
-                          </p>
-                        </div>
-                      </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                        <span className="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 hidden sm:inline-block">
-                          Free
-                        </span>
-                        <ArrowRight
-                          className={`w-4 h-4 transition-transform ${
-                            isSelected
-                              ? 'text-purple-600 dark:text-purple-400 translate-x-0.5'
-                              : 'text-slate-300 dark:text-slate-600'
-                          }`}
-                        />
-                      </div>
-                    </a>
-                  );
-                })
+                          <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                            <span className="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 hidden sm:inline-block">
+                              Free · Local
+                            </span>
+                            <ArrowRight
+                              className={`w-4 h-4 transition-transform ${
+                                isSelected
+                                  ? 'text-purple-600 dark:text-purple-400 translate-x-0.5'
+                                  : 'text-slate-300 dark:text-slate-600'
+                              }`}
+                            />
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    );
+                  })}
+                </>
               ) : (
                 <div className="p-8 text-center space-y-2">
                   <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
@@ -248,7 +327,7 @@ export const CommandPalette: React.FC = () => {
                 </span>
               </div>
               <span className="font-semibold text-purple-600 dark:text-purple-400">
-                40 100% In-Browser Utilities
+                55+ 100% In-Browser Utilities
               </span>
             </div>
           </div>
