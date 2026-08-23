@@ -12,6 +12,9 @@ import { ImageCropperWidget } from '../../image/components/ImageCropperWidget';
 import { ExifRemoverWidget } from '../../image/components/ExifRemoverWidget';
 import { ImageWatermarkWidget } from '../../image/components/ImageWatermarkWidget';
 import { SvgToPngWidget } from '../../image/components/SvgToPngWidget';
+import { YoutubeThumbnailDownloaderWidget } from '../../image/components/YoutubeThumbnailDownloaderWidget';
+import { SignatureMakerWidget } from '../../image/components/SignatureMakerWidget';
+import { MemeGeneratorWidget } from '../../image/components/MemeGeneratorWidget';
 
 // PDF widgets
 import { MergePdfWidget } from '../../pdf/components/MergePdfWidget';
@@ -21,9 +24,18 @@ import { RotatePdfWidget } from '../../pdf/components/RotatePdfWidget';
 import { RemovePdfPagesWidget } from '../../pdf/components/RemovePdfPagesWidget';
 import { PdfPageNumbererWidget } from '../../pdf/components/PdfPageNumbererWidget';
 
-// Video widgets
+// Video & Audio widgets
 import { VideoToJpgWidget } from '../../video/components/VideoToJpgWidget';
 import { VideoFrameIncreaserWidget } from '../../video/components/VideoFrameIncreaserWidget';
+import { ScreenRecorderWidget } from '../../video/components/ScreenRecorderWidget';
+import { VoiceRecorderWidget } from '../../video/components/VoiceRecorderWidget';
+
+// Calculator widgets
+import { AgeCalculatorWidget } from '../../calculator/components/AgeCalculatorWidget';
+import { BmiCalculatorWidget } from '../../calculator/components/BmiCalculatorWidget';
+import { UnitConverterWidget } from '../../calculator/components/UnitConverterWidget';
+import { LoanEmiCalculatorWidget } from '../../calculator/components/LoanEmiCalculatorWidget';
+import { PercentageCalculatorWidget } from '../../calculator/components/PercentageCalculatorWidget';
 
 // Text widgets
 import { PasswordGeneratorWidget } from '../../text/components/PasswordGeneratorWidget';
@@ -49,6 +61,11 @@ import { SvgOptimizerWidget } from '../../developer/components/SvgOptimizerWidge
 import { TimestampConverterWidget } from '../../developer/components/TimestampConverterWidget';
 import { RegexTesterWidget } from '../../developer/components/RegexTesterWidget';
 import { CronGeneratorWidget } from '../../developer/components/CronGeneratorWidget';
+import { CsvJsonConverterWidget } from '../../developer/components/CsvJsonConverterWidget';
+import { CssGradientGeneratorWidget } from '../../developer/components/CssGradientGeneratorWidget';
+import { MetaTagGeneratorWidget } from '../../developer/components/MetaTagGeneratorWidget';
+import { HtmlEntityEncoderWidget } from '../../developer/components/HtmlEntityEncoderWidget';
+import { SqlFormatterWidget } from '../../developer/components/SqlFormatterWidget';
 
 interface ToolIslandRendererProps {
   toolSlug: string;
@@ -67,6 +84,9 @@ export const ToolIslandRenderer: React.FC<ToolIslandRendererProps> = ({ toolSlug
   if (toolSlug === 'exif-remover') return <ExifRemoverWidget />;
   if (toolSlug === 'image-watermark') return <ImageWatermarkWidget />;
   if (toolSlug === 'svg-to-png') return <SvgToPngWidget />;
+  if (toolSlug === 'youtube-thumbnail-downloader') return <YoutubeThumbnailDownloaderWidget />;
+  if (toolSlug === 'signature-maker') return <SignatureMakerWidget />;
+  if (toolSlug === 'meme-generator') return <MemeGeneratorWidget />;
 
   // Client-side PDF tool components
   if (toolSlug === 'merge-pdf') return <MergePdfWidget />;
@@ -76,9 +96,18 @@ export const ToolIslandRenderer: React.FC<ToolIslandRendererProps> = ({ toolSlug
   if (toolSlug === 'remove-pdf-pages') return <RemovePdfPagesWidget />;
   if (toolSlug === 'pdf-page-numberer') return <PdfPageNumbererWidget />;
 
-  // Client-side Video tool components
+  // Client-side Video & Audio tool components
   if (toolSlug === 'video-to-jpg') return <VideoToJpgWidget />;
   if (toolSlug === 'video-frame-increaser') return <VideoFrameIncreaserWidget />;
+  if (toolSlug === 'screen-recorder') return <ScreenRecorderWidget />;
+  if (toolSlug === 'voice-recorder') return <VoiceRecorderWidget />;
+
+  // Client-side Calculator tool components
+  if (toolSlug === 'age-calculator') return <AgeCalculatorWidget />;
+  if (toolSlug === 'bmi-calculator') return <BmiCalculatorWidget />;
+  if (toolSlug === 'unit-converter') return <UnitConverterWidget />;
+  if (toolSlug === 'loan-emi-calculator') return <LoanEmiCalculatorWidget />;
+  if (toolSlug === 'percentage-calculator') return <PercentageCalculatorWidget />;
 
   // Client-side Text tool components
   if (toolSlug === 'password-generator') return <PasswordGeneratorWidget />;
@@ -104,6 +133,11 @@ export const ToolIslandRenderer: React.FC<ToolIslandRendererProps> = ({ toolSlug
   if (toolSlug === 'timestamp-converter') return <TimestampConverterWidget />;
   if (toolSlug === 'regex-tester') return <RegexTesterWidget />;
   if (toolSlug === 'cron-generator') return <CronGeneratorWidget />;
+  if (toolSlug === 'csv-json-converter') return <CsvJsonConverterWidget />;
+  if (toolSlug === 'css-gradient-generator') return <CssGradientGeneratorWidget />;
+  if (toolSlug === 'meta-tag-generator') return <MetaTagGeneratorWidget />;
+  if (toolSlug === 'html-entity-encoder') return <HtmlEntityEncoderWidget />;
+  if (toolSlug === 'sql-formatter') return <SqlFormatterWidget />;
 
   return (
     <div className="p-6 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-200">

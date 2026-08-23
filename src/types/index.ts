@@ -1,4 +1,4 @@
-export type ToolCategory = 'image' | 'pdf' | 'video' | 'text' | 'developer';
+export type ToolCategory = 'image' | 'pdf' | 'video' | 'text' | 'developer' | 'calculator';
 
 export type ToolType = 'browser';
 

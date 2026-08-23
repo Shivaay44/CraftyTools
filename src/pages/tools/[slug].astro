@@ -572,6 +572,219 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
       },
     ],
   },
+  'csv-json-converter': {
+    steps: [
+      'Choose conversion mode (CSV to JSON or JSON to CSV).',
+      'Paste your content or upload a `.csv` / `.json` file.',
+      'Configure custom delimiter (comma, semicolon, tab, pipe) or JSON indent spacing.',
+      'Preview the live data table and click "Download" or "Copy".',
+    ],
+    faqs: [
+      {
+        question: 'Can I convert large CSV files privately?',
+        answer: 'Yes! All parsing happens locally in your browser with zero server uploads, keeping sensitive business and personal data 100% private.',
+      },
+    ],
+  },
+  'css-gradient-generator': {
+    steps: [
+      'Choose gradient style: Linear, Radial, or Conic.',
+      'Rotate the angle dial or select a curated preset from the library.',
+      'Add or adjust color stops and positions on the slider.',
+      'Click "Copy CSS" to grab ready-to-use background rules.',
+    ],
+    faqs: [
+      {
+        question: 'How do I use the generated gradient in my web project?',
+        answer: 'Simply copy the output CSS rule (`background: linear-gradient(...)`) and paste it into your stylesheet or component inline style.',
+      },
+    ],
+  },
+  'meta-tag-generator': {
+    steps: [
+      'Fill in your webpage title, description, canonical URL, and social share image (OG Image).',
+      'Add optional details like site name, author, and Twitter handle.',
+      'Inspect real-time live preview cards for Google SERP, Facebook, and Twitter/X.',
+      'Click "Copy Tags" and paste inside your HTML `<head>` tag.',
+    ],
+    faqs: [
+      {
+        question: 'Why are Open Graph meta tags important for SEO?',
+        answer: 'Open Graph (og:title, og:image, og:description) and Twitter Card tags ensure links look rich, professional, and engaging when shared across social networks and messaging apps.',
+      },
+    ],
+  },
+  'html-entity-encoder': {
+    steps: [
+      'Select "Encode Entities" or "Decode Entities".',
+      'Paste your text or HTML snippet into the editor.',
+      'Choose entity style: Named (`&lt;`), Numeric (`&#60;`), or Hex (`&#x3c;`).',
+      'Copy the safely encoded/decoded output.',
+    ],
+    faqs: [
+      {
+        question: 'Why should I encode HTML special characters?',
+        answer: 'Encoding special characters (`<`, `>`, `&`, `"`) prevents browser rendering conflicts, avoids breaking HTML markup, and helps protect against cross-site scripting (XSS) in dynamic templates.',
+      },
+    ],
+  },
+  'sql-formatter': {
+    steps: [
+      'Paste your unformatted SQL query into the code editor.',
+      'Choose keyword casing (UPPERCASE or lowercase) and indent spaces (2 or 4).',
+      'Click "Format SQL" to beautify or "Minify" for single-line queries.',
+      'Click "Copy" to use the clean SQL query in your database client.',
+    ],
+    faqs: [
+      {
+        question: 'Which SQL dialects are supported?',
+        answer: 'Our formatter supports standard ANSI SQL, PostgreSQL, MySQL, SQLite, Oracle SQL, Microsoft SQL Server (T-SQL), and Snowflake queries.',
+      },
+    ],
+  },
+  'age-calculator': {
+    steps: [
+      'Select your Date of Birth.',
+      'Choose a comparison target date (defaults to today).',
+      'View your exact age in years, months, days, and live ticking seconds.',
+      'Explore your next birthday countdown, zodiac sign, and biological milestones.',
+    ],
+    faqs: [
+      {
+        question: 'How accurate is the age calculation?',
+        answer: 'The calculator calculates exact calendar intervals accounting for leap years, variable days in months, and time zone offsets.',
+      },
+      {
+        question: 'Does the calculator show life milestones?',
+        answer: 'Yes! It estimates total days lived, weeks, hours, minutes, heartbeats, breaths taken, and time spent sleeping.',
+      },
+    ],
+  },
+  'bmi-calculator': {
+    steps: [
+      'Select Metric (kg/cm) or Imperial (lbs/ft-in) units.',
+      'Enter your height, weight, age, and gender.',
+      'View your real-time BMI score on the interactive color spectrum gauge.',
+      'Inspect your ideal healthy weight range and basal metabolic calorie needs (BMR).',
+    ],
+    faqs: [
+      {
+        question: 'What is a healthy BMI range?',
+        answer: 'According to the World Health Organization (WHO), a BMI between 18.5 and 24.9 is considered normal/healthy for adults.',
+      },
+    ],
+  },
+  'unit-converter': {
+    steps: [
+      'Select a unit category: Length, Weight, Temperature, Area, Volume, Speed, Storage, or Time.',
+      'Enter the numerical value you want to convert.',
+      'Choose source unit and target unit (or use the Swap button).',
+      'Inspect the complete conversion matrix for all other units in the dimension.',
+    ],
+    faqs: [
+      {
+        question: 'Does the unit converter work offline?',
+        answer: 'Yes! All conversion formulas run 100% locally in your web browser with instantaneous calculation and zero server latency.',
+      },
+    ],
+  },
+  'loan-emi-calculator': {
+    steps: [
+      'Select your currency symbol (₹, $, €, £, ¥).',
+      'Adjust loan amount, interest rate (% p.a.), and loan tenure sliders.',
+      'View your monthly EMI, total interest payable, and total repayment amount.',
+      'Inspect the Principal vs Interest payment breakdown and export the year-by-year amortization schedule to CSV.',
+    ],
+    faqs: [
+      {
+        question: 'What formula is used to calculate monthly EMI?',
+        answer: 'We use the standard banking formula: EMI = [P × r × (1 + r)^n] / [(1 + r)^n - 1], where P is Principal, r is monthly interest rate, and n is total months.',
+      },
+    ],
+  },
+  'percentage-calculator': {
+    steps: [
+      'Choose the scenario you need: What is X% of Y, X is what % of Y, Percentage Increase/Decrease, or Discount & Sale Price.',
+      'Enter your numbers into the inputs.',
+      'View real-time results alongside step-by-step calculation formulas.',
+      'Click "Copy" beside any result.',
+    ],
+    faqs: [
+      {
+        question: 'How do I calculate a retail shopping discount with tax?',
+        answer: 'Use Scenario 4: enter the original price, discount percentage (e.g. 20%), and optional tax percentage (e.g. 5%) to see your total savings and final checkout price.',
+      },
+    ],
+  },
+  'youtube-thumbnail-downloader': {
+    steps: [
+      'Paste any YouTube video or shorts URL into the search box.',
+      'The tool immediately extracts the video ID and renders available resolutions (Ultra HD 1080p, SD, HQ, MQ).',
+      'Click "Download" under your preferred resolution or click "Copy Link".',
+    ],
+    faqs: [
+      {
+        question: 'Can I download thumbnails from YouTube Shorts?',
+        answer: 'Yes! Paste any standard YouTube URL, shortened `youtu.be` link, or `youtube.com/shorts/...` link to grab full-resolution cover art.',
+      },
+    ],
+  },
+  'signature-maker': {
+    steps: [
+      'Choose "Draw Signature" to sign with mouse or touch screen, or "Type Signature" for cursive typography.',
+      'Pick your favorite ink color and pen stroke thickness.',
+      'Toggle "Transparent PNG" on or off.',
+      'Click "Download Signature" to save your signature for documents and PDFs.',
+    ],
+    faqs: [
+      {
+        question: 'Can I use this digital signature on official PDF contracts and forms?',
+        answer: 'Yes! The exported transparent PNG can be inserted directly into PDF signers, Word documents, Google Docs, or email signatures.',
+      },
+    ],
+  },
+  'meme-generator': {
+    steps: [
+      'Upload your own image or pick a popular meme template.',
+      'Type your Top Text and Bottom Text in the control panel.',
+      'Customize font size, text color, outline stroke color, and ALL CAPS.',
+      'Click "Download Meme" to save your creation as a high-quality PNG.',
+    ],
+    faqs: [
+      {
+        question: 'Is there any watermark on downloaded memes?',
+        answer: 'No! All memes generated on Toolchemy are 100% free with zero watermarks or branding.',
+      },
+    ],
+  },
+  'screen-recorder': {
+    steps: [
+      'Toggle microphone audio ON or OFF according to your preference.',
+      'Click "Start Screen Recording" and select the screen, application window, or browser tab to share.',
+      'Use Pause/Resume controls during recording.',
+      'Click "Stop Recording" to preview your video and download the WebM/MP4 file without watermarks.',
+    ],
+    faqs: [
+      {
+        question: 'Is there a time limit or file upload to a server?',
+        answer: 'No! Recording is performed 100% locally in your browser memory via the native Web MediaRecorder API. No time limits, no watermarks, and no server uploads.',
+      },
+    ],
+  },
+  'voice-recorder': {
+    steps: [
+      'Click "Start Voice Recording" and allow microphone permission when prompted.',
+      'Watch the live audio waveform frequency visualizer as you speak.',
+      'Use Pause/Resume as needed, then click "Stop Recording".',
+      'Listen to playback and click "Download Audio" to save your recording (.webm).',
+    ],
+    faqs: [
+      {
+        question: 'Is my audio stored on any external server?',
+        answer: 'No! All audio recording and waveform analysis happens strictly inside your local browser memory using the Web Audio API.',
+      },
+    ],
+  },
 };
 
 const toolContent = (slug && TOOL_CONTENT[slug]) || { steps: [], faqs: [] };

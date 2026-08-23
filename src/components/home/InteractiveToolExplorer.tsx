@@ -10,6 +10,7 @@ import {
   Video,
   Type,
   Code,
+  Calculator,
   X
 } from 'lucide-react';
 import type { ToolDefinition, ToolCategory, CategoryInfo } from '../../types';
@@ -30,11 +31,11 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
   const explorerRef = useRef<HTMLDivElement>(null);
 
-  // Sync with URL hash (e.g. #image, #pdf, #video, #text, #developer)
+  // Sync with URL hash (e.g. #image, #pdf, #video, #text, #developer, #calculator)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['image', 'pdf', 'video', 'text', 'developer'].includes(hash)) {
+      if (['image', 'pdf', 'video', 'text', 'developer', 'calculator'].includes(hash)) {
         setSelectedCategory(hash);
         setActiveFilter('all');
         const targetElement = document.getElementById(hash);
@@ -98,6 +99,14 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   // Popular slugs highlight
   const popularSlugs = useMemo(
     () => [
+      'age-calculator',
+      'bmi-calculator',
+      'loan-emi-calculator',
+      'youtube-thumbnail-downloader',
+      'screen-recorder',
+      'signature-maker',
+      'unit-converter',
+      'percentage-calculator',
       'image-cropper',
       'image-upscaler',
       'image-compressor',
@@ -172,6 +181,8 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
         return <Type className="w-4 h-4 text-amber-500" />;
       case 'developer':
         return <Code className="w-4 h-4 text-emerald-500" />;
+      case 'calculator':
+        return <Calculator className="w-4 h-4 text-cyan-500" />;
       default:
         return <Sparkles className="w-4 h-4 text-purple-500" />;
     }
