@@ -18,7 +18,7 @@ export const MergePdfWidget: React.FC = () => {
   const [mergedBlobUrl, setMergedBlobUrl] = useState<string | null>(null);
   const [mergedPageCount, setMergedPageCount] = useState<number | null>(null);
 
-  const handleFilesSelect = async (fileList: FileList | null) => {
+  const handleFilesSelect = async (fileList: FileList | File[] | null) => {
     if (!fileList || fileList.length === 0) return;
     setErrorMsg(null);
     if (mergedBlobUrl) URL.revokeObjectURL(mergedBlobUrl);

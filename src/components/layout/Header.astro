@@ -2,19 +2,13 @@
 import ThemeToggle from './ThemeToggle.astro';
 import { CommandPalette } from './CommandPalette';
 import { CATEGORIES } from '../../data/tools';
+import Logo from './Logo.astro';
 ---
 
 <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
     <!-- Brand Logo -->
-    <a href="/" class="flex items-center gap-2.5 group flex-shrink-0">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-500 to-amber-500 flex items-center justify-center text-white font-black text-lg shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform">
-        ✨
-      </div>
-      <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
-        Tool<span class="bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">chemy</span>
-      </span>
-    </a>
+    <Logo size="md" />
 
     <!-- Desktop Navigation Links -->
     <nav class="hidden lg:flex items-center gap-1">

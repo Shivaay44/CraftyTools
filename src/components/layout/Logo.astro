@@ -1,0 +1,83 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  showText?: boolean;
+  textSize?: 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+  asLink?: boolean;
+  class?: string;
+}
+
+const {
+  size = 'md',
+  showText = true,
+  textSize = 'xl',
+  asLink = true,
+  class: className = '',
+} = Astro.props;
+
+const sizeMap = {
+  sm: {
+    container: 'w-8 h-8 rounded-lg',
+    icon: 'w-8 h-8',
+  },
+  md: {
+    container: 'w-10 h-10 rounded-xl',
+    icon: 'w-10 h-10',
+  },
+  lg: {
+    container: 'w-12 h-12 rounded-2xl',
+    icon: 'w-12 h-12',
+  },
+  xl: {
+    container: 'w-16 h-16 rounded-2xl',
+    icon: 'w-16 h-16',
+  },
+};
+
+const textSizeMap = {
+  sm: 'text-base',
+  base: 'text-lg',
+  lg: 'text-xl',
+  xl: 'text-xl sm:text-2xl',
+  '2xl': 'text-2xl sm:text-3xl',
+};
+
+const config = sizeMap[size] || sizeMap.md;
+const chosenTextSize = textSizeMap[textSize] || textSizeMap.xl;
+---
+
+{asLink ? (
+  <a href="/" class={`group flex items-center gap-2.5 flex-shrink-0 select-none ${className}`} aria-label="Toolchemy Home">
+    <div class={`relative ${config.container} bg-slate-950 p-[1.5px] rounded-xl border border-slate-700/60 shadow-md shadow-blue-500/10 group-hover:border-sky-400/80 group-hover:shadow-lg group-hover:shadow-sky-500/20 transition-all duration-300 overflow-hidden`}>
+      <img
+        src="/logo-icon.png"
+        alt="Toolchemy Logo Icon"
+        class="w-full h-full object-cover rounded-[inherit] group-hover:scale-105 transition-transform duration-300"
+        loading="eager"
+      />
+    </div>
+
+    {showText && (
+      <span class={`font-black ${chosenTextSize} tracking-tight text-slate-900 dark:text-white flex items-center`}>
+        tool<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent group-hover:brightness-110 transition-all">chemy</span>
+      </span>
+    )}
+  </a>
+) : (
+  <div class={`flex items-center gap-2.5 flex-shrink-0 select-none ${className}`}>
+    <div class={`relative ${config.container} bg-slate-950 p-[1.5px] rounded-xl border border-slate-700/60 shadow-md shadow-blue-500/10 overflow-hidden`}>
+      <img
+        src="/logo-icon.png"
+        alt="Toolchemy Logo Icon"
+        class="w-full h-full object-cover rounded-[inherit]"
+        loading="eager"
+      />
+    </div>
+
+    {showText && (
+      <span class={`font-black ${chosenTextSize} tracking-tight text-slate-900 dark:text-white flex items-center`}>
+        tool<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">chemy</span>
+      </span>
+    )}
+  </div>
+)}
