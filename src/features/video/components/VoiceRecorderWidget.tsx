@@ -194,7 +194,7 @@ export const VoiceRecorderWidget: React.FC = () => {
           {recordingState === 'idle' && (
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-xs">
               <Sparkles className="w-3.5 h-3.5" />
-              100% Private Web Audio Dictaphone
+              Private In-Browser Audio Dictaphone
             </div>
           )}
 

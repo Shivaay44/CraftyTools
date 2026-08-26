@@ -74,27 +74,27 @@ const origin = Astro.url.origin;
         </h2>
         <div class="space-y-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            Traditional online utilities — from PDF converters and image compressors to JSON formatters — were built on outdated server-side architectures. To perform even a basic crop or format conversion, you had to upload confidential documents or personal photos to unknown remote servers.
+            Many traditional online utilities require uploading documents, personal photos, or code snippets to remote cloud servers before processing them.
           </p>
           <p>
-            This architecture introduced three major problems:
+            This server-centric model introduces common drawbacks:
           </p>
           <ul class="space-y-2 pl-2">
             <li class="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
-              <span><strong>Privacy Risk:</strong> Uploading confidential contracts, medical records, or proprietary source code to third-party clouds poses serious security liabilities.</span>
+              <span><strong>Data Exposure:</strong> Uploading sensitive contracts, financial records, or proprietary source code to remote servers introduces unnecessary third-party risk.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
-              <span><strong>Unnecessary Latency:</strong> Uploading 50MB of images over slow connections just to compress them wastes time and mobile bandwidth.</span>
+              <span><strong>Network Bottlenecks:</strong> Uploading large multi-megabyte media files over mobile or slow connections wastes bandwidth and time.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-1" />
-              <span><strong>Aggressive Monetization:</strong> Paywalls, forced sign-ups, and annoying 3-file daily limits.</span>
+              <span><strong>Usage Friction:</strong> Forced account registration, credit card prompts, and arbitrary daily rate limits.</span>
             </li>
           </ul>
           <p>
-            Crafty Tool was engineered to solve this. By harnessing modern WebAssembly (WASM), Web Cryptography, Canvas 2D/WebGL, and Web Workers, modern web browsers have all the compute power needed to process files locally.
+            Crafty Tool was built on a different model: <strong>Local & Private by Design</strong>. By utilizing WebAssembly (WASM), Web Cryptography, Canvas 2D, and Web Workers, modern web browsers possess sufficient local compute power to perform utilities directly on your device.
           </p>
         </div>
       </section>
@@ -141,7 +141,7 @@ const origin = Astro.url.origin;
               <span>MediaRecorder & AudioContext</span>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Enables local screen recording and voice recording directly into WebM/MP4 containers with zero watermark branding.
+              Enables local screen recording and voice recording directly into WebM and browser-supported recording formats with zero watermark branding.
             </p>
           </div>
         </div>

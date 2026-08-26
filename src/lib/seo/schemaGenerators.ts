@@ -295,7 +295,7 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
         url: `${origin}/`,
         name: 'Crafty Tool',
         alternateName: ['CraftyTool', 'Crafty Tool Utilities', 'Crafty Tool Web Tools'],
-        description: '55+ Free, 100% Private In-Browser Digital Utilities & Developer Tools with 0 Server Uploads.',
+        description: '55+ Free In-Browser Digital Utilities & Developer Tools with 0 Server Uploads. Private by Design.',
         publisher: { '@id': orgId },
         potentialAction: {
           '@type': 'SearchAction',

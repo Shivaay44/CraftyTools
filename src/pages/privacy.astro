@@ -30,12 +30,62 @@ const lastUpdated = 'February 2026';
     <!-- Executive Summary Callout Box -->
     <div class="p-6 sm:p-8 rounded-3xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/60 space-y-3">
       <h2 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-2">
-        <span>🔒</span> Executive Privacy Summary
+        <span>🔒</span> Executive Privacy Summary: Private by Design
       </h2>
       <p class="text-xs sm:text-sm text-emerald-800/90 dark:text-emerald-300/90 leading-relaxed">
-        Crafty Tool is engineered as a <strong>client-side in-browser platform</strong>. When you use our PDF, image, video, text, calculator, and developer tools, your files and inputs are processed entirely within your computer or mobile browser's memory sandbox. <strong>We do not upload, store, inspect, or sell your files or personal data.</strong>
+        Crafty Tool is engineered as a <strong>client-side in-browser platform</strong>. Uploaded files and tool inputs are processed locally in your browser sandbox without being uploaded to our servers. Local processing reduces the need to transmit sensitive files to remote processing infrastructure.
       </p>
     </div>
+
+    <!-- Transparent Data Privacy Table -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+        Data Processing & Storage Summary
+      </h2>
+      <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
+            <tr>
+              <th class="py-3 px-4 font-bold">Data Type</th>
+              <th class="py-3 px-4 font-bold">Sent to Server?</th>
+              <th class="py-3 px-4 font-bold">Where It Resides</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-600 dark:text-slate-400">
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Uploaded Files (Images, PDFs, Videos)</td>
+              <td class="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">No</td>
+              <td class="py-3 px-4">Local browser RAM only (never sent to Crafty Tool servers)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Tool Inputs (Text, JSON, Passwords, Hashes)</td>
+              <td class="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">No</td>
+              <td class="py-3 px-4">Local browser memory only</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Favorites & Recent Tools</td>
+              <td class="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">No</td>
+              <td class="py-3 px-4">Your device's local storage (<code class="font-mono text-xs">localStorage</code>)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Theme Preference</td>
+              <td class="py-3 px-4 text-emerald-600 dark:text-emerald-400 font-bold">No</td>
+              <td class="py-3 px-4">Your device's local storage (<code class="font-mono text-xs">localStorage</code>)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Aggregate Telemetry</td>
+              <td class="py-3 px-4 text-purple-600 dark:text-purple-400 font-semibold">Yes (Anonymous)</td>
+              <td class="py-3 px-4">Anonymous event counts (page views, tool completions, errors)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Network IP / Routing Logs</td>
+              <td class="py-3 px-4 text-purple-600 dark:text-purple-400 font-semibold">Temporarily</td>
+              <td class="py-3 px-4">Hosting & CDN infrastructure (Vercel edge network)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <!-- Main Sections -->
     <div class="space-y-10 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">

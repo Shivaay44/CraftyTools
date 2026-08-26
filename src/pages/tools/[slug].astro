@@ -399,14 +399,27 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
   // Developer Tools
   'json-formatter': {
     steps: [
-      'Paste your JSON code into the editor.',
-      'Click "Prettify JSON" to format with 2-space indentation or "Minify" to compress.',
-      'Any syntax errors are highlighted with exact line numbers.',
+      'Paste or type your JSON string into the editor above.',
+      'Click "Prettify JSON" to format with clean 2-space or 4-space indentations.',
+      'Review instant syntax validation to detect missing quotes, trailing commas, or bracket mismatches.',
+      'Click "Minify" to compress JSON payloads, or click "Copy" to grab the formatted result.',
     ],
     faqs: [
       {
-        question: 'How do I fix invalid JSON syntax?',
-        answer: 'The validator identifies missing quotes, trailing commas, or unmatched braces immediately.',
+        question: 'What is the difference between Prettifying and Minifying JSON?',
+        answer: 'Prettifying adds indentation and line breaks so developers can easily read, format, and debug JSON structures. Minifying strips all unnecessary whitespace and newlines, reducing payload size for faster network transfer and API requests.',
+      },
+      {
+        question: 'How does JSON syntax validation work?',
+        answer: 'Our tool parses your JSON locally in real-time. If syntax errors exist (such as missing quotes, trailing commas, or unmatched brackets), the exact error description is reported immediately.',
+      },
+      {
+        question: 'Can I format large JSON files privately?',
+        answer: 'Yes! Because processing executes directly in your browser memory via native JavaScript engine, our JSON formatter comfortably processes multi-megabyte payloads without uploading any data to external servers.',
+      },
+      {
+        question: 'Are my JSON payloads or API responses sent to any server?',
+        answer: 'No. All validation, formatting, and minification happen 100% locally inside your web browser. Sensitive API tokens, configs, and payloads remain strictly on your machine.',
       },
     ],
   },
@@ -582,7 +595,7 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
     faqs: [
       {
         question: 'Can I convert large CSV files privately?',
-        answer: 'Yes! All parsing happens locally in your browser with zero server uploads, keeping sensitive business and personal data 100% private.',
+        answer: 'Yes! All parsing happens locally in your browser with zero server uploads, keeping sensitive business and personal data confidential on your machine.',
       },
     ],
   },

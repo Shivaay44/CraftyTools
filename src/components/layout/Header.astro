@@ -21,6 +21,9 @@ import Logo from './Logo.astro';
       <a href="/workflows" class="px-3 py-1.5 rounded-xl text-xs font-bold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/60 transition-colors flex items-center gap-1">
         <span>⚡ Workflows</span>
       </a>
+      <a href="/tools#favorites" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/60 transition-colors flex items-center gap-1">
+        <span>⭐ Favorites</span>
+      </a>
       <div class="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
       {CATEGORIES.map((cat) => (
         <a
@@ -61,6 +64,9 @@ import Logo from './Logo.astro';
     </a>
     <a href="/workflows" class="block px-3 py-2 rounded-xl text-sm font-bold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/60">
       ⚡ Workflows
+    </a>
+    <a href="/tools#favorites" class="block px-3 py-2 rounded-xl text-sm font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/60">
+      ⭐ Favorites & Starred Tools
     </a>
     <div class="border-t border-slate-100 dark:border-slate-800 my-2 pt-2">
       <div class="text-[10px] uppercase font-bold text-slate-400 px-3 pb-1">Categories</div>

@@ -16,15 +16,15 @@ interface Props {
 const { tool, faqs = [], howItWorksSteps = [] } = Astro.props;
 
 const categoryInfo = CATEGORIES.find((c) => c.id === tool.category);
+const origin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : Astro.url.origin;
+const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') : Astro.url.href.split('?')[0];
 const relatedToolsList = getRelatedTools(tool);
-const pageUrl = Astro.url.href.split('?')[0]; // Clean canonical URL without search queries
-const origin = Astro.url.origin;
 
 const defaultSteps = [
   `Open the ${tool.name} tool on Crafty Tool in your browser.`,
   `Select or drag-and-drop your input files or enter your data directly into the interactive workspace.`,
   `Adjust the parameters, filters, formats, or options to suit your exact requirements.`,
-  `Process and download or copy your final result directly on your device with 100% local privacy.`,
+  `Process and download or copy your final result directly on your device with local in-browser privacy.`,
 ];
 const stepsToUse = howItWorksSteps && howItWorksSteps.length > 0 ? howItWorksSteps : defaultSteps;
 
@@ -91,7 +91,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
 
           <!-- In-Browser Badge -->
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-            🛡️ 100% In-Browser & Private
+            🛡️ Private by Design · Runs Locally
           </span>
         </div>
 
@@ -127,9 +127,9 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
       <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
           <div class="text-2xl">🔒</div>
-          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Server Uploads</h3>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Local & Private</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Your files remain strictly inside your browser memory. Designed for privacy-sensitive workflows with zero server retention.
+            Uploaded files are processed locally and are not sent to Crafty Tool servers. Local processing reduces the need to transmit sensitive data to remote servers.
           </p>
         </div>
 
@@ -156,7 +156,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
           Why Use In-Browser Processing?
         </h2>
         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          {tool.name} processes everything entirely within your browser sandbox. Whether working with sensitive documents, media assets, or source code, local execution helps minimize exposure of private data.
+          {tool.name} executes inside your browser memory sandbox. Local processing reduces the need to transmit sensitive data to a remote processing server.
         </p>
 
         <!-- Neutral, Credible Comparison Table -->

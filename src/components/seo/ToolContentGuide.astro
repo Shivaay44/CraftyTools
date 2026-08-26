@@ -29,8 +29,17 @@ const getCategorySpecs = (cat: string, slug: string) => {
         hardware: 'Local Device Multi-Core Processing',
       };
     case 'developer':
+      if (slug === 'json-formatter') {
+        return {
+          inputs: 'JSON String (.json), Raw UTF-8 Text',
+          outputs: 'Formatted JSON (2-space / 4-space indentation) or Minified JSON',
+          engine: 'Native ECMAScript JSON Parser & Formatter',
+          privacyModel: 'Client-Side In-Memory Sandbox (Zero Server Uploads)',
+          hardware: 'Local Browser JavaScript Engine (V8 / SpiderMonkey)',
+        };
+      }
       return {
-        inputs: slug === 'csv-json-converter' ? 'CSV, Tab-Separated, JSON' : slug === 'jwt-decoder' ? 'Base64URL JWT Tokens' : slug === 'hash-generator' ? 'Text String & Local Files' : 'JSON, Text, Regex, Code',
+        inputs: slug === 'csv-json-converter' ? 'CSV, Tab-Separated Values, JSON' : slug === 'jwt-decoder' ? 'Base64URL JWT Tokens' : slug === 'hash-generator' ? 'Plain Text & Local Binary Files' : 'JSON, Text, Regex, Code',
         outputs: slug === 'qr-code-generator' ? 'PNG Image / Scalable Vector' : 'Formatted Code, Hashes, Decoded Payloads',
         engine: 'V8 / SpiderMonkey & Web Cryptography API (crypto.subtle)',
         privacyModel: 'Local Browser Sandbox (No Network Transmission)',

@@ -89,23 +89,17 @@ const SMART_WORKFLOWS = [
 ---
 
 <BaseLayout
-  title="Crafty Tool — 55+ Free Online Browser Utility Tools"
-  description="Your everyday browser toolbox. 55+ powerful in-browser digital utilities for developers, creators, and professionals with 0 server uploads, no signups, and 100% privacy."
+  title="Crafty Tool — Free Online In-Browser Utilities & Developer Toolbox"
+  description="Fast, client-side digital utilities for developers, creators, and professionals. Compress images, convert PDFs, format data, and run calculations locally without uploading files. Private by Design."
   canonicalUrl={`${origin}/`}
   keywords={[
     'crafty tool',
     'free online tools',
     'in-browser utilities',
-    'image compressor free',
-    'merge pdf online',
-    'json formatter',
-    'age calculator free',
-    'bmi calculator online',
-    'loan emi calculator',
-    'qr code generator',
-    'password generator',
+    'client side tools',
     'developer utilities',
     'privacy first tools',
+    'free web tools',
   ]}
 >
   <JsonLd schema={homeSchemaGraph} />
@@ -132,18 +126,18 @@ const SMART_WORKFLOWS = [
         </h1>
 
         <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
-          Compress images, convert PDFs, format JSON, calculate EMIs & BMI, test regex, and boost video frame rates — right inside your browser sandbox with zero network delay.
+          Compress images, convert PDFs, format JSON, edit media, and run developer utilities directly in your browser — without uploading your files.
         </p>
 
         <!-- Core Value Proposition Badges -->
         <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
           <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
             <span class="text-amber-500 text-sm">⚡</span>
-            <span>Instant Speed</span>
+            <span>Local Speed</span>
           </div>
           <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
             <span class="text-emerald-500 text-sm">🔒</span>
-            <span>100% Private</span>
+            <span>Private by Design</span>
           </div>
           <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
             <span class="text-blue-500 text-sm">🖥️</span>
@@ -151,7 +145,7 @@ const SMART_WORKFLOWS = [
           </div>
           <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
             <span class="text-purple-500 text-sm">∞</span>
-            <span>Free Forever</span>
+            <span>100% Free Forever</span>
           </div>
         </div>
       </section>
@@ -373,7 +367,7 @@ const SMART_WORKFLOWS = [
           </a>
         </div>
 
-        <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
+        <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} limit={8} showExploreAllButton={true} />
       </section>
     </div>
   </div>

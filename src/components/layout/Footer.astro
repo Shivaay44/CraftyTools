@@ -10,7 +10,7 @@ import Logo from './Logo.astro';
       <div class="space-y-4 md:col-span-1">
         <Logo size="md" />
         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-          55+ fast, 100% private, client-side web tools built for developers, creators, and professionals with 0 server uploads.
+          55+ fast, client-side web utilities built for developers, creators, and professionals. Private by Design.
         </p>
       </div>
 
@@ -22,7 +22,7 @@ import Logo from './Logo.astro';
         <ul class="space-y-2 text-sm">
           {CATEGORIES.map((cat) => (
             <li>
-              <a href={`/#${cat.id}`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              <a href={`/tools#${cat.id}`} class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                 {cat.name}
               </a>
             </li>
@@ -36,21 +36,23 @@ import Logo from './Logo.astro';
           Quick Links
         </h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a></li>
-          <li><a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Crafty Tool</a></li>
-          <li><a href="/privacy" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-          <li><a href="/terms" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms of Service</a></li>
-          <li><a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact Us</a></li>
+          <li><a href="/" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Home</a></li>
+          <li><a href="/tools" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">All 55 Tools</a></li>
+          <li><a href="/workflows" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Workflows Engine</a></li>
+          <li><a href="/about" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About Crafty Tool</a></li>
+          <li><a href="/privacy" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Terms of Service</a></li>
+          <li><a href="/contact" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact Us</a></li>
         </ul>
       </div>
 
       <!-- Security & Privacy Note -->
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-4">
-          Privacy First
+          Private by Design
         </h3>
         <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          File and data processing execute 100% locally in your browser's in-memory sandbox. Zero files or payload data are stored on our servers.
+          Uploaded files and tool inputs are processed locally in your browser memory. Files are not sent to Crafty Tool servers.
         </p>
       </div>
     </div>

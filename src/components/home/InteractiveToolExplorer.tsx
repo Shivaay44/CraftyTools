@@ -34,11 +34,12 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeFilter, setActiveFilter] = useState<'all' | 'popular' | 'starred' | 'recent'>('all');
+  const [sortBy, setSortBy] = useState<'popular' | 'name-asc' | 'category'>('popular');
   const [starredSlugs, setStarredSlugs] = useState<string[]>([]);
   const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
   const explorerRef = useRef<HTMLDivElement>(null);
 
-  // Sync with URL hash (e.g. #image, #pdf, #video, #text, #developer, #calculator)
+  // Sync with URL hash (e.g. #image, #pdf, #video, #text, #developer, #calculator, #favorites, #recent)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
@@ -51,6 +52,14 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
         } else if (explorerRef.current) {
           explorerRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+      } else if (hash === 'favorites' || hash === 'starred') {
+        setSelectedCategory('all');
+        setActiveFilter('starred');
+        explorerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (hash === 'recent' || hash === 'recents') {
+        setSelectedCategory('all');
+        setActiveFilter('recent');
+        explorerRef.current?.scrollIntoView({ behavior: 'smooth' });
       } else if (hash === '' || hash === 'all') {
         setSelectedCategory('all');
       }
@@ -153,12 +162,19 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
       list = matchToolsByQuery(searchQuery, list);
     }
 
+    // Sort list
+    if (sortBy === 'name-asc') {
+      list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'category') {
+      list = [...list].sort((a, b) => a.category.localeCompare(b.category));
+    }
+
     if (limit && limit > 0 && !searchQuery.trim() && selectedCategory === 'all' && activeFilter === 'all') {
       return list.slice(0, limit);
     }
 
     return list;
-  }, [tools, selectedCategory, activeFilter, searchQuery, starredSlugs, recentSlugs, popularSlugs, limit]);
+  }, [tools, selectedCategory, activeFilter, searchQuery, starredSlugs, recentSlugs, popularSlugs, sortBy, limit]);
 
   // Starred Tools List
   const starredTools = useMemo(() => {
@@ -387,6 +403,17 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
                 <span>Recent ({recentSlugs.length})</span>
               </button>
             )}
+
+            {/* Sort Dropdown */}
+            <select
+              value={sortBy}
+              onChange={(e: any) => setSortBy(e.target.value)}
+              className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-xs font-semibold cursor-pointer outline-none shadow-2xs"
+            >
+              <option value="popular">Sort: Popular</option>
+              <option value="name-asc">Sort: A to Z</option>
+              <option value="category">Sort: Category</option>
+            </select>
           </div>
         </div>
       </div>

@@ -177,7 +177,7 @@ export const ExifRemoverWidget: React.FC = () => {
       {/* Privacy Guarantee Banner */}
       <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
         <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-        <span>100% Private In-Browser Sanitization: Photos never leave your device.</span>
+        <span>Private In-Browser Sanitization: Photos are processed locally and are not sent to any server.</span>
       </div>
 
       {!previewUrl ? (
