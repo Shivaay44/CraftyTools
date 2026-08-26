@@ -50,9 +50,9 @@ const origin = Astro.url.origin;
           <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
             <Zap className="w-5 h-5" />
           </div>
-          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Instant Hardware Speed</h2>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Instant Local Speed</h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            No roundtrip network delays or server queues. Tasks execute at the native speed of your device's multi-core CPU and GPU.
+            No upload/download processing roundtrips. Tasks execute locally in your browser memory without server queues.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ const origin = Astro.url.origin;
               <span>MediaRecorder & AudioContext</span>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Enables local screen recording and voice recording directly into WebM and browser-supported recording formats with zero watermark branding.
+              Enables local screen and audio recording in browser-supported formats such as WebM with zero watermark branding.
             </p>
           </div>
         </div>
@@ -157,11 +157,11 @@ const origin = Astro.url.origin;
         </p>
         <div>
           <a
-            href="/"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-900 font-black text-sm hover:bg-purple-50 hover:shadow-lg hover:shadow-purple-500/20 transition-all"
+            href="/tools"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition-all shadow-md shadow-purple-500/25 cursor-pointer"
           >
-            <span>Launch Toolbox</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Explore All 55 Tools</span>
+            <span class="text-xs">→</span>
           </a>
         </div>
       </section>

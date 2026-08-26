@@ -28,22 +28,36 @@ const defaultSteps = [
 ];
 const stepsToUse = howItWorksSteps && howItWorksSteps.length > 0 ? howItWorksSteps : defaultSteps;
 
+const speedCardDescription =
+  tool.category === 'developer' || tool.category === 'text' || tool.category === 'calculator'
+    ? `Processes data locally using your browser's native JavaScript runtime without network latency.`
+    : `Processes data locally in your browser using client-side APIs, Web Workers, and WebAssembly where supported.`;
+
+const processingEngineDescription =
+  tool.category === 'developer' || tool.category === 'text' || tool.category === 'calculator'
+    ? 'native ECMAScript runtime and browser memory'
+    : tool.category === 'image'
+    ? 'HTML5 Canvas and WebAssembly where supported'
+    : tool.category === 'pdf'
+    ? 'local client-side PDF processing engines'
+    : 'HTML5 Media and browser-supported recording APIs';
+
 const defaultFaqs = [
   {
     question: `Is ${tool.name} completely free to use?`,
-    answer: `Yes! ${tool.name} on Crafty Tool is 100% free with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
+    answer: `Yes! ${tool.name} on Crafty Tool is free with no hidden paywalls, subscriptions, daily usage limits, or forced branding watermarks.`,
   },
   {
     question: `Are my files or data uploaded to your servers when using ${tool.name}?`,
-    answer: `No. Crafty Tool is built on client-side local architecture. All computation and processing execute directly inside your browser sandbox using Web Workers, HTML5 Canvas, and Web Cryptography APIs. Your files never leave your device.`,
+    answer: `No. Crafty Tool is built on client-side local architecture. All processing for ${tool.name} executes directly inside your browser sandbox using ${processingEngineDescription}. Uploaded files and data are not sent to Crafty Tool servers.`,
   },
   {
     question: `Does ${tool.name} work on mobile devices?`,
-    answer: `Yes! You can use ${tool.name} smoothly on iOS (Safari, Chrome) and Android browsers without installing any third-party apps or browser extensions.`,
+    answer: `Yes! You can use ${tool.name} on iOS (Safari, Chrome) and Android browsers without installing third-party apps or browser extensions.`,
   },
   {
     question: `Why is client-side processing advantageous?`,
-    answer: `Cloud-based tools may require uploading files to remote servers, waiting in network queues, and downloading files back. Client-side processing happens in your device's memory with zero upload delays and enhanced privacy.`,
+    answer: `Remote tools require uploading files across the network and waiting in server queues. Client-side processing happens directly in your browser with zero upload delay and enhanced privacy.`,
   },
 ];
 const allFaqs = faqs && faqs.length > 0 ? [...faqs, ...defaultFaqs.slice(1)] : defaultFaqs;
@@ -135,9 +149,9 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
 
         <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-2xs">
           <div class="text-2xl">⚡</div>
-          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Local Hardware Speed</h3>
+          <h3 class="font-bold text-sm text-slate-900 dark:text-white">Local Speed</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Processes data locally in your browser using JavaScript, Web Workers, and WebAssembly where supported.
+            {speedCardDescription}
           </p>
         </div>
 
@@ -145,7 +159,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
           <div class="text-2xl">🆓</div>
           <h3 class="font-bold text-sm text-slate-900 dark:text-white">Free & Watermark-Free</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Enjoy full access with zero registration, no artificial upload count limits, and clean outputs without branding watermarks.
+            Enjoy full access with zero registration, no artificial upload count limits, and clean outputs without forced branding watermarks.
           </p>
         </div>
       </section>

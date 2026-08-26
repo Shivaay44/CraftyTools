@@ -705,13 +705,13 @@ export const TOOLS: ToolDefinition[] = [
   // --- CREATOR & MEDIA TOOLS ---
   {
     slug: 'youtube-thumbnail-downloader',
-    name: 'YouTube Thumbnail Downloader (HD/4K)',
+    name: 'YouTube Thumbnail Downloader',
     category: 'image',
     icon: 'Youtube',
-    description: 'Download HD (1080p), HQ (480p), MQ, and SD thumbnail covers from any YouTube video or shorts URL in 1 click.',
-    seoTitle: 'YouTube Thumbnail Downloader — Get HD (1080p) & 4K Cover Images Free',
-    seoDescription: 'Extract and download high-resolution YouTube video thumbnails directly in your browser. Supports Ultra HD 1080p, SD, HQ, and Shorts covers.',
-    keywords: ['youtube thumbnail downloader', 'download youtube thumbnail hd', 'get youtube thumbnail 1080p', 'yt thumbnail grabber'],
+    description: 'Preview and download publicly accessible thumbnail image assets (Max Res, HD, Standard) from YouTube video and Shorts URLs.',
+    seoTitle: 'YouTube Thumbnail Downloader — Preview & Download Video Cover Images',
+    seoDescription: 'Preview and download publicly accessible YouTube video thumbnail image covers in maximum available resolution. No software install required.',
+    keywords: ['youtube thumbnail downloader', 'download youtube thumbnail', 'get youtube cover photo', 'yt thumbnail grabber'],
     type: 'browser',
     processingMode: 'client',
     relatedTools: ['image-compressor', 'video-to-jpg', 'image-upscaler'],
