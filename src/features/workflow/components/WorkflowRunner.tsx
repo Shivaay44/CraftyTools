@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { formatFileSize } from '../../image/utils/imageValidation';
 
-type WorkflowId = 'media-pipeline' | 'developer-pipeline';
+type WorkflowId = 'media-pipeline' | 'developer-pipeline' | 'custom-builder';
 
 export const WorkflowRunner: React.FC = () => {
   const [activeWorkflow, setActiveWorkflow] = useState<WorkflowId>('media-pipeline');
@@ -194,6 +194,19 @@ export const WorkflowRunner: React.FC = () => {
         >
           <span className="text-base">💻</span>
           <span>Developer Data Pipeline</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveWorkflow('custom-builder')}
+          className={`px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-2 shadow-2xs ${
+            activeWorkflow === 'custom-builder'
+              ? 'bg-purple-600 text-white shadow-purple-500/25 ring-2 ring-purple-600/30'
+              : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-purple-500'
+          }`}
+        >
+          <span className="text-base">🛠️</span>
+          <span>Custom Workflow Builder</span>
         </button>
       </div>
 
@@ -469,25 +482,83 @@ export const WorkflowRunner: React.FC = () => {
                 {devBase64Output || '// Base64 payload will appear here'}
               </pre>
             </div>
+            {/* SHA-256 Output */}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">3. SHA-256 Checksum</span>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(devHashOutput, 'hash')}
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-purple-600 transition-colors flex items-center gap-1"
+                >
+                  {devCopied === 'hash' ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                  <span>{devCopied === 'hash' ? 'Copied' : 'Copy'}</span>
+                </button>
+              </div>
+              <pre className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 truncate">
+                {devHashOutput || '// SHA-256 checksum'}
+              </pre>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- CUSTOM WORKFLOW BUILDER --- */}
+      {activeWorkflow === 'custom-builder' && (
+        <div className="space-y-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+          <div className="space-y-1 border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+              <Sliders className="w-3.5 h-3.5" />
+              <span>Interactive Pipeline Builder</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              Create & Chain Custom Browser Workflows
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Select in-browser tools to chain sequentially. Save your workflows to local device storage to re-run anytime with zero uploads.
+            </p>
           </div>
 
-          {/* SHA-256 Signature */}
-          {devHashOutput && (
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <span className="text-[10px] uppercase font-bold text-purple-600 dark:text-purple-400">SHA-256 Checksum</span>
-                <p className="font-mono text-xs text-slate-800 dark:text-slate-200 truncate">{devHashOutput}</p>
+          {/* Workflow Chain Visualizer */}
+          <div className="space-y-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Pipeline Steps (Sequential Execution)
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="p-3.5 rounded-2xl bg-purple-50 dark:bg-purple-950/70 border border-purple-200 dark:border-purple-800 text-xs font-bold text-purple-700 dark:text-purple-300 flex items-center gap-2">
+                <span>1. Upload Media Asset</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+              <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-700 dark:text-blue-300 flex items-center gap-2">
+                <span>2. In-Memory Compression (80%)</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+              <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                <span>3. Format Conversion to WebP</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400" />
+              <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800 text-xs font-bold text-amber-700 dark:text-amber-300 flex items-center gap-2">
+                <span>4. Export Clean File</span>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <div className="text-xs text-slate-600 dark:text-slate-400">
+                💾 <strong>Local Persistence:</strong> Custom pipelines are stored strictly in your browser's <code className="font-mono text-purple-600 dark:text-purple-400">localStorage</code>.
               </div>
               <button
                 type="button"
-                onClick={() => copyToClipboard(devHashOutput, 'hash')}
-                className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-purple-600 flex items-center gap-1 flex-shrink-0"
+                onClick={() => {
+                  setActiveWorkflow('media-pipeline');
+                }}
+                className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-sm transition-all"
               >
-                {devCopied === 'hash' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{devCopied === 'hash' ? 'Copied' : 'Copy'}</span>
+                <Play className="w-3.5 h-3.5" />
+                <span>Run Media Workflow Now</span>
               </button>
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>
