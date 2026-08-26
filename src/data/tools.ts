@@ -46,13 +46,13 @@ export const TOOLS: ToolDefinition[] = [
     name: 'Image Compressor',
     category: 'image',
     icon: 'Minimize2',
-    description: 'Compress JPG, PNG, and WebP images client-side without quality loss.',
-    seoTitle: 'Free Online Image Compressor — 100% Client-Side Privacy',
-    seoDescription: 'Reduce image file sizes directly in your browser. Fast, private, and zero server uploads required.',
-    keywords: ['image compressor', 'compress jpg online', 'png shrink size', 'browser image compression'],
+    description: 'Compress JPG, PNG, and WebP images client-side while balancing file size and visual quality.',
+    seoTitle: 'Free Online Image Compressor — Fast & Private Browser Compression',
+    seoDescription: 'Compress JPG, PNG, and WebP image files directly in your browser with adjustable quality. Fast, private, and zero server uploads.',
+    keywords: ['image compressor', 'compress jpg online', 'png shrink size', 'browser image compression', 'reduce photo size'],
     type: 'browser',
     processingMode: 'client',
-    relatedTools: ['image-upscaler', 'image-resizer', 'image-format-converter'],
+    relatedTools: ['image-resizer', 'image-format-converter', 'exif-remover', 'image-cropper'],
   },
   {
     slug: 'image-upscaler',
@@ -411,7 +411,7 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['json formatter', 'json validator', 'pretty print json', 'json minifier online'],
     type: 'browser',
     processingMode: 'client',
-    relatedTools: ['base64-encoder', 'jwt-decoder', 'uuid-generator'],
+    relatedTools: ['csv-json-converter', 'jwt-decoder', 'base64-encoder', 'sql-formatter'],
   },
   {
     slug: 'base64-encoder',
@@ -788,6 +788,93 @@ export function getRelatedTools(tool: ToolDefinition): ToolDefinition[] {
   return tool.relatedTools
     .map((slug) => getToolBySlug(slug))
     .filter((t): t is ToolDefinition => t !== undefined);
+}
+
+// Semantic Search Aliases mapping common intent, tasks, and colloquial keywords to tools
+export const SEARCH_ALIASES: Record<string, string[]> = {
+  'image-compressor': ['make image smaller', 'compress photo', 'reduce image size', 'shrink jpg', 'shrink png', 'optimize photo', 'tiny image', 'compress picture', 'webp compress'],
+  'image-upscaler': ['super resolution', 'increase image resolution', 'enhance photo', 'make photo bigger', '2x upscale', '4x upscale', 'clarity enhancer', 'upscale photo'],
+  'image-resizer': ['change dimensions', 'resize photo', 'scale image', 'change width height', 'pixel size', 'downscale image'],
+  'image-to-pdf': ['pictures to pdf', 'convert photos to pdf', 'jpg to pdf', 'png to pdf', 'combine photos into pdf', 'images to document'],
+  'image-format-converter': ['convert to webp', 'png to jpg', 'jpg to png', 'convert to avif', 'image format change', 'convert image'],
+  'image-color-palette': ['extract colors', 'hex color picker', 'palette generator', 'dominant colors', 'image colors', 'color swatches'],
+  'image-filters': ['photo effects', 'vintage filter', 'brightness contrast', 'edit photo', 'photo adjuster', 'saturation blur'],
+  'image-cropper': ['crop photo', 'aspect ratio crop', 'square crop', 'story ratio', 'cut photo', 'crop image', 'instagram crop'],
+  'exif-remover': ['remove photo metadata', 'strip location data', 'clean exif', 'privacy photo cleaner', 'remove gps from photo'],
+  'image-watermark': ['add watermark', 'stamp photo', 'protect image', 'logo on photo', 'text watermark'],
+  'svg-to-png': ['convert svg to image', 'rasterize svg', 'vector to png', 'svg download', 'svg export'],
+  'youtube-thumbnail-downloader': ['download youtube cover', 'yt thumbnail hd', 'get video thumbnail', 'youtube image grabber'],
+  'signature-maker': ['digital signature', 'draw sign', 'esignature', 'sign document', 'transparent signature png', 'draw signature'],
+  'meme-generator': ['make a meme', 'add top bottom text', 'dank meme', 'meme creator', 'funny picture maker'],
+  'merge-pdf': ['combine pdf', 'join pdf files', 'merge documents', 'put pdfs together', 'bind pdf'],
+  'split-pdf': ['separate pdf', 'extract pdf pages', 'cut pdf', 'divide pdf', 'split document'],
+  'pdf-to-images': ['pdf to jpg', 'pdf to png', 'extract pages as images', 'convert pdf to photo'],
+  'rotate-pdf': ['turn pdf', 'flip pdf pages', 'fix pdf orientation', 'rotate pages 90 180'],
+  'remove-pdf-pages': ['delete pages from pdf', 'extract pages', 'remove unwanted page', 'clean pdf'],
+  'pdf-page-numberer': ['add page numbers to pdf', 'number pdf pages', 'stamp page numbers', 'paginate pdf'],
+  'video-to-jpg': ['video frame capture', 'extract screenshot from video', 'video snapshot', 'video to image', 'frame grabber'],
+  'video-frame-increaser': ['boost fps', '60fps booster', 'smooth video', 'interpolate frames', 'video frame rate'],
+  'screen-recorder': ['record screen', 'screen capture video', 'record tab', 'record desktop', 'record audio with screen'],
+  'voice-recorder': ['record microphone', 'audio memo', 'dictaphone', 'mic test', 'voice memo', 'sound recorder'],
+  'age-calculator': ['how old am i', 'calculate date of birth', 'exact age', 'days lived', 'birthday calculator', 'chronological age'],
+  'bmi-calculator': ['body mass index', 'calculate bmi', 'healthy weight', 'bmr calculator', 'weight check', 'bmi score'],
+  'unit-converter': ['convert meters to feet', 'convert kg to lbs', 'temperature converter', 'celsius to fahrenheit', 'length converter'],
+  'loan-emi-calculator': ['calculate emi', 'mortgage payment', 'car loan calculator', 'home loan interest', 'monthly installment', 'loan interest'],
+  'percentage-calculator': ['calculate percent', 'discount percent', 'percent increase decrease', 'fraction to percentage', 'markup calc'],
+  'password-generator': ['create password', 'secure password', 'random string', 'strong pass', 'crypto password', 'passphrase maker'],
+  'word-character-counter': ['word count', 'character count', 'reading time', 'count sentences', 'essay length', 'text length'],
+  'case-converter': ['uppercase', 'lowercase', 'title case', 'camelcase', 'kebab-case', 'snake_case', 'capitalize text'],
+  'lorem-ipsum-generator': ['dummy text', 'placeholder text', 'filler text', 'generate paragraph', 'lipsum maker'],
+  'text-diff-checker': ['compare text', 'diff files', 'find differences', 'text compare', 'code diff', 'side by side diff'],
+  'duplicate-line-remover': ['remove duplicates', 'unique lines', 'clean list', 'dedupe text', 'deduplicate items'],
+  'markdown-preview': ['preview markdown', 'md to html', 'render markdown', 'markdown editor live', 'github markdown'],
+  'text-to-binary': ['ascii to binary', 'text to hex', 'binary to text', 'hex decoder', 'binary string'],
+  'json-formatter': ['pretty print json', 'format json', 'validate json', 'beautify json', 'minify json', 'json lint', 'fix json'],
+  'base64-encoder': ['base64 encode', 'base64 decode', 'btoa atob', 'convert base64', 'encode string base64'],
+  'qr-code-generator': ['create qr', 'make qr code', 'wifi qr', 'url to qr code', 'barcode maker'],
+  'uuid-generator': ['generate uuid', 'guid generator', 'random v4 uuid', 'unique identifier', 'generate guid'],
+  'hash-generator': ['calculate sha256', 'md5 hash', 'sha512 checksum', 'file checksum', 'crypto hash', 'sha1 checksum'],
+  'jwt-decoder': ['decode jwt', 'jwt token inspect', 'json web token', 'bearer token payload', 'inspect jwt claims'],
+  'url-encoder-decoder': ['url encode', 'percent encode', 'decode uri', 'url sanitizer', 'escape url query'],
+  'color-converter': ['hex to rgb', 'hsl to hex', 'rgb to cmyk', 'color code converter', 'contrast ratio checker'],
+  'css-glassmorphism-generator': ['glass effect', 'frosted glass css', 'backdrop filter ui', 'glass generator', 'blur background'],
+  'svg-optimizer': ['minify svg', 'clean svg vector', 'optimize svg code', 'shrink svg', 'compress vector'],
+  'timestamp-converter': ['unix epoch time', 'convert timestamp to date', 'millis to date', 'utc time', 'epoch converter'],
+  'regex-tester': ['test regular expression', 'regex playground', 'match regex', 'regex flags', 'javascript regex tester'],
+  'cron-generator': ['cron expression generator', 'cron schedule explain', 'crontab helper', 'next cron run', 'cron builder'],
+  'csv-json-converter': ['convert csv to json', 'json to csv', 'excel data to json', 'table to json', 'csv parser'],
+  'css-gradient-generator': ['linear gradient', 'radial gradient', 'css background gradient', 'mesh gradient', 'color gradient maker'],
+  'meta-tag-generator': ['seo meta tags', 'open graph generator', 'twitter card tags', 'meta generator', 'social share preview'],
+  'html-entity-encoder': ['encode html entities', 'escape html', 'html special chars', 'unescape entities', 'html tags encode'],
+  'sql-formatter': ['format sql query', 'beautify sql', 'sql indent', 'clean sql query', 'sql prettifier'],
+};
+
+export function matchToolsByQuery(query: string, toolsList: ToolDefinition[] = TOOLS): ToolDefinition[] {
+  const cleanQuery = query.toLowerCase().trim();
+  if (!cleanQuery) return toolsList;
+
+  const queryTerms = cleanQuery.split(/\s+/).filter(Boolean);
+
+  return toolsList.filter((tool) => {
+    const nameMatch = tool.name.toLowerCase().includes(cleanQuery);
+    const categoryMatch = tool.category.toLowerCase().includes(cleanQuery);
+    const descriptionMatch = tool.description.toLowerCase().includes(cleanQuery);
+    const keywordsMatch = tool.keywords.some((k) => k.toLowerCase().includes(cleanQuery));
+
+    // Check semantic search aliases
+    const aliases = SEARCH_ALIASES[tool.slug] || [];
+    const aliasDirectMatch = aliases.some((alias) => alias.toLowerCase().includes(cleanQuery) || cleanQuery.includes(alias.toLowerCase()));
+
+    // Multi-term partial match
+    const multiTermMatch = queryTerms.every((term) =>
+      tool.name.toLowerCase().includes(term) ||
+      tool.category.toLowerCase().includes(term) ||
+      tool.keywords.some((k) => k.toLowerCase().includes(term)) ||
+      aliases.some((a) => a.toLowerCase().includes(term))
+    );
+
+    return nameMatch || categoryMatch || descriptionMatch || keywordsMatch || aliasDirectMatch || multiTermMatch;
+  });
 }
 
 // Build-time validation assertion function to ensure strict data integrity

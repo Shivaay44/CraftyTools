@@ -204,7 +204,7 @@ const SMART_WORKFLOWS = [
             return (
               <a
                 key={cat.id}
-                href={`/#${cat.id}`}
+                href={`/tools#${cat.id}`}
                 class="group p-4 sm:p-5 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10 transition-all flex flex-col items-center text-center space-y-2 cursor-pointer"
               >
                 <div class="w-11 h-11 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
@@ -238,12 +238,13 @@ const SMART_WORKFLOWS = [
               <span>Multi-Step Productivity</span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              Popular Tool Workflows
+              Interactive Tool Workflows
             </h2>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 max-w-md">
-            Chain multiple utilities together in your browser without intermediate file uploads.
-          </p>
+          <a href="/workflows" class="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1">
+            <span>Run Workflows Engine</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -282,34 +283,29 @@ const SMART_WORKFLOWS = [
                   </a>
                 ))}
               </div>
+
+              <div class="pt-2">
+                <a
+                  href="/workflows"
+                  class="w-full py-2.5 px-4 rounded-xl bg-purple-50 dark:bg-purple-950/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/80 text-xs font-bold transition-all flex items-center justify-center gap-1.5"
+                >
+                  <span>Launch Pipeline</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <!-- 5. MAIN INTERACTIVE TOOL EXPLORER (With Search, Tabs, Recents & Favorites) -->
-      <section class="space-y-6 pt-4">
-        <div class="space-y-2">
-          <div class="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Complete Catalog</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            All 55+ Client Utilities
-          </h2>
-        </div>
-
-        <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
-      </section>
-
-      <!-- 6. WHY CRAFTY TOOL? (Architecture & Privacy Comparison) -->
+      <!-- 5. WHY CRAFTY TOOL? (Architecture & Privacy Benefits) -->
       <section class="p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-8">
         <div class="text-center space-y-2 max-w-2xl mx-auto">
           <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            Why Switch to In-Browser Processing?
+            Why In-Browser Processing?
           </h2>
           <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-            Compare Crafty Tool's client-side local architecture against legacy cloud converter websites.
+            Client-side architecture designed for privacy-conscious developers, creators, and professionals.
           </p>
         </div>
 
@@ -320,7 +316,7 @@ const SMART_WORKFLOWS = [
             </div>
             <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Server Uploads</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Files never travel over public internet connections to remote storage. Full compliance with strict privacy standards.
+              Files never leave your device. Processing happens strictly in local memory to minimize exposure of sensitive files.
             </p>
           </div>
 
@@ -328,9 +324,9 @@ const SMART_WORKFLOWS = [
             <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
               <Zap className="w-4 h-4" />
             </div>
-            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Hardware Acceleration</h3>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">Hardware Execution</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Harnesses your local multi-core CPU and GPU via WebAssembly and Canvas 2D without server queues or rate-limiting.
+              Harnesses your local multi-core CPU and GPU using Web Workers, HTML5 Canvas, and WebAssembly without network latency.
             </p>
           </div>
 
@@ -338,9 +334,9 @@ const SMART_WORKFLOWS = [
             <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
               <HardDrive className="w-4 h-4" />
             </div>
-            <h3 class="font-bold text-sm text-slate-900 dark:text-white">No Size Caps / Limits</h3>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">No Artificial Upload Limits</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Process high-resolution multi-megabyte media and multi-page PDFs without artificial 3-file-per-day restrictions.
+              Process files bounded only by your browser's RAM without arbitrary 3-file daily limits or paywall restrictions.
             </p>
           </div>
 
@@ -350,10 +346,34 @@ const SMART_WORKFLOWS = [
             </div>
             <h3 class="font-bold text-sm text-slate-900 dark:text-white">Zero Watermarks</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Downloaded files, cropped photos, memes, and digital signatures are 100% clean with zero forced branding.
+              All exported files, cropped photos, and generated documents are 100% clean with zero forced branding.
             </p>
           </div>
         </div>
+      </section>
+
+      <!-- 6. TOOL EXPLORER & CATALOG CTA -->
+      <section class="space-y-6 pt-2">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Tool Explorer</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Featured Utilities
+            </h2>
+          </div>
+          <a
+            href="/tools"
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-colors shadow-sm"
+          >
+            <span>Explore All 55 Tools</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
+
+        <InteractiveToolExplorer client:load categories={CATEGORIES} tools={TOOLS} />
       </section>
     </div>
   </div>

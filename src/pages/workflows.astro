@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { WorkflowRunner } from '../features/workflow/components/WorkflowRunner';
+import { Layers, ShieldCheck, Zap, Sparkles } from 'lucide-react';
+
+const origin = Astro.url.origin;
+const pageUrl = `${origin}/workflows`;
+---
+
+<BaseLayout
+  title="Interactive Browser Workflows — Multi-Step In-Memory Pipelines | Crafty Tool"
+  description="Run multi-step in-browser workflows. Compress, crop, and convert images to WebP, or transform CSV to formatted JSON and Base64 without uploading files to remote servers."
+  canonicalUrl={pageUrl}
+  keywords={[
+    'browser workflows',
+    'chained image tools',
+    'compress crop convert webp',
+    'csv to json pipeline',
+    'in-browser automation',
+    'privacy first workflows',
+  ]}
+>
+  <div class="relative overflow-hidden">
+    <!-- Ambient Background Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[350px] bg-gradient-to-tr from-purple-600/15 via-indigo-600/10 to-sky-500/10 blur-[130px] rounded-full pointer-events-none -z-10 animate-aurora"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
+      <!-- Workflow Header -->
+      <header class="text-center space-y-4 max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 shadow-2xs">
+          <Layers className="w-3.5 h-3.5" />
+          <span>Multi-Step Productivity Engine</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
+          In-Browser Tool Workflows
+        </h1>
+
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          Chain utilities together into seamless automated pipelines. Intermediate bytes flow strictly in browser memory without manual re-uploading.
+        </p>
+
+        <div class="flex items-center justify-center gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400 pt-1">
+          <span class="flex items-center gap-1">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" /> 100% Local Execution
+          </span>
+          <span>•</span>
+          <span class="flex items-center gap-1">
+            <Zap className="w-4 h-4 text-amber-500" /> In-Memory Chaining
+          </span>
+        </div>
+      </header>
+
+      <!-- Interactive Workflow Execution Island -->
+      <WorkflowRunner client:load />
+    </div>
+  </div>
+</BaseLayout>

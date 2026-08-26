@@ -14,20 +14,26 @@ const POPULAR_SLUGS = [
   'youtube-thumbnail-downloader',
 ];
 
+import { matchToolsByQuery } from '../../data/tools';
+
 export const CommandPalette: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
+  const [starredSlugs, setStarredSlugs] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Load Recent tools from LocalStorage on open
+  // Load Recent & Starred tools from LocalStorage on open
   useEffect(() => {
     if (isOpen) {
       try {
-        const saved = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
-        if (saved) setRecentSlugs(JSON.parse(saved));
+        const savedRecents = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
+        if (savedRecents) setRecentSlugs(JSON.parse(savedRecents));
+
+        const savedStars = localStorage.getItem('craftytool_starred_tools') || localStorage.getItem('toolchemy_starred_tools');
+        if (savedStars) setStarredSlugs(JSON.parse(savedStars));
       } catch (e) {
         console.warn('LocalStorage error:', e);
       }
@@ -68,7 +74,7 @@ export const CommandPalette: React.FC = () => {
   // Record tool click to recents
   const handleSelectTool = (tool: ToolDefinition) => {
     try {
-      const updated = [tool.slug, ...recentSlugs.filter((s) => s !== tool.slug)].slice(0, 5);
+      const updated = [tool.slug, ...recentSlugs.filter((s) => s !== tool.slug)].slice(0, 8);
       localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
     } catch (e) {
       console.warn('LocalStorage error:', e);
@@ -85,13 +91,18 @@ export const CommandPalette: React.FC = () => {
         .filter((t): t is ToolDefinition => !!t)
         .slice(0, 4);
 
-      const popular = POPULAR_SLUGS
+      const starred = starredSlugs
         .filter((s) => !recentSlugs.includes(s))
+        .map((s) => TOOLS.find((t) => t.slug === s))
+        .filter((t): t is ToolDefinition => !!t);
+
+      const popular = POPULAR_SLUGS
+        .filter((s) => !recentSlugs.includes(s) && !starredSlugs.includes(s))
         .map((s) => TOOLS.find((t) => t.slug === s))
         .filter((t): t is ToolDefinition => !!t)
         .slice(0, 6);
 
-      const combined = [...recents, ...popular];
+      const combined = [...starred, ...recents, ...popular];
       return {
         filteredTools: combined.length > 0 ? combined : TOOLS.slice(0, 8),
         isDefaultView: true,
@@ -100,15 +111,7 @@ export const CommandPalette: React.FC = () => {
       };
     }
 
-    const q = query.toLowerCase().trim();
-    const matches = TOOLS.filter((tool) => {
-      return (
-        tool.name.toLowerCase().includes(q) ||
-        tool.description.toLowerCase().includes(q) ||
-        tool.category.toLowerCase().includes(q) ||
-        tool.keywords.some((k) => k.toLowerCase().includes(q))
-      );
-    }).slice(0, 10);
+    const matches = matchToolsByQuery(query, TOOLS).slice(0, 10);
 
     return {
       filteredTools: matches,
@@ -116,7 +119,7 @@ export const CommandPalette: React.FC = () => {
       recentTools: [],
       popularTools: [],
     };
-  }, [query, recentSlugs]);
+  }, [query, recentSlugs, starredSlugs]);
 
   // Reset selected index on query change
   useEffect(() => {

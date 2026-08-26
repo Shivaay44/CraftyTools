@@ -315,10 +315,17 @@ export const HashGeneratorWidget: React.FC = () => {
               key={algo}
               className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm hover:border-blue-400 transition-colors"
             >
-              <div className="space-y-1 overflow-hidden pr-2">
-                <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400">
-                  {algo}
-                </span>
+              <div className="space-y-1.5 overflow-hidden pr-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded bg-purple-50 dark:bg-purple-950/80 border border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400">
+                    {algo}
+                  </span>
+                  {(algo === 'MD5' || algo === 'SHA-1') && (
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300">
+                      Legacy / Insecure for cryptographic integrity
+                    </span>
+                  )}
+                </div>
                 <p className="text-xs sm:text-sm font-mono text-slate-800 dark:text-slate-200 break-all pt-1">
                   {displayHash || 'Calculating...'}
                 </p>

@@ -30,6 +30,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID || 'G-L7HRQ5CQDZ';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
+    <link rel="manifest" href="/site.webmanifest" />
+
     <SEO
       title={title}
       description={description}
@@ -39,6 +41,17 @@ const gaId = import.meta.env.PUBLIC_GA_ID || 'G-L7HRQ5CQDZ';
     />
 
     <meta name="google-site-verification" content="googlee55ee78e122aafea" />
+
+    <!-- PWA Offline Service Worker Registration -->
+    <script is:inline>
+      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch((err) => {
+            console.warn('SW registration error:', err);
+          });
+        });
+      }
+    </script>
 
     <!-- Google tag (gtag.js) -->
     {gaId && (

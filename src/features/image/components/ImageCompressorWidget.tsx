@@ -248,38 +248,47 @@ export const ImageCompressorWidget: React.FC = () => {
               {/* Statistics Grid */}
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                  <span className="block text-[10px] uppercase font-bold text-slate-400">Original</span>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">
+                  <span className="block text-[10px] uppercase font-bold text-slate-400">Original Size</span>
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                     {formatFileSize(selectedFile.size)}
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                  <span className="block text-[10px] uppercase font-bold text-slate-400">Compressed</span>
-                  <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                  <span className="block text-[10px] uppercase font-bold text-slate-400">Compressed Size</span>
+                  <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">
                     {formatFileSize(compressedSize)}
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800">
                   <span className="block text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400">Reduction</span>
-                  <span className="text-sm font-black text-emerald-700 dark:text-emerald-300">
+                  <span className="text-xs sm:text-sm font-black text-emerald-700 dark:text-emerald-300">
                     {reductionPercentage}% Saved
                   </span>
                 </div>
               </div>
 
-              {/* Image Preview */}
-              <div className="text-center">
-                <img src={compressedUrl} alt="Compressed preview" className="max-h-64 mx-auto rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 object-contain" />
+              {/* Visual Before vs After Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-2">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Before (Original)</span>
+                  {previewUrl && (
+                    <img src={previewUrl} alt="Original preview" className="max-h-48 mx-auto rounded-lg object-contain" />
+                  )}
+                </div>
+                <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-2">
+                  <span className="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">After (Compressed)</span>
+                  <img src={compressedUrl} alt="Compressed preview" className="max-h-48 mx-auto rounded-lg object-contain" />
+                </div>
               </div>
 
               {/* Download Button */}
               <button
                 type="button"
                 onClick={handleDownload}
-                className="w-full py-3.5 px-6 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                className="w-full py-3.5 px-6 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md text-sm"
               >
                 <Download className="w-5 h-5" />
-                <span>Download Compressed Image</span>
+                <span>Download Compressed Image ({reductionPercentage}% smaller)</span>
               </button>
             </div>
           )}

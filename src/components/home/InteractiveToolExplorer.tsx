@@ -5,6 +5,7 @@ import {
   Sparkles,
   ArrowRight,
   Flame,
+  Clock,
   Image as ImageIcon,
   FileText,
   Video,
@@ -15,18 +16,24 @@ import {
 } from 'lucide-react';
 import type { ToolDefinition, ToolCategory, CategoryInfo } from '../../types';
 
+import { matchToolsByQuery } from '../../data/tools';
+
 interface InteractiveToolExplorerProps {
   categories: CategoryInfo[];
   tools: ToolDefinition[];
+  limit?: number;
+  showExploreAllButton?: boolean;
 }
 
 export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = ({
   categories,
   tools,
+  limit,
+  showExploreAllButton = false,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeFilter, setActiveFilter] = useState<'all' | 'popular' | 'starred'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'popular' | 'starred' | 'recent'>('all');
   const [starredSlugs, setStarredSlugs] = useState<string[]>([]);
   const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
   const explorerRef = useRef<HTMLDivElement>(null);
@@ -88,7 +95,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   // Record Recent Tool
   const handleToolClick = (slug: string) => {
     try {
-      const updated = [slug, ...recentSlugs.filter((s) => s !== slug)].slice(0, 6);
+      const updated = [slug, ...recentSlugs.filter((s) => s !== slug)].slice(0, 8);
       localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
       setRecentSlugs(updated);
     } catch (err) {
@@ -123,7 +130,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
     []
   );
 
-  // Filtered Tools Computation
+  // Filtered Tools Computation with Semantic Match
   const filteredTools = useMemo(() => {
     let list = tools;
 
@@ -137,28 +144,33 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
       list = list.filter((t) => popularSlugs.includes(t.slug));
     } else if (activeFilter === 'starred') {
       list = list.filter((t) => starredSlugs.includes(t.slug));
+    } else if (activeFilter === 'recent') {
+      list = recentSlugs.map((s) => tools.find((t) => t.slug === s)).filter((t): t is ToolDefinition => !!t);
     }
 
-    // Filter by Search Query
+    // Filter by Semantic Search Query
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      list = list.filter((t) => {
-        return (
-          t.name.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          t.category.toLowerCase().includes(q) ||
-          t.keywords.some((k) => k.toLowerCase().includes(q))
-        );
-      });
+      list = matchToolsByQuery(searchQuery, list);
+    }
+
+    if (limit && limit > 0 && !searchQuery.trim() && selectedCategory === 'all' && activeFilter === 'all') {
+      return list.slice(0, limit);
     }
 
     return list;
-  }, [tools, selectedCategory, activeFilter, searchQuery, starredSlugs, popularSlugs]);
+  }, [tools, selectedCategory, activeFilter, searchQuery, starredSlugs, recentSlugs, popularSlugs, limit]);
 
   // Starred Tools List
   const starredTools = useMemo(() => {
     return tools.filter((t) => starredSlugs.includes(t.slug));
   }, [tools, starredSlugs]);
+
+  // Recent Tools List
+  const recentTools = useMemo(() => {
+    return recentSlugs
+      .map((s) => tools.find((t) => t.slug === s))
+      .filter((t): t is ToolDefinition => !!t);
+  }, [tools, recentSlugs]);
 
   // Spotlight mouse mover
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -357,6 +369,24 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
               <Star className={`w-3.5 h-3.5 ${activeFilter === 'starred' ? 'text-white fill-white' : 'text-purple-500'}`} />
               <span>Favorites{starredSlugs.length > 0 ? ` (${starredSlugs.length})` : ''}</span>
             </button>
+
+            {recentSlugs.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveFilter(activeFilter === 'recent' ? 'all' : 'recent');
+                  setSelectedCategory('all');
+                }}
+                className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs ${
+                  activeFilter === 'recent'
+                    ? 'bg-blue-600 text-white border-blue-700 shadow-blue-600/20'
+                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-blue-500'
+                }`}
+              >
+                <Clock className={`w-3.5 h-3.5 ${activeFilter === 'recent' ? 'text-white' : 'text-blue-500'}`} />
+                <span>Recent ({recentSlugs.length})</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -1,0 +1,128 @@
+---
+import type { ToolDefinition } from '../../types';
+import { CATEGORIES } from '../../data/tools';
+
+interface Props {
+  tool: ToolDefinition;
+}
+
+const { tool } = Astro.props;
+const categoryInfo = CATEGORIES.find((c) => c.id === tool.category);
+
+// Category-specific specifications
+const getCategorySpecs = (cat: string, slug: string) => {
+  switch (cat) {
+    case 'image':
+      return {
+        inputs: 'JPG, JPEG, PNG, WebP, AVIF' + (slug.includes('svg') ? ', SVG' : ''),
+        outputs: slug.includes('to-pdf') ? 'PDF Document (.pdf)' : 'JPG, PNG, WebP, AVIF',
+        engine: 'HTML5 Canvas 2D / Web Workers / ArrayBuffers',
+        privacyModel: 'Client-Side RAM (Blob & Object URLs)',
+        hardware: 'Browser Multi-Threaded CPU & GPU Acceleration',
+      };
+    case 'pdf':
+      return {
+        inputs: 'Standard PDF Documents (.pdf)' + (slug === 'image-to-pdf' ? ', JPG, PNG, WebP' : ''),
+        outputs: slug === 'pdf-to-images' ? 'ZIP / PNG Images' : 'PDF Document (.pdf)',
+        engine: 'pdf-lib & pdfjs-dist Client Assembly',
+        privacyModel: '100% In-Memory Parsing & Page Rendering',
+        hardware: 'Local Device Multi-Core Processing',
+      };
+    case 'developer':
+      return {
+        inputs: slug === 'csv-json-converter' ? 'CSV, Tab-Separated, JSON' : slug === 'jwt-decoder' ? 'Base64URL JWT Tokens' : slug === 'hash-generator' ? 'Text String & Local Files' : 'JSON, Text, Regex, Code',
+        outputs: slug === 'qr-code-generator' ? 'PNG Image / Scalable Vector' : 'Formatted Code, Hashes, Decoded Payloads',
+        engine: 'V8 / SpiderMonkey & Web Cryptography API (crypto.subtle)',
+        privacyModel: 'Local Browser Sandbox (No Network Transmission)',
+        hardware: 'Native High-Speed JavaScript Runtime',
+      };
+    case 'video':
+      return {
+        inputs: 'WebM, MP4, Microphone / Display Media Streams',
+        outputs: slug === 'video-to-jpg' ? 'High-Res JPG / PNG' : 'WebM Video / Audio',
+        engine: 'HTML5 MediaRecorder API, Web Audio API & HTML5 Video',
+        privacyModel: 'Direct Device Memory Buffer',
+        hardware: 'Hardware Media Decoders & Screen Capture APIs',
+      };
+    case 'text':
+      return {
+        inputs: 'Plain Text, Markdown, Binary, Hex, Passwords',
+        outputs: 'Formatted Text, HTML Previews, Cryptographic Strings',
+        engine: 'Web Crypto API (crypto.getRandomValues) & String Kernels',
+        privacyModel: 'Strictly In-Memory (Zero Storage / Transmission)',
+        hardware: 'Instantaneous CPU String Computation',
+      };
+    case 'calculator':
+      return {
+        inputs: 'Numerical Values, Dates, Financial Parameters',
+        outputs: 'Exact Calculated Metrics, Amortization & Reference Ranges',
+        engine: 'Deterministic IEEE 754 Math Computations',
+        privacyModel: 'Local Ephemeral Computation',
+        hardware: 'Instantaneous Client Evaluation',
+      };
+    default:
+      return {
+        inputs: 'Standard Web Data Formats',
+        outputs: 'Processed Data / Downloadable Files',
+        engine: 'Client-Side Modern Web APIs',
+        privacyModel: 'Local Device Memory',
+        hardware: 'Device CPU / GPU',
+      };
+  }
+};
+
+const specs = getCategorySpecs(tool.category, tool.slug);
+---
+
+<section class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+  <div class="space-y-2">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+      ⚙️ Technical Specifications & Compatibility
+    </div>
+    <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+      {tool.name} Architecture & Data Handling
+    </h2>
+    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+      Built to run entirely within your web browser using modern web standards. Processing happens locally on your device without server-side compute queues.
+    </p>
+  </div>
+
+  <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+      <thead class="bg-slate-50 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
+        <tr>
+          <th class="py-3 px-4 font-bold uppercase text-[11px] tracking-wider">Property</th>
+          <th class="py-3 px-4 font-bold uppercase text-[11px] tracking-wider text-purple-600 dark:text-purple-400">Technical Details</th>
+          <th class="py-3 px-4 font-bold uppercase text-[11px] tracking-wider">User Benefit</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+        <tr>
+          <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Supported Input</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">{specs.inputs}</td>
+          <td class="py-3 px-4 text-xs">Broad compatibility with modern standards</td>
+        </tr>
+        <tr>
+          <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Output Format</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">{specs.outputs}</td>
+          <td class="py-3 px-4 text-xs">Standardized, clean, and watermark-free files</td>
+        </tr>
+        <tr>
+          <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Processing Engine</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">{specs.engine}</td>
+          <td class="py-3 px-4 text-xs">Fast local execution without upload latency</td>
+        </tr>
+        <tr>
+          <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Privacy & Storage</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">{specs.privacyModel}</td>
+          <td class="py-3 px-4 text-xs">Files and data never leave your browser</td>
+        </tr>
+        <tr>
+          <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Capacity & Limits</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">No artificial upload limits (RAM dependent)</td>
+          <td class="py-3 px-4 text-xs">Zero paywalls or arbitrary file count caps</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
