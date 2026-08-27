@@ -45,9 +45,9 @@ export const CsvJsonConverterWidget: React.FC = () => {
             // Auto parse numbers and booleans
             if (!isNaN(Number(val)) && val !== '') {
               val = Number(val);
-            } else if (val.toLowerCase() === 'true') {
+            } else if (typeof val === 'string' && val.toLowerCase() === 'true') {
               val = true;
-            } else if (val.toLowerCase() === 'false') {
+            } else if (typeof val === 'string' && val.toLowerCase() === 'false') {
               val = false;
             }
             obj[header] = val;

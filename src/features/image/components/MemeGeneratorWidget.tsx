@@ -23,9 +23,9 @@ export const MemeGeneratorWidget: React.FC = () => {
   const [fontSize, setFontSize] = useState<number>(36);
   const [textColor, setTextColor] = useState<string>('#ffffff');
   const [strokeColor, setStrokeColor] = useState<string>('#000000');
-  const [isUppercase] = useState<boolean>(true);
+  const [isUppercase, setIsUppercase] = useState<boolean>(true);
   const [customImage, setCustomImage] = useState<string | null>(null);
-  const [selectedTemplateIndex] = useState<number>(0);
+  const [selectedTemplateIndex, setSelectedTemplateIndex] = useState<number>(0);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -163,9 +163,44 @@ export const MemeGeneratorWidget: React.FC = () => {
             </div>
           </div>
 
+          {/* Uppercase Toggle */}
+          <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer pt-1">
+            <input
+              type="checkbox"
+              checked={isUppercase}
+              onChange={(e) => setIsUppercase(e.target.checked)}
+              className="rounded accent-purple-600"
+            />
+            Convert Text to UPPERCASE
+          </label>
+
+          {/* Template Selection */}
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <label className="block text-xs font-bold uppercase text-slate-400">Choose Meme Template</label>
+            <div className="grid grid-cols-2 gap-2">
+              {TEMPLATES.map((tmpl, idx) => (
+                <button
+                  key={tmpl.name}
+                  type="button"
+                  onClick={() => {
+                    setCustomImage(null);
+                    setSelectedTemplateIndex(idx);
+                  }}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold text-left transition-all cursor-pointer truncate ${
+                    !customImage && selectedTemplateIndex === idx
+                      ? 'bg-purple-600 text-white shadow-xs'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-50'
+                  }`}
+                >
+                  {tmpl.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Custom Upload or Template selection */}
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
-            <label className="block text-xs font-bold uppercase text-slate-400">Custom Photo Upload</label>
+            <label className="block text-xs font-bold uppercase text-slate-400">Or Upload Custom Photo</label>
             <input
               type="file"
               accept="image/*"

@@ -1,14 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { CATEGORIES, TOOLS } from '../data/tools';
-import { Shield, Zap, Lock, Cpu, Globe, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Shield, Zap, Lock, Globe, CheckCircle2, Cpu } from 'lucide-react';
 
 const origin = Astro.url.origin;
 ---
 
 <BaseLayout
-  title="About Crafty Tool — Fast, 100% In-Browser Privacy-First Utilities"
-  description="Learn about Crafty Tool's mission, architecture, and zero-upload philosophy. 55+ client-side web tools powered by WebAssembly, HTML5 Canvas, and Web Crypto APIs."
+  title="About Crafty Tool — Fast, In-Browser Privacy-First Utilities"
+  description="Learn about Crafty Tool's mission, architecture, and zero-upload philosophy. 55+ client-side web tools powered by HTML5 Canvas, Web Cryptography, and Modern Browser APIs."
   canonicalUrl={`${origin}/about`}
   keywords={['about crafty tool', 'in-browser tools', 'privacy-first web tools', 'client side processing', 'zero upload utilities']}
 >
@@ -60,9 +59,9 @@ const origin = Astro.url.origin;
           <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
             <Globe className="w-5 h-5" />
           </div>
-          <h2 class="text-lg font-bold text-slate-900 dark:text-white">100% Free Forever</h2>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Free Browser Tools</h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            No accounts, no subscriptions, no daily limits, and no artificial watermarks on your generated memes, signatures, or files.
+            No accounts, no subscriptions, no arbitrary server limits, and no forced watermarks on your generated memes, signatures, or files.
           </p>
         </div>
       </section>

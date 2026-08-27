@@ -6,9 +6,6 @@ import {
   Calendar,
   Copy,
   Check,
-  RefreshCw,
-  Zap,
-  ArrowRightLeft,
   Play,
   Pause
 } from 'lucide-react';

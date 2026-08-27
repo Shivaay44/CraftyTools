@@ -9,8 +9,7 @@ import {
   Zap,
   Eye,
   Upload,
-  AlertCircle,
-  FileCode
+  AlertCircle
 } from 'lucide-react';
 
 export const SvgOptimizerWidget: React.FC = () => {

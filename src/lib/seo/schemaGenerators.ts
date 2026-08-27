@@ -195,15 +195,8 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
           'Zero Server Uploads & Total Data Privacy',
           'No Signups, Accounts, or Credit Cards Required',
           'High Speed Hardware Accelerated Processing',
-          'Free to Use Forever with No Watermark',
+          'Free to Use with No Watermarks',
         ],
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.9',
-          ratingCount: '482',
-          bestRating: '5',
-          worstRating: '1',
-        },
         offers: {
           '@type': 'Offer',
           price: '0.00',
@@ -321,13 +314,6 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
         isAccessibleForFree: true,
         image: ogImageUrl,
         provider: { '@id': orgId },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '4.9',
-          ratingCount: '1250',
-          bestRating: '5',
-          worstRating: '1',
-        },
         offers: {
           '@type': 'Offer',
           price: '0.00',

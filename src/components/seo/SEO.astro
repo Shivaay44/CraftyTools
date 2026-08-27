@@ -28,6 +28,8 @@ const fullImageUrl = new URL(ogImage, Astro.url.origin).href;
 <meta name="description" content={description} />
 {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 <link rel="canonical" href={canonicalUrl} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+<link rel="alternate" hreflang="en" href={canonicalUrl} />
 
 <!-- Crawler & Indexing Directives -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />

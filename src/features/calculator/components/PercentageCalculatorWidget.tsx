@@ -40,7 +40,7 @@ export const PercentageCalculatorWidget: React.FC = () => {
   }, [p2X, p2Y]);
 
   const res3 = useMemo(() => {
-    if (isNaN(p3X) || isNaN(p3Y) || p3X === 0) return { change: 0, type: 'neutral' };
+    if (isNaN(p3X) || isNaN(p3Y) || p3X === 0) return { change: 0, isIncrease: true, diff: 0 };
     const diff = p3Y - p3X;
     const change = (diff / Math.abs(p3X)) * 100;
     return {

@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { trackEvent } from '../../../lib/analytics';
 import {
-  Code,
   Copy,
   Check,
-  RotateCcw,
   Sparkles,
   Eye,
   Globe,
@@ -12,9 +10,9 @@ import {
 } from 'lucide-react';
 
 export const MetaTagGeneratorWidget: React.FC = () => {
-  const [title, setTitle] = useState<string>('Crafty Tool — 100% Free Online Browser Utilities');
+  const [title, setTitle] = useState<string>('Crafty Tool — Free Online In-Browser Utilities');
   const [description, setDescription] = useState<string>(
-    'Free online tools for developers, creators, and professionals. Fast, private, zero-API client-side tools.'
+    'Free online tools for developers, creators, and professionals. Fast, private, client-side browser tools.'
   );
   const [url, setUrl] = useState<string>('https://craftytool.com');
   const [imageUrl, setImageUrl] = useState<string>('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop');

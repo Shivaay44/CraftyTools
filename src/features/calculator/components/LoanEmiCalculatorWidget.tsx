@@ -17,18 +17,31 @@ export const LoanEmiCalculatorWidget: React.FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const emiData = useMemo(() => {
-    const P = loanAmount;
-    const r = interestRate / 12 / 100;
-    const n = tenureYears * 12;
+    const P = Math.max(0, loanAmount);
+    const r = Math.max(0, interestRate) / 12 / 100;
+    const n = Math.max(1, tenureYears) * 12;
 
-    if (P <= 0 || r <= 0 || n <= 0) return null;
+    if (P <= 0 || n <= 0) return null;
 
-    // Monthly EMI formula
-    const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    const totalPayment = emi * n;
-    const totalInterest = totalPayment - P;
-    const interestRatio = (totalInterest / totalPayment) * 100;
-    const principalRatio = (P / totalPayment) * 100;
+    let emi = 0;
+    let totalPayment = 0;
+    let totalInterest = 0;
+
+    if (r === 0) {
+      // 0% Interest loan
+      emi = P / n;
+      totalPayment = P;
+      totalInterest = 0;
+    } else {
+      // Standard monthly EMI formula: P * r * (1+r)^n / ((1+r)^n - 1)
+      const factor = Math.pow(1 + r, n);
+      emi = (P * r * factor) / (factor - 1);
+      totalPayment = emi * n;
+      totalInterest = totalPayment - P;
+    }
+
+    const interestRatio = totalPayment > 0 ? (totalInterest / totalPayment) * 100 : 0;
+    const principalRatio = totalPayment > 0 ? (P / totalPayment) * 100 : 100;
 
     // Year by Year Amortization Schedule
     const yearlySchedule: Array<{
@@ -48,7 +61,7 @@ export const LoanEmiCalculatorWidget: React.FC = () => {
       let yrInterest = 0;
 
       for (let m = 1; m <= 12; m++) {
-        const monthInterest = currentBalance * r;
+        const monthInterest = r > 0 ? currentBalance * r : 0;
         const monthPrincipal = emi - monthInterest;
         yrInterest += monthInterest;
         yrPrincipal += monthPrincipal;

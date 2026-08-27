@@ -10,8 +10,15 @@ const ASSETS_TO_CACHE = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      for (const asset of ASSETS_TO_CACHE) {
+        try {
+          await cache.add(asset);
+        } catch (err) {
+          // Non-blocking catch to ensure SW installation succeeds even if an asset is not yet available
+          console.warn('SW pre-cache warning for asset:', asset, err);
+        }
+      }
     }).then(() => self.skipWaiting())
   );
 });

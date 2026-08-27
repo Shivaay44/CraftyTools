@@ -85,13 +85,13 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
     <!-- Breadcrumb Navigation -->
-    <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+    <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400" aria-label="Breadcrumb">
       <a href="/" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Home</a>
-      <span class="text-slate-400">›</span>
+      <span class="text-slate-400 dark:text-slate-500">›</span>
       <a href={`/tools#${tool.category}`} class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
         {categoryInfo?.name || tool.category}
       </a>
-      <span class="text-slate-400">›</span>
+      <span class="text-slate-400 dark:text-slate-500">›</span>
       <span class="font-semibold text-slate-800 dark:text-slate-200 truncate">{tool.name}</span>
     </nav>
 
@@ -117,7 +117,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-amber-400 dark:hover:border-amber-400 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-all cursor-pointer shadow-2xs"
           title="Save to favorites"
         >
-          <span id="star-icon" class="text-slate-400">☆</span>
+          <span id="star-icon" class="text-slate-500 dark:text-slate-400">☆</span>
           <span id="star-label">Add to Favorites</span>
         </button>
       </div>

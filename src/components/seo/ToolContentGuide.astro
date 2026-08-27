@@ -11,12 +11,22 @@ const categoryInfo = CATEGORIES.find((c) => c.id === tool.category);
 
 // Category-specific specifications
 const getCategorySpecs = (cat: string, slug: string) => {
+  if (slug === 'youtube-thumbnail-downloader') {
+    return {
+      inputs: 'YouTube Video or Shorts URL',
+      outputs: 'High Definition (1280×720), SD, HQ, MQ JPG',
+      engine: 'Direct Client-to-CDN Fetch (img.youtube.com)',
+      privacyModel: 'Zero Server Intermediaries (Direct Browser Retrieval)',
+      hardware: 'Standard Client Browser Network Stack',
+    };
+  }
+
   switch (cat) {
     case 'image':
       return {
         inputs: 'JPG, JPEG, PNG, WebP, AVIF' + (slug.includes('svg') ? ', SVG' : ''),
         outputs: slug.includes('to-pdf') ? 'PDF Document (.pdf)' : 'JPG, PNG, WebP, AVIF',
-        engine: 'HTML5 Canvas 2D / Web Workers / ArrayBuffers',
+        engine: 'HTML5 Canvas 2D / Browser Image APIs',
         privacyModel: 'Client-Side RAM (Blob & Object URLs)',
         hardware: 'Browser Multi-Threaded CPU & GPU Acceleration',
       };
@@ -24,8 +34,8 @@ const getCategorySpecs = (cat: string, slug: string) => {
       return {
         inputs: 'Standard PDF Documents (.pdf)' + (slug === 'image-to-pdf' ? ', JPG, PNG, WebP' : ''),
         outputs: slug === 'pdf-to-images' ? 'ZIP / PNG Images' : 'PDF Document (.pdf)',
-        engine: 'pdf-lib & pdfjs-dist Client Assembly',
-        privacyModel: '100% In-Memory Parsing & Page Rendering',
+        engine: 'pdf-lib & pdfjs-dist In-Memory Assembly',
+        privacyModel: '100% In-Memory Parsing & Local Page Rendering',
         hardware: 'Local Device Multi-Core Processing',
       };
     case 'developer':
@@ -41,7 +51,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
       return {
         inputs: slug === 'csv-json-converter' ? 'CSV, Tab-Separated Values, JSON' : slug === 'jwt-decoder' ? 'Base64URL JWT Tokens' : slug === 'hash-generator' ? 'Plain Text & Local Binary Files' : 'JSON, Text, Regex, Code',
         outputs: slug === 'qr-code-generator' ? 'PNG Image / Scalable Vector' : 'Formatted Code, Hashes, Decoded Payloads',
-        engine: 'V8 / SpiderMonkey & Web Cryptography API (crypto.subtle)',
+        engine: 'ECMAScript Engine & Web Cryptography API (crypto.subtle)',
         privacyModel: 'Local Browser Sandbox (No Network Transmission)',
         hardware: 'Native High-Speed JavaScript Runtime',
       };
@@ -128,7 +138,7 @@ const specs = getCategorySpecs(tool.category, tool.slug);
         </tr>
         <tr>
           <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Capacity & Limits</td>
-          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">No artificial upload limits (RAM dependent)</td>
+          <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">No server quotas (device RAM dependent)</td>
           <td class="py-3 px-4 text-xs">Zero paywalls or arbitrary file count caps</td>
         </tr>
       </tbody>

@@ -1,14 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { trackEvent } from '../../../lib/analytics';
 import {
-  Youtube,
   Download,
   Copy,
   Check,
-  ExternalLink,
   Sparkles,
   AlertCircle,
-  Image as ImageIcon,
+  Video,
 } from 'lucide-react';
 
 interface ThumbnailQuality {
@@ -19,7 +17,7 @@ interface ThumbnailQuality {
 }
 
 const QUALITIES: ThumbnailQuality[] = [
-  { id: 'maxresdefault', name: 'Ultra HD (1080p)', resolution: '1280 × 720', filename: 'maxresdefault.jpg' },
+  { id: 'maxresdefault', name: 'High Definition (HD)', resolution: '1280 × 720', filename: 'maxresdefault.jpg' },
   { id: 'sddefault', name: 'Standard Definition (SD)', resolution: '640 × 480', filename: 'sddefault.jpg' },
   { id: 'hqdefault', name: 'High Quality (HQ)', resolution: '480 × 360', filename: 'hqdefault.jpg' },
   { id: 'mqdefault', name: 'Medium Quality (MQ)', resolution: '320 × 180', filename: 'mqdefault.jpg' },
@@ -93,7 +91,7 @@ export const YoutubeThumbnailDownloaderWidget: React.FC = () => {
         </label>
         <div className="relative flex items-center">
           <div className="absolute left-4 text-red-500">
-            <Youtube className="w-6 h-6" />
+            <Video className="w-6 h-6" />
           </div>
           <input
             type="text"

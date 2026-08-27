@@ -133,7 +133,8 @@ export const AgeCalculatorWidget: React.FC = () => {
     };
 
     const chineseAnimals = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'];
-    const chineseZodiac = chineseAnimals[(birth.getFullYear() - 4) % 12] || 'Dragon';
+    const chineseIndex = ((birth.getFullYear() - 4) % 12 + 12) % 12;
+    const chineseZodiac = chineseAnimals[chineseIndex] || 'Dragon';
     const westernZodiac = getZodiac(birth.getMonth(), birth.getDate());
 
     // Biological approximations

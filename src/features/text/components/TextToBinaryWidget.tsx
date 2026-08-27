@@ -3,11 +3,9 @@ import { trackEvent } from '../../../lib/analytics';
 import {
   ShieldCheck,
   Binary,
-  ArrowRightLeft,
   Copy,
   Check,
   Sparkles,
-  RefreshCw,
   Code2
 } from 'lucide-react';
 

@@ -3,13 +3,10 @@ import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { trackEvent } from '../../../lib/analytics';
 import {
   ShieldCheck,
-  Upload,
   Download,
   FileText,
-  Sliders,
   RefreshCw,
-  AlertCircle,
-  Check
+  AlertCircle
 } from 'lucide-react';
 
 type NumberPosition =
@@ -271,10 +268,10 @@ export const PdfPageNumbererWidget: React.FC = () => {
             </div>
 
             {/* Additional Settings */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                  Start on Page
+                  Start Page
                 </label>
                 <input
                   type="number"
@@ -288,7 +285,7 @@ export const PdfPageNumbererWidget: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                  Start Number
+                  Start #
                 </label>
                 <input
                   type="number"
@@ -324,6 +321,18 @@ export const PdfPageNumbererWidget: React.FC = () => {
                   value={margin}
                   onChange={(e) => setMargin(parseInt(e.target.value, 10))}
                   className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Font Color
+                </label>
+                <input
+                  type="color"
+                  value={colorHex}
+                  onChange={(e) => setColorHex(e.target.value)}
+                  className="w-full h-9 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 cursor-pointer p-1"
                 />
               </div>
             </div>

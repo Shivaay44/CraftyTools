@@ -5,20 +5,12 @@ import { CATEGORIES, TOOLS } from '../data/tools';
 import { InteractiveToolExplorer } from '../components/home/InteractiveToolExplorer';
 import { generateHomePageSchemaGraph } from '../lib/seo/schemaGenerators';
 import {
-  Image as ImageIcon,
-  FileText,
-  Video,
-  Type,
-  Code,
-  Calculator,
   Zap,
   Lock,
   HardDrive,
   Sparkles,
   ArrowRight,
   ShieldCheck,
-  CheckCircle2,
-  Cpu,
   Flame,
   Layers,
 } from 'lucide-react';
@@ -119,7 +111,7 @@ const SMART_WORKFLOWS = [
         </div>
 
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-          55+ Powerful Tools. <br />
+          Crafty Tool — Free Online In-Browser Utilities <br />
           <span class="bg-gradient-to-r from-purple-600 via-indigo-500 to-sky-400 bg-clip-text text-transparent">
             No Signup. No Uploads. 100% Local Processing.
           </span>
@@ -145,7 +137,7 @@ const SMART_WORKFLOWS = [
           </div>
           <div class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200 dark:border-slate-800 shadow-2xs text-xs font-bold text-slate-800 dark:text-slate-200">
             <span class="text-purple-500 text-sm">∞</span>
-            <span>100% Free Forever</span>
+            <span>Free to Use</span>
           </div>
         </div>
       </section>
@@ -153,17 +145,16 @@ const SMART_WORKFLOWS = [
       <!-- 2. POPULAR TOOLS ROW (Quick Access) -->
       <section class="space-y-3 max-w-5xl mx-auto">
         <div class="flex items-center justify-between px-1">
-          <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+          <h2 class="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
             <Flame className="w-3.5 h-3.5 text-amber-500" />
             <span>Popular Utilities</span>
-          </div>
-          <span class="text-xs font-semibold text-slate-400">Click to launch</span>
+          </h2>
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Click to launch</span>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
           {POPULAR_TOOLS_LIST.map((tool) => (
             <a
-              key={tool.slug}
               href={`/tools/${tool.slug}`}
               class="group p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-md hover:shadow-purple-500/10 transition-all flex items-center justify-between cursor-pointer select-none"
             >
@@ -197,7 +188,6 @@ const SMART_WORKFLOWS = [
             const count = categoryToolCounts[cat.id] || 0;
             return (
               <a
-                key={cat.id}
                 href={`/tools#${cat.id}`}
                 class="group p-4 sm:p-5 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10 transition-all flex flex-col items-center text-center space-y-2 cursor-pointer"
               >
@@ -213,7 +203,7 @@ const SMART_WORKFLOWS = [
                   <div class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                     {cat.name}
                   </div>
-                  <div class="text-[11px] font-semibold text-slate-400 mt-0.5">
+                  <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
                     {count} {count === 1 ? 'Tool' : 'Tools'}
                   </div>
                 </div>
@@ -244,7 +234,6 @@ const SMART_WORKFLOWS = [
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {SMART_WORKFLOWS.map((wf) => (
             <div
-              key={wf.title}
               class={`p-6 rounded-3xl bg-gradient-to-br bg-white dark:bg-slate-900 border ${wf.accentColor} shadow-sm space-y-4 flex flex-col justify-between`}
             >
               <div class="space-y-2">
@@ -263,7 +252,6 @@ const SMART_WORKFLOWS = [
               <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800/80">
                 {wf.steps.map((step, idx) => (
                   <a
-                    key={step.slug}
                     href={`/tools/${step.slug}`}
                     class="flex items-center justify-between p-2 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 hover:bg-purple-50 dark:hover:bg-purple-950/60 transition-colors text-xs font-semibold text-slate-700 dark:text-slate-200"
                   >
@@ -328,9 +316,9 @@ const SMART_WORKFLOWS = [
             <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
               <HardDrive className="w-4 h-4" />
             </div>
-            <h3 class="font-bold text-sm text-slate-900 dark:text-white">No Artificial Upload Limits</h3>
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white">No Arbitrary Server Quotas</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Process files bounded only by your browser's RAM without arbitrary 3-file daily limits or paywall restrictions.
+              No arbitrary server upload quotas — practical capacity depends directly on your browser and device memory.
             </p>
           </div>
 

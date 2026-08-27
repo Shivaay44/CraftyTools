@@ -10,8 +10,6 @@ import {
   Download,
   RotateCcw,
   Sparkles,
-  ShieldCheck,
-  AlertCircle,
   Film,
 } from 'lucide-react';
 

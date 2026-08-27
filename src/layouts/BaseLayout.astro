@@ -44,10 +44,10 @@ const gaId = import.meta.env.PUBLIC_GA_ID || 'G-L7HRQ5CQDZ';
 
     <!-- PWA Offline Service Worker Registration -->
     <script is:inline>
-      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').catch((err) => {
-            console.warn('SW registration error:', err);
+            console.warn('SW registration warning:', err);
           });
         });
       }

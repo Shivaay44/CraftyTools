@@ -4,7 +4,6 @@ import {
   ShieldCheck,
   Upload,
   Download,
-  Eye,
   Trash2,
   AlertCircle,
   FileCheck,
@@ -12,7 +11,6 @@ import {
   Camera,
   Calendar,
   Layers,
-  Sparkles
 } from 'lucide-react';
 
 interface ExifTag {
@@ -25,7 +23,6 @@ export const ExifRemoverWidget: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [tags, setTags] = useState<ExifTag[]>([]);
-  const [hasExif, setHasExif] = useState<boolean>(false);
   const [isStripped, setIsStripped] = useState<boolean>(false);
   const [cleanedUrl, setCleanedUrl] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -99,7 +96,6 @@ export const ExifRemoverWidget: React.FC = () => {
       }
 
       setTags(extracted);
-      setHasExif(true);
     } catch (err) {
       console.warn('Metadata parse warning:', err);
     }

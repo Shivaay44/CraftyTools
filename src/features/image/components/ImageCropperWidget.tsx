@@ -10,7 +10,6 @@ import {
   Upload,
   RefreshCw,
   AlertCircle,
-  Check
 } from 'lucide-react';
 
 type AspectRatio = 'free' | '1:1' | '16:9' | '9:16' | '4:3' | '3:2';
@@ -23,7 +22,6 @@ interface CropBox {
 }
 
 export const ImageCropperWidget: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>('free');
   const [rotation, setRotation] = useState<number>(0);
@@ -52,7 +50,6 @@ export const ImageCropperWidget: React.FC = () => {
     if (imgSrc) URL.revokeObjectURL(imgSrc);
     if (croppedPreviewUrl) URL.revokeObjectURL(croppedPreviewUrl);
 
-    setFile(selectedFile);
     setRotation(0);
     setFlipH(false);
     setFlipV(false);
@@ -382,7 +379,6 @@ export const ImageCropperWidget: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setImgSrc(null);
-                    setFile(null);
                   }}
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center gap-2 cursor-pointer transition-colors"
                 >

@@ -6,10 +6,7 @@ import {
   Download,
   Code,
   FileImage,
-  RefreshCw,
   AlertCircle,
-  Copy,
-  Check
 } from 'lucide-react';
 
 export const SvgToPngWidget: React.FC = () => {

@@ -9,7 +9,6 @@ import {
   RotateCcw,
   Sparkles,
   Volume2,
-  AlertCircle,
 } from 'lucide-react';
 
 export const VoiceRecorderWidget: React.FC = () => {

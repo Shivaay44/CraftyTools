@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = true;
+
 export const GET: APIRoute = async ({ site, url }) => {
   const baseUrl = site ? site.toString().replace(/\/$/, '') : url.origin;
 

@@ -47,7 +47,7 @@ export const PdfToImagesWidget: React.FC = () => {
     try {
       const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
       if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version || '5.6.205'}/legacy/build/pdf.worker.min.mjs`;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
       }
 
       const arrayBuffer = await selectedFile.arrayBuffer();

@@ -40,6 +40,7 @@ export const BmiCalculatorWidget: React.FC = () => {
       weightInKg = weightLbs * 0.45359237;
     }
 
+    const safeAge = Math.max(1, Math.min(120, age || 25));
     if (heightInMeters <= 0 || weightInKg <= 0) return null;
 
     const bmi = weightInKg / (heightInMeters * heightInMeters);
@@ -79,7 +80,7 @@ export const BmiCalculatorWidget: React.FC = () => {
     const maxIdealKg = 24.9 * (heightInMeters * heightInMeters);
 
     // BMR (Mifflin-St Jeor formula)
-    let bmr = 10 * weightInKg + 6.25 * (heightInMeters * 100) - 5 * age;
+    let bmr = 10 * weightInKg + 6.25 * (heightInMeters * 100) - 5 * safeAge;
     if (gender === 'male') {
       bmr += 5;
     } else {

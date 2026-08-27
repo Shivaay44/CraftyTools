@@ -2,14 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { trackEvent } from '../../../lib/analytics';
 import {
   ShieldCheck,
-  Code,
-  Check,
-  Copy,
-  Layers,
-  Sparkles,
   AlertCircle,
   BookOpen,
-  ArrowRightLeft
 } from 'lucide-react';
 
 interface RegexPreset {

@@ -2,10 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { trackEvent } from '../../../lib/analytics';
 import {
   ShieldCheck,
-  Upload,
   Download,
   Stamp,
-  Sliders,
   Type,
   RefreshCw,
   AlertCircle

@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import imageCompression from 'browser-image-compression';
 import {
-  Layers,
   Sparkles,
   ArrowRight,
   Upload,
@@ -10,11 +9,8 @@ import {
   RefreshCw,
   Sliders,
   FileCode,
-  FileText,
   Copy,
   Check,
-  Zap,
-  ShieldCheck,
   Play
 } from 'lucide-react';
 import { formatFileSize } from '../../image/utils/imageValidation';
@@ -33,7 +29,6 @@ export const WorkflowRunner: React.FC = () => {
   
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [mediaResultBlob, setMediaResultBlob] = useState<Blob | null>(null);
   const [mediaResultUrl, setMediaResultUrl] = useState<string | null>(null);
   const [mediaResultSize, setMediaResultSize] = useState<number | null>(null);
 
@@ -51,7 +46,6 @@ export const WorkflowRunner: React.FC = () => {
     setImageFile(file);
     if (imagePreview) URL.revokeObjectURL(imagePreview);
     setImagePreview(URL.createObjectURL(file));
-    setMediaResultBlob(null);
     if (mediaResultUrl) URL.revokeObjectURL(mediaResultUrl);
     setMediaResultUrl(null);
     setCurrentStep(2);
@@ -97,7 +91,6 @@ export const WorkflowRunner: React.FC = () => {
       });
 
       if (finalBlob) {
-        setMediaResultBlob(finalBlob);
         setMediaResultSize(finalBlob.size);
         if (mediaResultUrl) URL.revokeObjectURL(mediaResultUrl);
         setMediaResultUrl(URL.createObjectURL(finalBlob));

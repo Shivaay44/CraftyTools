@@ -169,7 +169,41 @@ export const SignatureMakerWidget: React.FC = () => {
     if (activeTab === 'draw') {
       const canvas = canvasRef.current;
       if (!canvas || strokes.length === 0) return;
-      dataUrl = canvas.toDataURL('image/png');
+      
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = canvas.width;
+      offCanvas.height = canvas.height;
+      const ctx = offCanvas.getContext('2d');
+      if (!ctx) return;
+
+      if (!isTransparent) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, offCanvas.width, offCanvas.height);
+      }
+
+      strokes.forEach((stroke) => {
+        if (stroke.points.length < 1) return;
+        ctx.strokeStyle = stroke.color;
+        ctx.lineWidth = stroke.size;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        ctx.beginPath();
+        ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+
+        for (let i = 1; i < stroke.points.length; i++) {
+          const midPointX = (stroke.points[i - 1].x + stroke.points[i].x) / 2;
+          const midPointY = (stroke.points[i - 1].y + stroke.points[i].y) / 2;
+          ctx.quadraticCurveTo(stroke.points[i - 1].x, stroke.points[i - 1].y, midPointX, midPointY);
+        }
+        ctx.lineTo(
+          stroke.points[stroke.points.length - 1].x,
+          stroke.points[stroke.points.length - 1].y
+        );
+        ctx.stroke();
+      });
+
+      dataUrl = offCanvas.toDataURL('image/png');
     } else {
       // Render typed signature into canvas
       const offCanvas = document.createElement('canvas');

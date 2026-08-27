@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getAllTools } from '../data/tools';
 
+export const prerender = true;
+
 export const GET: APIRoute = async ({ site, url }) => {
   const baseUrl = site ? site.toString().replace(/\/$/, '') : url.origin;
   const tools = getAllTools();
