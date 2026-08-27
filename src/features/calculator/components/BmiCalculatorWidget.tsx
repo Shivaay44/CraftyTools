@@ -111,7 +111,7 @@ export const BmiCalculatorWidget: React.FC = () => {
 
   const handleCopy = () => {
     if (!bmiResults) return;
-    const summary = `📊 BMI & Health Metrics:\n• BMI Score: ${bmiResults.bmi} (${bmiResults.category})\n• Ideal Weight Range: ${bmiResults.minIdealKg} - ${bmiResults.maxIdealKg} kg\n• Basal Metabolic Rate (BMR): ${bmiResults.bmr} kcal/day\n• Daily Maintenance Calories: ${bmiResults.maintenanceCalories} kcal/day\n• Calculated on FreeTools`;
+    const summary = `📊 BMI & Health Metrics:\n• BMI Score: ${bmiResults.bmi} (${bmiResults.category})\n• Ideal Weight Range: ${bmiResults.minIdealKg} - ${bmiResults.maxIdealKg} kg\n• Basal Metabolic Rate (BMR): ${bmiResults.bmr} kcal/day\n• Daily Maintenance Calories: ${bmiResults.maintenanceCalories} kcal/day\n• Calculated on Crafty Tool`;
     navigator.clipboard.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

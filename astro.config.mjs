@@ -7,7 +7,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: process.env.VERCEL_PROJECT_PRODUCTION_URL 
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` 
-    : 'https://freetools.vercel.app',
+    : 'https://crafty-tools.vercel.app',
   output: 'static',
   adapter: vercel(),
   integrations: [react()],

@@ -76,10 +76,10 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   // Load Starred and Recent tools from LocalStorage on mount
   useEffect(() => {
     try {
-      const savedStars = localStorage.getItem('freetools_starred_tools') || localStorage.getItem('craftytool_starred_tools') || localStorage.getItem('toolchemy_starred_tools');
+      const savedStars = localStorage.getItem('craftytool_starred_tools') || localStorage.getItem('toolchemy_starred_tools');
       if (savedStars) setStarredSlugs(JSON.parse(savedStars));
 
-      const savedRecents = localStorage.getItem('freetools_recent_tools') || localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
+      const savedRecents = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
       if (savedRecents) setRecentSlugs(JSON.parse(savedRecents));
     } catch (e) {
       console.warn('LocalStorage access error:', e);
@@ -93,7 +93,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
     setStarredSlugs((prev) => {
       const updated = prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug];
       try {
-        localStorage.setItem('freetools_starred_tools', JSON.stringify(updated));
+        localStorage.setItem('craftytool_starred_tools', JSON.stringify(updated));
       } catch (err) {
         console.warn('LocalStorage save error:', err);
       }
@@ -105,7 +105,7 @@ export const InteractiveToolExplorer: React.FC<InteractiveToolExplorerProps> = (
   const handleToolClick = (slug: string) => {
     try {
       const updated = [slug, ...recentSlugs.filter((s) => s !== slug)].slice(0, 8);
-      localStorage.setItem('freetools_recent_tools', JSON.stringify(updated));
+      localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
       setRecentSlugs(updated);
     } catch (err) {
       console.warn('LocalStorage save error:', err);

@@ -56,7 +56,7 @@ function sanitizeProperties(properties?: Record<string, unknown>): Record<string
 }
 
 /**
- * Privacy-first, vendor-neutral analytics abstraction for FreeTools.
+ * Privacy-first, vendor-neutral analytics abstraction for Crafty Tool.
  * Tracks usage metrics (e.g. tool completions, format choices, error codes)
  * without ever transmitting user files, passwords, or personal text inputs.
  */
@@ -67,7 +67,7 @@ export function trackEvent(event: AnalyticsEventType, properties?: Record<string
 
   // Development logging
   if (import.meta.env.DEV) {
-    console.log('[FreeTools Analytics Event]', event, sanitizedProps || {});
+    console.log('[Crafty Tool Analytics Event]', event, sanitizedProps || {});
   }
 
   // Provider hooks (e.g. Google Analytics gtag, Plausible, Cloudflare Web Analytics)

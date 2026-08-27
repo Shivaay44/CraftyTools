@@ -18,7 +18,7 @@ export interface HomePageSchemaOptions {
 }
 
 /**
- * Maps FreeTools category to appropriate Schema.org ApplicationCategory.
+ * Maps Crafty Tool category to appropriate Schema.org ApplicationCategory.
  */
 function getApplicationCategory(category: string): string {
   switch (category) {
@@ -63,7 +63,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
 
   // Default steps fallback
   const defaultSteps = [
-    `Open the ${tool.name} tool on FreeTools in your browser.`,
+    `Open the ${tool.name} tool on Crafty Tool in your browser.`,
     `Select or drag-and-drop your input files or enter your data directly into the interactive workspace.`,
     `Adjust the parameters, filters, formats, or options to suit your exact requirements.`,
     `Instantly process and download or copy your final result directly on your device with 100% privacy.`,
@@ -74,11 +74,11 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
   const defaultFaqs = [
     {
       question: `Is ${tool.name} completely free to use?`,
-      answer: `Yes! ${tool.name} on FreeTools is free to use with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
+      answer: `Yes! ${tool.name} on Crafty Tool is free to use with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
     },
     {
       question: `Are my files or data uploaded to your servers when using ${tool.name}?`,
-      answer: `No. FreeTools is built on privacy-first client-side architecture. All computation and processing execute locally inside your browser sandbox using native browser APIs, Web Workers, and WebAssembly where appropriate. Uploaded files and data are not sent to FreeTools servers.`,
+      answer: `No. Crafty Tool is built on privacy-first client-side architecture. All computation and processing execute locally inside your browser sandbox using native browser APIs, Web Workers, and WebAssembly where appropriate. Uploaded files and data are not sent to Crafty Tool servers.`,
     },
     {
       question: `Does ${tool.name} work on mobile devices?`,
@@ -86,7 +86,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
     },
     {
       question: `Why is in-browser processing faster than traditional converter websites?`,
-      answer: `Traditional web converters require uploading files to remote servers, waiting in processing queues, and downloading files back. FreeTools processes data locally on your device with no upload wait and fast results.`,
+      answer: `Traditional web converters require uploading files to remote servers, waiting in processing queues, and downloading files back. Crafty Tool processes data locally on your device with no upload wait and fast results.`,
     },
   ];
 
@@ -106,7 +106,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
       {
         '@type': 'Organization',
         '@id': orgId,
-        name: 'FreeTools',
+        name: 'Crafty Tool',
         url: `${origin}/`,
         logo: {
           '@type': 'ImageObject',
@@ -122,7 +122,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
         '@type': 'WebSite',
         '@id': websiteId,
         url: `${origin}/`,
-        name: 'FreeTools',
+        name: 'Crafty Tool',
         description: 'Free Online Privacy-First Digital Utilities & Web Tools',
         publisher: { '@id': orgId },
       },
@@ -158,7 +158,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
         '@type': 'ItemPage',
         '@id': webpageId,
         url: pageUrl,
-        name: tool.seoTitle || `${tool.name} — Free Online Tool | FreeTools`,
+        name: tool.seoTitle || `${tool.name} — Free Online Tool | Crafty Tool`,
         description: tool.seoDescription || tool.description,
         isPartOf: { '@id': websiteId },
         breadcrumb: { '@id': breadcrumbId },
@@ -251,7 +251,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
 }
 
 /**
- * Generates a unified Schema.org @graph for the FreeTools Homepage.
+ * Generates a unified Schema.org @graph for the Crafty Tool Homepage.
  * Includes WebSite with Sitelinks SearchBox, Organization, SoftwareApplication suite, and full ItemList.
  */
 export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Record<string, unknown> {
@@ -269,7 +269,7 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
       {
         '@type': 'Organization',
         '@id': orgId,
-        name: 'FreeTools',
+        name: 'Crafty Tool',
         url: `${origin}/`,
         logo: {
           '@type': 'ImageObject',
@@ -286,8 +286,8 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
         '@type': 'WebSite',
         '@id': websiteId,
         url: `${origin}/`,
-        name: 'FreeTools',
-        alternateName: ['FreeTools', 'FreeToolsHub', 'Free Tools Online', 'FreeTools Digital Utilities', 'FreeTools Web Tools'],
+        name: 'Crafty Tool',
+        alternateName: ['CraftyTool', 'Crafty Tool Utilities', 'Crafty Tool Web Tools'],
         description: '55+ Free In-Browser Digital Utilities & Developer Tools with 0 Server Uploads. Private by Design.',
         publisher: { '@id': orgId },
         potentialAction: {
@@ -305,7 +305,7 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
       {
         '@type': 'WebApplication',
         '@id': suiteId,
-        name: 'FreeTools Digital Utilities Suite',
+        name: 'Crafty Tool Digital Utilities Suite',
         url: `${origin}/`,
         description: 'A comprehensive suite of 55+ free client-side utilities including image compressors, PDF converters, calculators, code formatters, and regex testers.',
         applicationCategory: 'UtilitiesApplication',
@@ -326,8 +326,8 @@ export function generateHomePageSchemaGraph(options: HomePageSchemaOptions): Rec
       {
         '@type': 'ItemList',
         '@id': itemListId,
-        name: 'FreeTools Digital Utilities Catalog',
-        description: 'Complete list of all free, in-browser digital utilities available on FreeTools.',
+        name: 'Crafty Tool Digital Utilities Catalog',
+        description: 'Complete list of all free, in-browser digital utilities available on Crafty Tool.',
         numberOfItems: tools.length,
         itemListElement: tools.map((tool, index) => ({
           '@type': 'ListItem',

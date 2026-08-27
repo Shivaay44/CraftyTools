@@ -162,7 +162,7 @@ export const ImageToPdfWidget: React.FC = () => {
     if (!pdfBlobUrl) return;
     const a = document.createElement('a');
     a.href = pdfBlobUrl;
-    a.download = `freetools-converted-images.pdf`;
+    a.download = `crafty-tool-converted-images.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

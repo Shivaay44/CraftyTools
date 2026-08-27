@@ -20,14 +20,14 @@ const PRESETS: RegexPreset[] = [
     pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
     flags: 'gm',
     description: 'Validate standard email format with username, domain, and TLD.',
-    sample: 'hello@freetools.com\ninvalid-email@\ntest.user+tag@domain.co.uk',
+    sample: 'hello@craftytool.com\ninvalid-email@\ntest.user+tag@domain.co.uk',
   },
   {
     name: 'URL / Web Link',
     pattern: 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)',
     flags: 'gi',
     description: 'Matches valid HTTP/HTTPS URLs with subdomains, query params, and anchors.',
-    sample: 'Visit https://freetools.vercel.app/tools/json-formatter?ref=home or http://example.org/path#section for details.',
+    sample: 'Visit https://craftytool.com/tools/json-formatter?ref=home or http://example.org/path#section for details.',
   },
   {
     name: 'IPv4 Address',

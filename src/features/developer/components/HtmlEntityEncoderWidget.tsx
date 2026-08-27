@@ -13,7 +13,7 @@ export const HtmlEntityEncoderWidget: React.FC = () => {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode');
   const [entityType, setEntityType] = useState<'named' | 'numeric' | 'hex'>('named');
   const [inputText, setInputText] = useState<string>(
-    '<div class="card" id="hero">\n  <h1>Hello & Welcome to "FreeTools"!</h1>\n  <p>Price: $10 & <50% discount</p>\n</div>'
+    '<div class="card" id="hero">\n  <h1>Hello & Welcome to "Crafty Tool"!</h1>\n  <p>Price: $10 & <50% discount</p>\n</div>'
   );
   const [copied, setCopied] = useState<boolean>(false);
 

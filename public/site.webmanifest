@@ -1,6 +1,6 @@
 {
-  "name": "FreeTools — 55+ Free In-Browser Digital Utilities",
-  "short_name": "FreeTools",
+  "name": "Crafty Tool — 55+ Free In-Browser Digital Utilities",
+  "short_name": "Crafty Tool",
   "description": "55+ free, 100% private in-browser digital utilities for image cropping, EXIF stripping, watermark, PDF tools, CSS glassmorphism, regex tester, calculators, and developer utilities.",
   "start_url": "/",
   "display": "standalone",

@@ -10,14 +10,14 @@ import {
 } from 'lucide-react';
 
 export const MetaTagGeneratorWidget: React.FC = () => {
-  const [title, setTitle] = useState<string>('FreeTools — 55+ Free Online In-Browser Utilities');
+  const [title, setTitle] = useState<string>('Crafty Tool — Free Online In-Browser Utilities');
   const [description, setDescription] = useState<string>(
     'Free online tools for developers, creators, and professionals. Fast, private, client-side browser tools.'
   );
-  const [url, setUrl] = useState<string>('https://freetools.vercel.app');
+  const [url, setUrl] = useState<string>('https://craftytool.com');
   const [imageUrl, setImageUrl] = useState<string>('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=630&fit=crop');
-  const [siteName, setSiteName] = useState<string>('FreeTools');
-  const [twitterHandle, setTwitterHandle] = useState<string>('@freetools');
+  const [siteName, setSiteName] = useState<string>('Crafty Tool');
+  const [twitterHandle, setTwitterHandle] = useState<string>('@craftytool');
   const [copied, setCopied] = useState<boolean>(false);
   const [activePreview, setActivePreview] = useState<'google' | 'facebook' | 'twitter'>('google');
 

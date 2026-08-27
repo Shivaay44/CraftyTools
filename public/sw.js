@@ -1,5 +1,5 @@
-// FreeTools Lightweight Offline Service Worker
-const CACHE_NAME = 'freetools-v1';
+// CraftyTool Lightweight Offline Service Worker
+const CACHE_NAME = 'craftytool-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/tools',

@@ -4,7 +4,7 @@ import { trackEvent } from '../../../lib/analytics';
 import { ShieldCheck, Download, Copy, Check, QrCode as QrIcon, AlertCircle } from 'lucide-react';
 
 export const QrCodeGeneratorWidget: React.FC = () => {
-  const [text, setText] = useState<string>('https://freetools.vercel.app');
+  const [text, setText] = useState<string>('https://craftytool.com');
   const [size, setSize] = useState<number>(300);
   const [errorCorrectionLevel, setErrorCorrectionLevel] = useState<'L' | 'M' | 'Q' | 'H'>('M');
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
@@ -46,7 +46,7 @@ export const QrCodeGeneratorWidget: React.FC = () => {
     if (!qrDataUrl) return;
     const a = document.createElement('a');
     a.href = qrDataUrl;
-    a.download = 'freetools-qr-code.png';
+    a.download = 'crafty-tool-qr-code.png';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

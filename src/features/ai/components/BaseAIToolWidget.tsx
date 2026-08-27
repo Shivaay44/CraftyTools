@@ -149,7 +149,7 @@ export const BaseAIToolWidget: React.FC<BaseAIToolWidgetProps> = ({
       trackEvent('tool_completed', { tool: toolSlug, fromCache: false });
     } catch (err: any) {
       console.error('API Error:', err);
-      setErrorMsg('Network error while connecting to FreeTools AI. Please check your connection.');
+      setErrorMsg('Network error while connecting to Crafty Tool AI. Please check your connection.');
       trackEvent('tool_error', { tool: toolSlug, code: 'NETWORK_ERROR' });
     } finally {
       setIsLoading(false);
@@ -262,7 +262,7 @@ export const BaseAIToolWidget: React.FC<BaseAIToolWidgetProps> = ({
       <div className="p-3 rounded-xl bg-slate-100/60 dark:bg-slate-900/60 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
         <span>🔒</span>
         <span>
-          Privacy Note: Input text & images are transmitted securely to the FreeTools AI endpoint for generation. No data is stored permanently.
+          Privacy Note: Input text & images are transmitted securely to the Crafty Tool AI endpoint for generation. No data is stored permanently.
         </span>
       </div>
 

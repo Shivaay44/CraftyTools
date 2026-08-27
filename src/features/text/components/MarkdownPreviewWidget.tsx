@@ -48,9 +48,9 @@ function renderMarkdownToHtml(md: string): string {
   return html;
 }
 
-const DEFAULT_MARKDOWN = `# Welcome to FreeTools Markdown Editor 🚀
+const DEFAULT_MARKDOWN = `# Welcome to Crafty Tool Markdown Editor 🚀
 
-**FreeTools** provides fast, private, client-side web utility tools.
+**Crafty Tool** provides fast, private, client-side web utility tools.
 
 ## Key Highlights
 - **100% Client-Side:** Everything runs right inside your browser

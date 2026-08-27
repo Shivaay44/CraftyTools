@@ -25,7 +25,7 @@ export const ImageWatermarkWidget: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
   const [watermarkType, setWatermarkType] = useState<'text' | 'image'>('text');
-  const [watermarkText, setWatermarkText] = useState<string>('© FreeTools');
+  const [watermarkText, setWatermarkText] = useState<string>('© Crafty Tool');
   const [logoSrc, setLogoSrc] = useState<string | null>(null);
   const [fontSize, setFontSize] = useState<number>(36);
   const [opacity, setOpacity] = useState<number>(60);
