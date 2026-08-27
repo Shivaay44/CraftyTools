@@ -392,6 +392,14 @@ export const LoanEmiCalculatorWidget: React.FC = () => {
               </div>
             )}
           </div>
+
+          {/* Financial Disclaimer */}
+          <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-300 leading-relaxed flex items-start gap-2.5">
+            <span className="text-base flex-shrink-0">⚠️</span>
+            <p>
+              <strong>Financial & Estimation Disclaimer:</strong> This loan EMI calculator provides mathematical approximations based on standard reducing-balance amortization formulas. Actual bank loan terms, processing fees, taxes, insurance, and exact interest compounding schedules may vary by lending institution. Consult your lender or financial advisor for binding quote details.
+            </p>
+          </div>
         </div>
       )}
     </div>

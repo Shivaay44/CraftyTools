@@ -116,9 +116,11 @@ export const SvgOptimizerWidget: React.FC = () => {
     if (!optimizedSvg) return;
     const blob = new Blob([optimizedSvg], { type: 'image/svg+xml' });
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
     link.download = 'optimized.svg';
     link.click();
+    URL.revokeObjectURL(url);
     trackEvent('download_clicked', { tool: 'svg-optimizer' });
   };
 

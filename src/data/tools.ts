@@ -281,16 +281,16 @@ export const TOOLS: ToolDefinition[] = [
   },
   {
     slug: 'video-frame-increaser',
-    name: 'Video Frame Increaser & FPS Booster',
+    name: 'Video Frame Rate & FPS Converter',
     category: 'video',
     icon: 'Zap',
-    description: 'Increase video playback frame rates up to 60 FPS with client-side canvas rendering and high-FPS re-encoding.',
-    seoTitle: 'Video Frame Rate Increaser — Boost Video FPS to 60 FPS Online',
-    seoDescription: 'Boost video frame rates to 60 FPS using client-side canvas sampling and MediaRecorder re-encoding without uploading files.',
-    keywords: ['video frame increaser', 'boost video fps', '60 fps converter', 'video frame rate', 'fps booster online'],
+    description: 'Convert and re-encode video playback frame rates up to 60 FPS using client-side canvas sampling and MediaRecorder.',
+    seoTitle: 'Video FPS Converter — Convert Video Frame Rates Online | Crafty Tool',
+    seoDescription: 'Adjust and convert video frame rates up to 60 FPS in your browser using HTML5 Canvas and MediaRecorder. Private local encoding with zero server uploads.',
+    keywords: ['video fps converter', 'convert video frame rate', '60 fps video re-encode', 'video frame rate adjuster', 'browser video fps'],
     type: 'browser',
     processingMode: 'client',
-    relatedTools: ['video-to-jpg', 'image-upscaler'],
+    relatedTools: ['video-to-jpg', 'image-compressor'],
   },
 
   // --- TEXT TOOLS ---

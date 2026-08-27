@@ -199,7 +199,7 @@ export const WorkflowRunner: React.FC = () => {
           }`}
         >
           <span className="text-base">🛠️</span>
-          <span>Custom Workflow Builder</span>
+          <span>Pipeline Templates</span>
         </button>
       </div>
 
@@ -502,13 +502,13 @@ export const WorkflowRunner: React.FC = () => {
           <div className="space-y-1 border-b border-slate-200 dark:border-slate-800 pb-4">
             <div className="flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
               <Sliders className="w-3.5 h-3.5" />
-              <span>Interactive Pipeline Builder</span>
+              <span>Interactive Workflow Templates</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
-              Create & Chain Custom Browser Workflows
+              Prebuilt Multi-Tool Pipelines
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Select in-browser tools to chain sequentially. Save your workflows to local device storage to re-run anytime with zero uploads.
+              Explore prebuilt multi-step processing chains. Execute automated pipelines locally in your browser memory with zero uploads.
             </p>
           </div>
 

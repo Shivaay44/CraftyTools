@@ -131,9 +131,11 @@ export const SvgToPngWidget: React.FC = () => {
     canvasRef.current.toBlob((blob) => {
       if (!blob) return;
       const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
+      link.href = url;
       link.download = `rendered-svg-${Math.round(svgDimensions.width * scale)}x${Math.round(svgDimensions.height * scale)}.${ext}`;
       link.click();
+      URL.revokeObjectURL(url);
 
       trackEvent('download_clicked', { tool: 'svg-to-png' });
       trackEvent('tool_completed', { tool: 'svg-to-png' });

@@ -109,9 +109,11 @@ export const PdfPageNumbererWidget: React.FC = () => {
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes.buffer as ArrayBuffer], { type: 'application/pdf' });
       const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
+      link.href = url;
       link.download = `numbered-${file.name}`;
       link.click();
+      URL.revokeObjectURL(url);
 
       trackEvent('download_clicked', { tool: 'pdf-page-numberer' });
       trackEvent('tool_completed', { tool: 'pdf-page-numberer' });

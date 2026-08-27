@@ -171,9 +171,11 @@ export const ImageWatermarkWidget: React.FC = () => {
     canvasRef.current.toBlob((blob) => {
       if (!blob) return;
       const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
+      link.href = url;
       link.download = `watermarked-${file.name}`;
       link.click();
+      URL.revokeObjectURL(url);
 
       trackEvent('download_clicked', { tool: 'image-watermark' });
       trackEvent('tool_completed', { tool: 'image-watermark' });

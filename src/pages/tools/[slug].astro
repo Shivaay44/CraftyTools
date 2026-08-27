@@ -273,16 +273,23 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
   },
   'video-frame-increaser': {
     steps: [
-      'Upload a video file from your computer.',
-      'Select target frame rate (60 FPS, 90 FPS, or 120 FPS).',
-      'Adjust motion smoothing intensity slider.',
-      'Play the live side-by-side comparison preview.',
-      'Click "Export Video" to generate and download high-FPS WebM video.',
+      'Upload a supported video file (MP4 or WebM).',
+      'Select your target frame rate (60 FPS) and adjust the canvas frame blend factor.',
+      'Select your preferred output format (MP4 or WebM) based on browser codec support.',
+      'Click "Export Video" to re-encode the stream in browser memory and download.',
     ],
     faqs: [
       {
-        question: 'How does in-browser video frame boosting work?',
-        answer: 'The tool uses an HTML5 Canvas frame pipeline with linear motion interpolation and captures the enhanced stream via MediaRecorder API.',
+        question: 'How does in-browser frame rate conversion work?',
+        answer: 'The tool plays the video through an HTML5 Canvas at the requested target frame rate, applies temporal frame blending between frames, and encodes the stream locally using the browser MediaRecorder API.',
+      },
+      {
+        question: 'Is this AI deep-learning optical flow?',
+        answer: 'No. This tool provides client-side canvas-based frame blending and high-FPS re-encoding directly on your device without AI models or server uploads.',
+      },
+      {
+        question: 'Which video output formats are supported?',
+        answer: 'Depending on your browser support (Chrome, Edge, Safari, Firefox), MediaRecorder encodes into MP4 (H.264) or WebM (VP8/VP9) format.',
       },
     ],
   },

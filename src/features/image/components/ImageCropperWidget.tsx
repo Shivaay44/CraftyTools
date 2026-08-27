@@ -177,9 +177,11 @@ export const ImageCropperWidget: React.FC = () => {
 
     const ext = format === 'image/png' ? 'png' : format === 'image/jpeg' ? 'jpg' : 'webp';
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
     link.download = `cropped-image.${ext}`;
     link.click();
+    URL.revokeObjectURL(url);
 
     trackEvent('download_clicked', { tool: 'image-cropper' });
     trackEvent('tool_completed', { tool: 'image-cropper' });
