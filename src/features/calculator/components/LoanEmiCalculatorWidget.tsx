@@ -90,7 +90,7 @@ export const LoanEmiCalculatorWidget: React.FC = () => {
 
   const handleCopy = () => {
     if (!emiData) return;
-    const summary = `💰 Loan EMI Summary:\n• Loan Amount: ${currencySymbol}${loanAmount.toLocaleString()}\n• Interest Rate: ${interestRate}%\n• Tenure: ${tenureYears} Years\n• Monthly EMI: ${currencySymbol}${emiData.monthlyEmi.toLocaleString()}\n• Total Interest: ${currencySymbol}${emiData.totalInterest.toLocaleString()}\n• Total Payment: ${currencySymbol}${emiData.totalPayment.toLocaleString()}\n• Calculated on Crafty Tool`;
+    const summary = `💰 Loan EMI Summary:\n• Loan Amount: ${currencySymbol}${loanAmount.toLocaleString()}\n• Interest Rate: ${interestRate}%\n• Tenure: ${tenureYears} Years\n• Monthly EMI: ${currencySymbol}${emiData.monthlyEmi.toLocaleString()}\n• Total Interest: ${currencySymbol}${emiData.totalInterest.toLocaleString()}\n• Total Payment: ${currencySymbol}${emiData.totalPayment.toLocaleString()}\n• Calculated on FreeTools`;
     navigator.clipboard.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

@@ -47,11 +47,11 @@ const chosenTextSize = textSizeMap[textSize] || textSizeMap.xl;
 ---
 
 {asLink ? (
-  <a href="/" class={`group flex items-center gap-2.5 flex-shrink-0 select-none ${className}`} aria-label="Crafty Tool Home">
+  <a href="/" class={`group flex items-center gap-2.5 flex-shrink-0 select-none ${className}`} aria-label="FreeTools Home">
     <div class={`relative ${config.container} bg-slate-950 p-[1.5px] rounded-xl border border-slate-700/60 shadow-md shadow-blue-500/10 group-hover:border-sky-400/80 group-hover:shadow-lg group-hover:shadow-sky-500/20 transition-all duration-300 overflow-hidden`}>
       <img
         src="/logo.svg"
-        alt="Crafty Tool Logo"
+        alt="FreeTools Logo"
         class="w-full h-full object-cover rounded-[inherit] group-hover:scale-105 transition-transform duration-300"
         loading="eager"
       />
@@ -59,7 +59,7 @@ const chosenTextSize = textSizeMap[textSize] || textSizeMap.xl;
 
     {showText && (
       <span class={`font-black ${chosenTextSize} tracking-tight text-slate-900 dark:text-white flex items-center`}>
-        crafty<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent group-hover:brightness-110 transition-all">tool</span>
+        free<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent group-hover:brightness-110 transition-all">tools</span>
       </span>
     )}
   </a>
@@ -68,7 +68,7 @@ const chosenTextSize = textSizeMap[textSize] || textSizeMap.xl;
     <div class={`relative ${config.container} bg-slate-950 p-[1.5px] rounded-xl border border-slate-700/60 shadow-md shadow-blue-500/10 overflow-hidden`}>
       <img
         src="/logo.svg"
-        alt="Crafty Tool Logo"
+        alt="FreeTools Logo"
         class="w-full h-full object-cover rounded-[inherit]"
         loading="eager"
       />
@@ -76,7 +76,7 @@ const chosenTextSize = textSizeMap[textSize] || textSizeMap.xl;
 
     {showText && (
       <span class={`font-black ${chosenTextSize} tracking-tight text-slate-900 dark:text-white flex items-center`}>
-        crafty<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">tool</span>
+        free<span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">tools</span>
       </span>
     )}
   </div>

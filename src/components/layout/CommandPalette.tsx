@@ -29,10 +29,10 @@ export const CommandPalette: React.FC = () => {
   useEffect(() => {
     if (isOpen) {
       try {
-        const savedRecents = localStorage.getItem('craftytool_recent_tools') || localStorage.getItem('toolchemy_recent_tools');
+        const savedRecents = localStorage.getItem('freetools_recent_tools') || localStorage.getItem('craftytool_recent_tools');
         if (savedRecents) setRecentSlugs(JSON.parse(savedRecents));
 
-        const savedStars = localStorage.getItem('craftytool_starred_tools') || localStorage.getItem('toolchemy_starred_tools');
+        const savedStars = localStorage.getItem('freetools_starred_tools') || localStorage.getItem('craftytool_starred_tools');
         if (savedStars) setStarredSlugs(JSON.parse(savedStars));
       } catch (e) {
         console.warn('LocalStorage error:', e);
@@ -75,7 +75,7 @@ export const CommandPalette: React.FC = () => {
   const handleSelectTool = (tool: ToolDefinition) => {
     try {
       const updated = [tool.slug, ...recentSlugs.filter((s) => s !== tool.slug)].slice(0, 8);
-      localStorage.setItem('craftytool_recent_tools', JSON.stringify(updated));
+      localStorage.setItem('freetools_recent_tools', JSON.stringify(updated));
     } catch (e) {
       console.warn('LocalStorage error:', e);
     }

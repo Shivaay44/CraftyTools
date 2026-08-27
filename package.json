@@ -1,8 +1,8 @@
 {
-  "name": "crafty-tool",
+  "name": "free-tools",
   "type": "module",
   "version": "1.0.0",
-  "description": "Crafty Tool — 55+ Free Online In-Browser Digital Utilities",
+  "description": "FreeTools — 55+ Free Online In-Browser Digital Utilities",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

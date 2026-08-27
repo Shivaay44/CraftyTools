@@ -21,7 +21,7 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href.replac
 const relatedToolsList = getRelatedTools(tool);
 
 const defaultSteps = [
-  `Open the ${tool.name} tool on Crafty Tool in your browser.`,
+  `Open the ${tool.name} tool on FreeTools in your browser.`,
   `Select or drag-and-drop your input files or enter your data directly into the interactive workspace.`,
   `Adjust the parameters, filters, formats, or options to suit your exact requirements.`,
   `Process and download or copy your final result directly on your device with local in-browser privacy.`,
@@ -47,11 +47,11 @@ const processingEngineDescription =
 const defaultFaqs = [
   {
     question: `Is ${tool.name} completely free to use?`,
-    answer: `Yes! ${tool.name} on Crafty Tool is free with no hidden paywalls, subscriptions, daily usage limits, or forced branding watermarks.`,
+    answer: `Yes! ${tool.name} on FreeTools is free with no hidden paywalls, subscriptions, daily usage limits, or forced branding watermarks.`,
   },
   {
     question: `Are my files or data uploaded to your servers when using ${tool.name}?`,
-    answer: `No. Crafty Tool is built on client-side local architecture. All processing for ${tool.name} executes directly inside your browser sandbox using ${processingEngineDescription}. Uploaded files and data are not sent to Crafty Tool servers.`,
+    answer: `No. FreeTools is built on client-side local architecture. All processing for ${tool.name} executes directly inside your browser sandbox using ${processingEngineDescription}. Uploaded files and data are not sent to FreeTools servers.`,
   },
   {
     question: `Does ${tool.name} work on mobile devices?`,
@@ -145,7 +145,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
           <div class="text-2xl">🔒</div>
           <h3 class="font-bold text-sm text-slate-900 dark:text-white">Local & Private</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Uploaded files are processed locally and are not sent to Crafty Tool servers. Local processing reduces the need to transmit sensitive data to remote servers.
+            Uploaded files are processed locally and are not sent to FreeTools servers. Local processing reduces the need to transmit sensitive data to remote servers.
           </p>
         </div>
 
@@ -181,7 +181,7 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
             <thead>
               <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                 <th class="py-2.5 px-3 font-bold uppercase tracking-wider">Feature</th>
-                <th class="py-2.5 px-3 font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Crafty Tool (In-Browser)</th>
+                <th class="py-2.5 px-3 font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">FreeTools (In-Browser)</th>
                 <th class="py-2.5 px-3 font-bold uppercase tracking-wider">Cloud-Based Tools</th>
               </tr>
             </thead>
@@ -279,8 +279,8 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
   <script is:inline define:vars={{ toolSlug: tool.slug }}>
     // Record tool to recents
     try {
-      const recentsKey = 'craftytool_recent_tools';
-      const existing = JSON.parse(localStorage.getItem(recentsKey) || '[]');
+      const recentsKey = 'freetools_recent_tools';
+      const existing = JSON.parse(localStorage.getItem(recentsKey) || localStorage.getItem('craftytool_recent_tools') || '[]');
       const updated = [toolSlug, ...existing.filter((s) => s !== toolSlug)].slice(0, 8);
       localStorage.setItem(recentsKey, JSON.stringify(updated));
     } catch (e) {
@@ -294,8 +294,8 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
 
     const updateFavUI = () => {
       try {
-        const starsKey = 'craftytool_starred_tools';
-        const stars = JSON.parse(localStorage.getItem(starsKey) || '[]');
+        const starsKey = 'freetools_starred_tools';
+        const stars = JSON.parse(localStorage.getItem(starsKey) || localStorage.getItem('craftytool_starred_tools') || '[]');
         const isStarred = stars.includes(toolSlug);
         if (starIcon) {
           starIcon.textContent = isStarred ? '★' : '☆';
@@ -312,8 +312,8 @@ const toolSchemaGraph = generateToolPageSchemaGraph({
     if (favBtn) {
       favBtn.addEventListener('click', () => {
         try {
-          const starsKey = 'craftytool_starred_tools';
-          const stars = JSON.parse(localStorage.getItem(starsKey) || '[]');
+          const starsKey = 'freetools_starred_tools';
+          const stars = JSON.parse(localStorage.getItem(starsKey) || localStorage.getItem('craftytool_starred_tools') || '[]');
           const isStarred = stars.includes(toolSlug);
           const updated = isStarred ? stars.filter((s) => s !== toolSlug) : [...stars, toolSlug];
           localStorage.setItem(starsKey, JSON.stringify(updated));

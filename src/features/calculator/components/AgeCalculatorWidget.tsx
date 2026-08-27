@@ -169,7 +169,7 @@ export const AgeCalculatorWidget: React.FC = () => {
 
   const handleCopy = () => {
     if (!ageData || ageData.isFuture) return;
-    const summary = `🎂 Age Summary:\n• Exact Age: ${ageData.years} Years, ${ageData.months} Months, ${ageData.days} Days\n• Total Days: ${ageData.totalDays.toLocaleString()}\n• Born On: ${ageData.birthDayOfWeek}\n• Next Birthday In: ${ageData.nextBdayDays} days (${ageData.nextBdayDayOfWeek})\n• Zodiac Sign: ${ageData.westernZodiac.symbol} ${ageData.westernZodiac.sign} (${ageData.westernZodiac.element})\n• Calculated on Crafty Tool`;
+    const summary = `🎂 Age Summary:\n• Exact Age: ${ageData.years} Years, ${ageData.months} Months, ${ageData.days} Days\n• Total Days: ${ageData.totalDays.toLocaleString()}\n• Born On: ${ageData.birthDayOfWeek}\n• Next Birthday In: ${ageData.nextBdayDays} days (${ageData.nextBdayDayOfWeek})\n• Zodiac Sign: ${ageData.westernZodiac.symbol} ${ageData.westernZodiac.sign} (${ageData.westernZodiac.element})\n• Calculated on FreeTools`;
     navigator.clipboard.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
