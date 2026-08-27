@@ -18,6 +18,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
       engine: 'Direct Client-to-CDN Fetch (img.youtube.com)',
       privacyModel: 'Zero Server Intermediaries (Direct Browser Retrieval)',
       hardware: 'Standard Client Browser Network Stack',
+      privacyBenefit: 'Direct browser retrieval from public YouTube CDN',
     };
   }
 
@@ -28,6 +29,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
       engine: 'HTML5 Canvas temporal frame blending & MediaRecorder',
       privacyModel: 'Direct Device Memory Buffer (0 Server Uploads)',
       hardware: 'Device Graphics & Browser Codec Encoders',
+      privacyBenefit: 'Video is processed locally in browser memory',
     };
   }
 
@@ -38,6 +40,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
       engine: 'HTML5 Video playback & 2D Canvas snapshot rendering',
       privacyModel: 'Local Device Memory Buffer (0 Server Uploads)',
       hardware: 'Browser Video Decoding & Canvas Rendering',
+      privacyBenefit: 'Video frames extracted locally in browser memory',
     };
   }
 
@@ -49,6 +52,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'HTML5 Canvas 2D / Browser Image APIs',
         privacyModel: 'Client-Side RAM (Blob & Object URLs)',
         hardware: 'Browser Multi-Threaded CPU & GPU Acceleration',
+        privacyBenefit: 'Images are processed locally in browser memory',
       };
     case 'pdf':
       return {
@@ -57,6 +61,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'pdf-lib & pdfjs-dist In-Memory Assembly',
         privacyModel: '100% In-Memory Parsing & Local Page Rendering',
         hardware: 'Local Device Multi-Core Processing',
+        privacyBenefit: 'PDF documents parsed locally in browser memory',
       };
     case 'developer':
       if (slug === 'json-formatter') {
@@ -66,6 +71,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
           engine: 'Native ECMAScript JSON Parser & Formatter',
           privacyModel: 'Client-Side In-Memory Sandbox (Zero Server Uploads)',
           hardware: 'Local Browser JavaScript Engine (V8 / SpiderMonkey)',
+          privacyBenefit: 'JSON content is processed locally in browser memory',
         };
       }
       if (slug === 'hash-generator') {
@@ -75,6 +81,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
           engine: 'Web Cryptography API (crypto.subtle) & MD5 digest',
           privacyModel: 'Local Browser Sandbox (Zero Data Transmission)',
           hardware: 'Hardware Cryptographic Acceleration',
+          privacyBenefit: 'Hashes computed locally in browser memory',
         };
       }
       if (slug === 'jwt-decoder') {
@@ -84,6 +91,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
           engine: 'Native Base64URL & JSON decoding',
           privacyModel: 'Local Browser Memory (No Token Transmission)',
           hardware: 'Instantaneous Client String Processing',
+          privacyBenefit: 'JWT tokens inspected locally in browser memory',
         };
       }
       return {
@@ -92,6 +100,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'Native ECMAScript Runtime & Browser APIs',
         privacyModel: 'Local Browser Sandbox (No Network Transmission)',
         hardware: 'Native High-Speed JavaScript Runtime',
+        privacyBenefit: 'Code & data processed locally in browser memory',
       };
     case 'video':
       return {
@@ -100,6 +109,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'HTML5 MediaRecorder API, Web Audio API & Canvas',
         privacyModel: 'Direct Device Memory Buffer',
         hardware: 'Hardware Media Decoders & Screen Capture APIs',
+        privacyBenefit: 'Media streams captured locally in browser memory',
       };
     case 'text':
       return {
@@ -108,6 +118,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: slug === 'password-generator' ? 'Web Crypto API (crypto.getRandomValues)' : 'Native ECMAScript String & RegExp Engines',
         privacyModel: 'Strictly In-Memory (Zero Storage / Transmission)',
         hardware: 'Instantaneous CPU String Computation',
+        privacyBenefit: 'Text is processed locally in browser memory',
       };
     case 'calculator':
       return {
@@ -116,6 +127,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'Deterministic IEEE 754 Math Computations',
         privacyModel: 'Local Ephemeral Computation',
         hardware: 'Instantaneous Client Evaluation',
+        privacyBenefit: 'Calculations run locally in browser memory',
       };
     default:
       return {
@@ -124,6 +136,7 @@ const getCategorySpecs = (cat: string, slug: string) => {
         engine: 'Client-Side Modern Web APIs',
         privacyModel: 'Local Device Memory',
         hardware: 'Device CPU / GPU',
+        privacyBenefit: 'Files and data never leave your browser',
       };
   }
 };
@@ -172,7 +185,7 @@ const specs = getCategorySpecs(tool.category, tool.slug);
         <tr>
           <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Privacy & Storage</td>
           <td class="py-3 px-4 font-mono text-purple-600 dark:text-purple-400 text-xs">{specs.privacyModel}</td>
-          <td class="py-3 px-4 text-xs">Files and data never leave your browser</td>
+          <td class="py-3 px-4 text-xs">{specs.privacyBenefit}</td>
         </tr>
         <tr>
           <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Capacity & Limits</td>
