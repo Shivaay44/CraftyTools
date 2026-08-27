@@ -104,7 +104,7 @@ const lastUpdated = 'February 2026';
           </p>
           <ul class="list-disc pl-5 space-y-1.5 text-slate-600 dark:text-slate-400">
             <li>When you drag-and-drop an image, PDF, or video into a tool, the file is read locally using the browser's HTML5 <code class="font-mono text-purple-600 dark:text-purple-400">FileReader</code> and Web APIs.</li>
-            <li>Computations (such as image compression, PDF merging, regex parsing, and cryptographic hashing) run inside WebAssembly (WASM) modules or JavaScript workers on your local CPU/GPU threads.</li>
+            <li>Depending on the tool, processing may use native JavaScript APIs, Web Workers, WebAssembly, Canvas, Web Crypto, or other browser APIs directly on your device.</li>
             <li>Once you download your processed file or close the browser tab, the temporary in-memory buffer is automatically garbage-collected by your browser. No copy remains anywhere.</li>
           </ul>
         </div>

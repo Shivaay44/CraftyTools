@@ -74,11 +74,11 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
   const defaultFaqs = [
     {
       question: `Is ${tool.name} completely free to use?`,
-      answer: `Yes! ${tool.name} on Crafty Tool is 100% free with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
+      answer: `Yes! ${tool.name} on Crafty Tool is free to use with no hidden paywalls, subscriptions, daily usage limits, or watermarks.`,
     },
     {
       question: `Are my files or data uploaded to your servers when using ${tool.name}?`,
-      answer: `No. Crafty Tool is built on privacy-first architecture. All computation and processing execute 100% client-side inside your browser local sandbox using WebAssembly, HTML5 Canvas, and Web Cryptography APIs. Your files never leave your device.`,
+      answer: `No. Crafty Tool is built on privacy-first client-side architecture. All computation and processing execute locally inside your browser sandbox using native browser APIs, Web Workers, and WebAssembly where appropriate. Uploaded files and data are not sent to Crafty Tool servers.`,
     },
     {
       question: `Does ${tool.name} work on mobile devices?`,
@@ -86,7 +86,7 @@ export function generateToolPageSchemaGraph(options: ToolPageSchemaOptions): Rec
     },
     {
       question: `Why is in-browser processing faster than traditional converter websites?`,
-      answer: `Traditional web converters require uploading large files to remote servers, waiting in processing queues, and downloading files back. Crafty Tool processes data locally on your device hardware with zero upload delay and instantaneous results.`,
+      answer: `Traditional web converters require uploading files to remote servers, waiting in processing queues, and downloading files back. Crafty Tool processes data locally on your device with no upload wait and fast results.`,
     },
   ];
 

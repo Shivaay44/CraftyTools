@@ -415,11 +415,11 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
       },
       {
         question: 'Can I format large JSON files privately?',
-        answer: 'Yes! Processing executes directly in your browser memory via native JavaScript engine. You can process large JSON payloads locally, subject to your browser available memory, with zero data sent to external servers.',
+        answer: 'Yes! Large JSON payloads can be processed locally, subject to available browser memory. Processing runs directly in your browser with zero data sent to external servers.',
       },
       {
         question: 'Are my JSON payloads or API responses sent to any server?',
-        answer: 'No. All validation, formatting, and minification happen 100% locally inside your web browser. Sensitive API tokens, configs, and payloads remain strictly on your machine.',
+        answer: 'No. JSON parsing, validation, formatting, and minification run locally using the browser\'s native JavaScript JSON APIs. Sensitive API tokens, configs, and payloads remain strictly on your machine.',
       },
     ],
   },
@@ -769,8 +769,8 @@ const TOOL_CONTENT: Record<string, { steps: string[]; faqs: Array<{ question: st
     ],
     faqs: [
       {
-        question: 'Is there any watermark on downloaded memes?',
-        answer: 'No! All memes generated on Crafty Tool are 100% free with zero watermarks or branding.',
+        question: 'Do downloaded memes include watermarks or logos?',
+        answer: 'No! All memes generated on Crafty Tool are free to use with zero watermarks or branding.',
       },
     ],
   },

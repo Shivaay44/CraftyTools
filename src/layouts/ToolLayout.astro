@@ -34,10 +34,12 @@ const speedCardDescription =
     : `Processes data locally in your browser using client-side APIs, Web Workers, and WebAssembly where supported.`;
 
 const processingEngineDescription =
-  tool.category === 'developer' || tool.category === 'text' || tool.category === 'calculator'
+  tool.slug === 'json-formatter'
+    ? "the browser's native JavaScript JSON APIs"
+    : tool.category === 'developer' || tool.category === 'text' || tool.category === 'calculator'
     ? 'native ECMAScript runtime and browser memory'
     : tool.category === 'image'
-    ? 'HTML5 Canvas and WebAssembly where supported'
+    ? 'HTML5 Canvas and browser image APIs'
     : tool.category === 'pdf'
     ? 'local client-side PDF processing engines'
     : 'HTML5 Media and browser-supported recording APIs';

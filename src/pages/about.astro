@@ -7,7 +7,7 @@ const origin = Astro.url.origin;
 
 <BaseLayout
   title="About Crafty Tool — Fast, In-Browser Privacy-First Utilities"
-  description="Learn about Crafty Tool's mission, architecture, and zero-upload philosophy. 55+ client-side web tools powered by HTML5 Canvas, Web Cryptography, and Modern Browser APIs."
+  description="Learn about Crafty Tool's mission, architecture, and zero-upload philosophy. 55+ client-side web tools powered by modern browser APIs, Canvas, Web Workers, and WebAssembly where appropriate."
   canonicalUrl={`${origin}/about`}
   keywords={['about crafty tool', 'in-browser tools', 'privacy-first web tools', 'client side processing', 'zero upload utilities']}
 >
@@ -49,9 +49,9 @@ const origin = Astro.url.origin;
           <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
             <Zap className="w-5 h-5" />
           </div>
-          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Instant Local Speed</h2>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Local Device Processing</h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            No upload/download processing roundtrips. Tasks execute locally in your browser memory without server queues.
+            Tasks run directly on your device without uploading data to a remote processing server.
           </p>
         </div>
 
@@ -93,7 +93,7 @@ const origin = Astro.url.origin;
             </li>
           </ul>
           <p>
-            Crafty Tool was built on a different model: <strong>Local & Private by Design</strong>. By utilizing WebAssembly (WASM), Web Cryptography, Canvas 2D, and Web Workers, modern web browsers possess sufficient local compute power to perform utilities directly on your device.
+            Crafty Tool was built on a different model: <strong>Local & Private by Design</strong>. Crafty Tool uses browser technologies such as WebAssembly, Web Workers, Canvas, Web Crypto, and native JavaScript APIs where appropriate for each tool.
           </p>
         </div>
       </section>
