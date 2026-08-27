@@ -57,9 +57,12 @@ import Logo from './Logo.astro';
       </div>
     </div>
 
-    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
       <p>© {new Date().getFullYear()} FreeTools. All rights reserved.</p>
-      <div class="flex space-x-4 mt-4 sm:mt-0">
+      <p class="text-slate-600 dark:text-slate-400 font-medium">
+        Developed with ❤️ by <span class="text-slate-900 dark:text-white font-semibold">Shivaay</span>
+      </p>
+      <div class="flex space-x-4">
         <a href="/privacy" class="hover:underline">Privacy</a>
         <a href="/terms" class="hover:underline">Terms</a>
         <a href="/contact" class="hover:underline">Contact</a>
